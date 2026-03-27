@@ -9,6 +9,11 @@ Route::get('/', function () {
     return view('guest.pages.home');
 })->name('home');
 
+
+Route::get('/vendere', function () {
+    return view('guest.pages.vendere');
+})->name('vendere');
+
 Route::get('/login', function () {
     return view('guest.pages.loginPage');
 })->name('login');

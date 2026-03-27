@@ -59,7 +59,7 @@ class AuthController extends Controller
             RateLimiter::clear($throttleKey);
 
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
 
         // --- LOGIN FALLITO ---
@@ -91,7 +91,7 @@ class AuthController extends Controller
         ]);
 
         // 4. Reindirizza alla login con un messaggio di successo
-        return redirect('/login')->with('status', 'Login completato!');
+        return redirect('/login')->with('status', 'Registrazione completata!');
     }
 
     public function logout(UpdateUserRequest $request) {
