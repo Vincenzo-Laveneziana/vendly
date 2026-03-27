@@ -80,8 +80,7 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         // 2. Creazione Utente nel Database
-
-        $user = User::save([
+        $user = User::create([
             'name' => $validated['name'],
             'surname' => $validated['surname'],
             'CF' => $validated['CF'],
@@ -91,8 +90,8 @@ class AuthController extends Controller
             'password' => Hash::make($validated['password']), 
         ]);
 
-        // 4. Reindirizza alla login con un messaggio di successo (se vuoi)
-        return back()->with('status', 'Registrazione utente completata!');
+        // 4. Reindirizza alla login con un messaggio di successo
+        return redirect('/login')->with('status', 'Login completato!');
     }
 
     public function logout(UpdateUserRequest $request) {

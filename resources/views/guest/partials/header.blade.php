@@ -2,7 +2,7 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
         
         <a href="#" class="text-2xl font-bold text-blue-600 hover:text-blue-800 transition">
-            LaravelApp
+            TuttoSubito
         </a>
 
         <nav class="hidden md:flex space-x-8">
@@ -14,6 +14,9 @@
         <div class="hidden md:block">
             <a href="/login" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition duration-300">
                 Accedi
+            </a>
+            <a href="/register" class=" text-blue-700 px-5 py-2 rounded-full font-semibold hover:text-black transition duration-300">
+                Registrati
             </a>
         </div>
         

@@ -16,14 +16,15 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         // Recuperiamo l'ID dell'utente dalla rotta. 
-        // Se la tua rotta è /users/{user}, $this->route('user') prenderà l'ID o il modello.
-        $userId = $this->route('user')->id? $this->route('user')->id : null;
+
+        // Se la parte sinistra di ? è null (es. se non siamo in una rotta che ha {user}), allora userId sarà null.
+        $userId = $this->route('user')?->id;
 
         return [
             // Unique ma ignora l'utente corrente
             'name'     => ['required', 'string', 'max:30'],
             'surname'  => ['required', 'string', 'max:30'],
-            'address'  => ['nullable', 'string', 'max:100'],
+            'address'  => [$userId ? 'nullable' : 'required', 'string', 'max:100'],
             'email'    => ['required', 'email', Rule::unique('users')->ignore($userId),], 
             'CF'       => [
                 'required', 
@@ -40,7 +41,11 @@ class UpdateUserRequest extends FormRequest
                 Rule::unique('users')->ignore($userId),
                 'regex:/^\\+?[1-9][0-9]{7,14}$/'
             ],
-            'password' => ['nullable', 'min:8', 'confirmed'], 
+            'password' => [
+                $userId ? 'nullable' : 'required', 
+                'min:8', 
+                'confirmed'
+            ],
         ];
     }
 
@@ -68,6 +73,7 @@ class UpdateUserRequest extends FormRequest
             'phone.unique'       => "Questo numero di telefono è già stato registrato.",
             'email.unique'       => "Questa email è già stata registrata.",
             'CF.unique'          => "Questo codice fiscale è già stato registrato.",
+            'password.required'  => "La password è obbligatoria.",
             'password.min'       => "La nuova password deve avere almeno :min caratteri.", 
             'password.confirmed' => "Le password non coincidono.",
         ];

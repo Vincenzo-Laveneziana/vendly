@@ -15,6 +15,9 @@
         @yield('content-guest')
     </main>
 
+    @section('scripts')
+    <script src="/js/scripts/passwordVisibility.js"></script>
+    @endsection
 </body>
 <script>
     window.addEventListener('load', function() {
