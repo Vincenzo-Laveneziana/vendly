@@ -3,9 +3,9 @@
 @section('title', 'Registrazione')
 
 @section('content-guest')
-    <div class="flex items-center justify-center h-full bg-gray-100">
+    <div class="flex items-center justify-center h-full p-2 bg-gray-100">
 
-        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-lg border border-gray-100">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-lg border border-gray-200">
             <div class="text-center mb-8">
             <h1 class="text-2xl md:text-3xl font-bold text-blue-600">Registrazione Utente</h1>
             <p class="text-gray-500 text-sm mt-2">Registra il tuo account</p>
@@ -14,7 +14,7 @@
             <form action="/registration" method="POST">
                 @csrf 
 
-                <div class="text-sm md:text-base grid grid-cols-1 md:grid-cols-2 md:gap-6 gap-2">
+                <div class="text-sm md:text-base grid grid-cols-1 md:grid-cols-2 md:gap-3 gap-2">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nome</label>
                         <input type="text" id="name" name="name" maxlength="50" class="w-full px-2 py-2 md:px-4 md:py-3 rounded-lg bg-gray-50 border border-gray-300 text-gray-900 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-200" required>

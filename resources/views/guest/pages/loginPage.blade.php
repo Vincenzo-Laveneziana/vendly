@@ -3,9 +3,9 @@
 @section('title', 'loginPage')
 
 @section('content-guest')
-    <div class="flex items-center justify-center min-h-[80vh] bg-gray-100">
+    <div class="flex items-center justify-center h-full p-2 bg-gray-100">
 
-        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-sm border border-gray-100">
+        <div class="bg-white p-8 rounded-2xl w-full max-w-lg border border-gray-200">
             
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-blue-600">Benvenuto</h1>

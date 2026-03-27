@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('email')->unique();
-            $table->string('CF')->unique();
-            $table->string('address')->nullable();
+            $table->string('date_of_birth')->nullable();
+            $table->json('address')->nullable();
             $table->string('phone')->nullable()->unique();
-            $table->string('status')->default('Active');
+            $table->integer('is_admin')->default('0');
             $table->string('password');
             $table->softDeletes();
             $table->rememberToken();
