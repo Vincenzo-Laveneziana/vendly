@@ -1,0 +1,7 @@
+docker exec -it <container_id_or_name> /bin/bash per entrare nel docker
+
+php artisan make:model nome -all crea model,migrate faker ecc
+
+php artisan make:model nome crea solo model
+
+php artisan migrate crea le tabelle nel db
