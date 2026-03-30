@@ -12,7 +12,6 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use Symfony\Component\HttpKernel\HttpCache\Store;
 
 class UtentiController extends Controller
 {

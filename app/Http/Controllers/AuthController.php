@@ -5,35 +5,23 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
-use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\CreateUserRequest;
 
 class AuthController extends Controller
 {
 
     // Gestisce il login
-    public function login(Request $request) {
+    public function login(LoginUserRequest $request) {
 
         
-        // 1. Validazione base
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
-        ]);
-
-        $user = User::where('email', $request->input('email'))->first();
-        // Controlliamo se l'utente esiste e se è disabilitato
-        if ($user && $user->status === 'Inactive') {
-            return back()->withErrors([
-                'email' => "Il tuo account è disabilitato.",
-            ])->onlyInput('email');
-        }
+        // 1. Validazione dei dati in arrivo
+        $credentials = $request->validated();
         
         // Creiamo una chiave unica per questo utente (basata su email e indirizzo IP)
         $throttleKey = 'login:' . Str::lower($request->input('email')) . '|' . $request->ip();
@@ -74,24 +62,21 @@ class AuthController extends Controller
 
 
     // Funzione che gestisce la REGISTRAZIONE
-    public function register(UpdateUserRequest $request) {
+    public function register(CreateUserRequest $request) {
         
-        // 1. Validiamo i dati in arrivo
         $validated = $request->validated();
 
-        // 2. Creazione Utente nel Database
-        $user = User::create([
-            'name' => $validated['name'],
-            'surname' => $validated['surname'],
-            'CF' => $validated['CF'],
-            'address' => $validated['address'] ?? null,
-            'phone' => $validated['phone'] ?? null,
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']), 
-        ]);
+        if(User::create($validated)){
 
-        // 4. Reindirizza alla login con un messaggio di successo
-        return redirect('/login')->with('status', 'Registrazione completata!');
+            // Se la creazione è andata a buon fine, reindirizziamo alla login con un messaggio di successo
+            return redirect('/login')->with('status', 'Registrazione completata!');
+        } else {
+
+            // Se c'è stato un errore nella creazione, torniamo indietro con un messaggio di errore generico
+            return back()->withErrors([
+                'email' => 'Si è verificato un errore durante la registrazione. Riprova più tardi.',
+            ]);
+        }
     }
 
     public function logout(UpdateUserRequest $request) {

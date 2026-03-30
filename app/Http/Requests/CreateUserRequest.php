@@ -11,7 +11,7 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,9 @@ class CreateUserRequest extends FormRequest
             'name' => 'required|string|max:30',
             'surname' => 'required|string|max:30',
             'date_of_birth' => 'date|before:today|nullable',
-            'address' => 'nullable|json',
+            'address.street' => 'string|max:100',
+            'address.city' => 'string|max:50',
+            'address.zip_code' => 'string|max:20',
             'phone'    => [
                 'unique:users',
                 'nullable', 
@@ -48,6 +50,13 @@ class CreateUserRequest extends FormRequest
             'surname.required' => 'Il cognome è obbligatorio.',
             'surname.string' => 'Il cognome deve essere un testo valido.',
             'surname.max' => 'Il cognome deve essere un testo valido.',
+            'address.json' => 'L\'indirizzo deve essere valido.',
+            'address.street.string' => 'La via deve essere un testo valido.',
+            'address.street.max' => 'La via deve essere un testo valido.',
+            'address.city.string' => 'La città deve essere un testo valido.',
+            'address.city.max' => 'La città deve essere un testo valido.',
+            'address.zip_code.string' => 'Il CAP deve essere un testo valido.',
+            'address.zip_code.max' => 'Il CAP deve essere un testo valido.',
             'email.required' => 'L\'email è obbligatoria.',
             'email.email' => 'L\'email deve essere un indirizzo email valido.',
             'email.unique' => 'L\'email è già in uso.',

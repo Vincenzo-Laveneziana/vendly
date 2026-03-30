@@ -33,6 +33,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'address' => 'json',
             'password' => 'hashed',         
             'date_of_birth' => 'date',  
             'is_admin' => 'boolean', 
