@@ -6,9 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UtentiController;
 
-Route::get('/', function () {
-    return view('guest.pages.home');
-})->name('home');
+Route::get('/', [PostController::class, 'show'])->name('home');
 
 
 Route::get('/vendere', function () {

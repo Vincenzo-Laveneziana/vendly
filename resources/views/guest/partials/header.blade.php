@@ -17,16 +17,16 @@
         <!-- Mobile Menu Toggle -->
         <div class="flex items-center gap-2">
             <div class="md:hidden" x-data="{ mobileOpen: false }">
-            <button @click="mobileOpen = !mobileOpen" class="text-gray-700 hover:text-blue-600">
-                <span class="material-symbols-outlined text-2xl">menu</span>
-            </button>
+                <button @click="mobileOpen = !mobileOpen" class="text-gray-700 hover:text-blue-600">
+                    <span class="material-symbols-outlined text-2xl">menu</span>
+                </button>
 
             <!-- Mobile Menu Dropdown -->
-            <div x-show="mobileOpen" @click.away="mobileOpen = false" x-transition
-                class="absolute top-20 left-0 right-0 bg-white border-b border-gray-200 shadow-lg py-2">
-                <a href="/" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Home</a>
-                <a href="#" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Esplora</a>
-                <a href="{{ route('vendere') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Vendi</a>
+                <div x-show="mobileOpen" @click.away="mobileOpen = false" x-transition
+                    class="absolute z-20 top-20 left-0 right-0 bg-white border-b border-gray-200 shadow-lg py-2">
+                    <a href="/" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Home</a>
+                    <a href="#" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Esplora</a>
+                    <a href="{{ route('vendere') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Vendi</a>
             </div>
         </div>
 

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Image extends Model
 {
@@ -12,6 +13,8 @@ class Image extends Model
         'alt_text',
     ];
 
+    protected $appends = ['image_url'];
+
     protected function casts(): array
     {
         return [
@@ -20,8 +23,18 @@ class Image extends Model
         ];
     }
 
+    /**
+     * Accessor per ottenere l'URL completo dell'immagine
+     */
+    protected function imageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => asset($this->path),
+        );
+    }
+
     public function post()
     {
-        return $this->belongsTo(Posts::class, 'post_id');
+        return $this->belongsTo(Post::class, 'post_id');
     }
 }

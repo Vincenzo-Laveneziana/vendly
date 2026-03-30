@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
-use GuzzleHttp\Promise\Create;
 
 class PostController extends Controller
 {
@@ -23,18 +22,36 @@ class PostController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                // Salva il file nella cartella 'posts' dentro storage/app/public
-                $path = $file->store('posts', 'public');
+                // Salva il file direttamente in public/posts/
+                $filename = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('posts'), $filename);
+                $path = 'posts/' . $filename;
 
                 // Salva nel database usando la relazione
                 $post->images()->create([
                     'path' => $path,
-                    'alt_text' => $post->title, // Usiamo il titolo come alt text di default
+                    'alt_text' => $post->title,
                 ]);
             }
         }
 
         return redirect()->route('home')->with('success', 'Annuncio creato con successo!');
 
+    }
+
+    public function show()
+    {
+        $posts = Post::with('images')->latest()->simplePaginate(4);
+        
+        // Aggiungi image_url incluso nella serializzazione
+        $posts->getCollection()->transform(function ($post) {
+            $post->images->each(function ($image) {
+                // Forza la valutazione dell'accessor nell'array di attributi
+                $image->setAttribute('image_url', $image->image_url);
+            });
+            return $post;
+        });
+        
+        return view('guest.pages.home', compact('posts'));
     }
 }

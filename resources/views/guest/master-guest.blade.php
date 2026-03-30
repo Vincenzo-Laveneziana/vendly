@@ -16,7 +16,7 @@
     <!-- includo header e footer -->
     @include('guest.partials.header')
 
-    <main class="grow container mx-auto px-6 py-8">
+    <main class="">
         @yield('content-guest')
     </main>
 
