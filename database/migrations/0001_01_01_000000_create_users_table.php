@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('date_of_birth')->nullable();
             $table->json('address')->nullable();
-            $table->string('phone')->nullable()->unique();
+            $table->string('phone')->unique()->nullable();
             $table->integer('is_admin')->default('0');
             $table->string('password');
             $table->softDeletes();

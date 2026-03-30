@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CreateUserRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return false;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'name' => 'required|string|max:30',
+            'surname' => 'required|string|max:30',
+            'date_of_birth' => 'date|before:today|nullable',
+            'address' => 'nullable|json',
+            'phone'    => [
+                'unique:users',
+                'nullable', 
+                'string', 
+                'min:9',
+                'max:15',
+                'regex:/^\\+?[1-9][0-9]{7,14}$/'
+            ],
+            'email' => 'required|string|email|max:40|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Il nome è obbligatorio.',
+            'name.string' => 'Il nome deve essere un testo valido.',
+            'name.max' => 'Il nome deve essere un testo valido.',
+            'surname.required' => 'Il cognome è obbligatorio.',
+            'surname.string' => 'Il cognome deve essere un testo valido.',
+            'surname.max' => 'Il cognome deve essere un testo valido.',
+            'email.required' => 'L\'email è obbligatoria.',
+            'email.email' => 'L\'email deve essere un indirizzo email valido.',
+            'email.unique' => 'L\'email è già in uso.',
+            'email.max' => 'L\'email non può superare i 40 caratteri.',
+            'phone.unique' => 'Il numero di telefono è già in uso.',
+            'phone.string' => 'Il numero di telefono deve essere un testo valido.',
+            'phone.min' => 'Il numero di telefono deve essere almeno di 9 caratteri.',
+            'phone.max' => 'Il numero di telefono non può superare i 15 caratteri.',
+            'phone.regex' => 'Il numero di telefono deve essere un formato valido.',
+            'password.required' => 'La password è obbligatoria.',
+            'password.min' => 'La password deve essere almeno di 8 caratteri.',
+            'password.confirmed' => 'La conferma della password non corrisponde.',
+        ];
+    }
+}
