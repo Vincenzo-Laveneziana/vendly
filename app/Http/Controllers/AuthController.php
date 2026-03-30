@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
-use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\CreateUserRequest;
 
@@ -79,7 +78,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(UpdateUserRequest $request) {
+    public function logout(LoginUserRequest $request) {
         // 1. Esegue il logout
         Auth::logout();
 

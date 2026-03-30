@@ -6,10 +6,20 @@
 
 
 <div>
-    <h1 class="text-center text-3xl font-bold text-black-600 mt-8 mb-4">Benvenuto su <img src="{{ asset('images/logo.png') }}" alt="Logo TuttoSubito" class="h-12 inline-block align-middle">!</h1>
-    <p class="text-center text-gray-600 text-sm md:text-lg mb-6">
-        Esplora un mondo di opportunità per vendere e acquistare prodotti usati in modo semplice e veloce. Scopri le nostre categorie e trova ciò che stai cercando!
-    </p>
+
+    <div class="relative -z-40 w-full mb-8 rounded-lg overflow-hidden shadow-lg h-96 md:h-96" style="background-image: url('{{ asset('images/imageHome.webp') }}'); background-size: cover; background-position: center;">
+        
+        <!-- Overlay scuro per migliorare la leggibilità -->
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        
+        <!-- Contenuto in sovraimpressione -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Benvenuto su <img src="{{ asset('images/logo.png') }}" alt="Logo TuttoSubito" class="h-12 inline-block align-middle" style="filter: brightness(0) invert(1);">!</h1>
+            <p class="text-sm md:text-lg text-white max-w-2xl" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
+                Esplora un mondo di opportunità per vendere e acquistare prodotti usati in modo semplice e veloce. Scopri le nostre categorie e trova ciò che stai cercando!
+            </p>
+        </div>
+    </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 p-4 md:p-8 w-full">
         

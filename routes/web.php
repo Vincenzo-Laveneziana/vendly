@@ -38,8 +38,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/registration', [AuthController::class, 'register']);
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 Route::post('/password-request', [UtentiController::class, 'sendResetLink'])->name('sendResetLink');
 
 Route::post('/reset-password', [UtentiController::class, 'updatePassword'])->name('password.update');
@@ -49,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/utenti', [UtentiController::class, 'utenti'])->name('utenti');
 
     Route::post('/delete-user', [UtentiController::class, 'deleteUser'])->name('Elimina');
+
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::put('/update-user/{user}', [UtentiController::class, 'updateUser'])->name('Aggiorna');
     //modifica in get
