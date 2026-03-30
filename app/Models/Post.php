@@ -59,4 +59,9 @@ class Post extends Model
         // Cerca l'ID della categoria e restituisce il nome, altrimenti "Nessuna Categoria"
         return $categories[$this->category] ?? 'Nessuna Categoria';
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }
