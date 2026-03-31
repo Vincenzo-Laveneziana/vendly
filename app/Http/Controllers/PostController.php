@@ -43,15 +43,6 @@ class PostController extends Controller
     {
         $posts = Post::with('images')->latest()->simplePaginate(4);
         
-        // Aggiungi image_url incluso nella serializzazione
-        $posts->getCollection()->transform(function ($post) {
-            $post->images->each(function ($image) {
-                // Forza la valutazione dell'accessor nell'array di attributi
-                $image->setAttribute('image_url', $image->image_url);
-            });
-            return $post;
-        });
-        
         return view('guest.pages.home', compact('posts'));
     }
 
@@ -59,15 +50,20 @@ class PostController extends Controller
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
         $posts = Post::with('images')->latest()->get();
+
+        $categories = Post::getCategoriesFromJson();
         
-        $posts->transform(function ($post) {
-            $post->images->each(function ($image) {
-                // Forza la valutazione dell'accessor nell'array di attributi
-                $image->setAttribute('image_url', $image->image_url);
-            });
-            return $post;
-        });
+        return view('guest.pages.esplora', compact('posts','categories'));
+    }
+
+    public function showProduct()
+    {
+        $post = Post::with('images')->findOrFail(request('id'));
+
+        $user = $post->user;
+
+        $posts = Post::with('images')->latest()->simplePaginate(4);
         
-        return view('guest.pages.esplora', compact('posts'));
+        return view('guest.pages.prodotto', compact('post', 'user', 'posts'));
     }
 }

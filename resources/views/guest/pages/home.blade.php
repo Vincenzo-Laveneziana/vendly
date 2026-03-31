@@ -21,27 +21,31 @@
             </div>
         </div>
 
-        <div class="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 w-full max-w-4xl px-4 z-20">
-            <div class="bg-white border border-gray-200 shadow-sm rounded-2xl p-3 md:p-4 flex flex-col md:flex-row items-center gap-4">
+        <div class="absolute left-1/2 -translate-x-1/2 h-auto bottom-0 translate-y-1/2 w-full max-w-4xl px-4 z-20  flex-col items-center">
+            <div class="mt-2 md:mt-0 bg-white border border-gray-200 shadow-sm rounded-2xl px-1 py-1 md:py-3 md:px-2 w-full flex items-center gap-2 md:gap-4">
                 
-                <div class="relative w-full">
-                    <span class="material-symbols-outlined text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">search</span>
+                <div class="w-full flex items-center left gap-2 text-gray-500 md:px-4 whitespace-nowrap">
+                    <span class="material-symbols-outlined text-black-900 absolute pl-1">search</span>
                     <input type="text" placeholder="Cosa stai cercando?" 
-                        class="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 outline-none text-gray-700">
+                        class="w-full pl-7 py-3 rounded-xl text-sm md:text-md bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 outline-none text-gray-700">
                 </div>
 
-                <div class="hidden md:flex items-center gap-2 text-gray-500 border-l border-gray-200 px-4 whitespace-nowrap">
-                    <span class="material-symbols-outlined text-blue-600">location_on</span>
-                    <span class="text-sm font-medium">Italia, San Donaci</span>
+                <div class="md:flex items-center gap-2 text-gray-500 border-l border-gray-200 px-4 whitespace-nowrap">
+                    <span class="material-symbols-outlined text-blue-600 text-sm md:text-md">location_on</span>
+                    <span class="text-xs md:text-sm font-medium">Italia, San Donaci</span>
                 </div>
 
-                <a href="/vendere" class="w-full md:w-auto whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all flex items-center justify-center gap-2 active:scale-95">
+                <a href="/vendere" class="hidden w-full md:w-auto whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all md:flex items-center justify-center gap-2 active:scale-95">
                     <span class="material-symbols-outlined">add</span> 
                     <span class="text-sm md:textmd">Inserisci Annuncio</span>
                 </a>
             </div>
+            <a href="/vendere" class="mt-2 flex w-full md:w-auto whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl transition-all md:hidden items-center justify-center gap-2 active:scale-95">
+                <span class="material-symbols-outlined">add</span> 
+                <span class="text-xs md:textmd">Inserisci Annuncio</span>
+            </a>
         </div>
-    </div>
+        </div>
     
     <!-- Categorie -->
     <section class="py-12 bg-gray-50"> 
@@ -90,53 +94,7 @@
         </div>
     </section>
 
-    <div class="max-w-7xl mx-auto px-4 md:px-8 pb-20">
-        <div class="flex items-center justify-between mb-8">
-            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                Annunci Recenti
-            </h2>
-            <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold text-sm flex items-center gap-1 transition">
-                Vai agli annunci <span class="material-symbols-outlined text-sm">arrow_forward</span>
-            </a>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            @forelse($posts as $post)
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col">
-                <div class="aspect-[4/3] w-full bg-gray-100 relative">
-                    @if($post->images->isNotEmpty())
-                        <img src="{{ $post->images->first()->image_url }}" 
-                             alt="{{ $post->title }}" class="w-full h-full object-cover">
-                    @else
-                        <div class="flex flex-col items-center justify-center h-full text-gray-400">
-                            <span class="material-symbols-outlined text-5xl">image</span>
-                            <span class="text-xs mt-2 uppercase">No foto</span>
-                        </div>
-                    @endif
-                    <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
-                        <p class="text-[10px] font-bold text-indigo-600 uppercase">{{ $post->category_name }}</p>
-                    </div>
-                </div>
-
-                <div class="p-5 flex-grow flex flex-col">
-                    <h3 class="text-lg font-bold text-gray-900 line-clamp-1 mb-1">{{ $post->title }}</h3>
-                    <p class="text-2xl font-black text-blue-600 mb-4">
-                        {{ number_format($post->price, 2, ',', '.') }} €
-                    </p>
-                    <div class="mt-auto">
-                        <a href="#" class="block w-full text-center bg-gray-900 hover:bg-blue-600 text-white py-3 rounded-xl text-sm font-bold transition-colors">
-                            Visualizza Prodotto
-                        </a>
-                    </div>
-                </div>
-            </div>
-            @empty
-            <div class="col-span-full text-center py-20">
-                <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">search_off</span>
-                <p class="text-gray-500 text-xl">Nessun annuncio trovato.</p>
-            </div>
-            @endforelse
-        </div>
-    </div>
+    <!-- Annunci Recenti -->
+    @include('guest.partials.annunciRecenti')
 </div>
 @endsection

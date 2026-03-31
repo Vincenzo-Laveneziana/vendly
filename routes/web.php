@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
@@ -8,7 +9,11 @@ use App\Http\Controllers\UtentiController;
 
 Route::get('/', [PostController::class, 'show'])->name('home');
 
-Route::get('/esplora', [PostController::class, 'showAll'])->name('esplora');
+Route::get('/esplora', [PostController::class, 'showAll'], [Post::class, 'getCategoryNameAttribute'])->name('esplora');
+
+Route::get('/esplora/{category}', [PostController::class, 'showAll'], [Post::class, 'getCategoryNameAttribute'])->name('esplora.categoria');
+
+Route::get('/esplora/prodotto/{id}', [PostController::class, 'showProduct'])->name('prodotto');
 
 
 Route::get('/vendere', function () {
