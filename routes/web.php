@@ -8,6 +8,8 @@ use App\Http\Controllers\UtentiController;
 
 Route::get('/', [PostController::class, 'show'])->name('home');
 
+Route::get('/esplora', [PostController::class, 'showAll'])->name('esplora');
+
 
 Route::get('/vendere', function () {
     return view('guest.pages.vendere');

@@ -1,7 +1,13 @@
 docker exec -it <container_id_or_name> /bin/sh per entrare nel docker
 
+docker logs <container> Copy
+
 php artisan make:model nome -all crea model,migrate faker ecc
 
 php artisan make:model nome crea solo model
 
 php artisan migrate crea le tabelle nel db
+
+composer require filament/actions:"^3.3" -W
+
+php artisan filament:install --actions

@@ -54,4 +54,20 @@ class PostController extends Controller
         
         return view('guest.pages.home', compact('posts'));
     }
+
+    public function showAll()
+    {
+        // Recupera tutti i post con le immagini, ordinati per data di creazione
+        $posts = Post::with('images')->latest()->get();
+        
+        $posts->transform(function ($post) {
+            $post->images->each(function ($image) {
+                // Forza la valutazione dell'accessor nell'array di attributi
+                $image->setAttribute('image_url', $image->image_url);
+            });
+            return $post;
+        });
+        
+        return view('guest.pages.esplora', compact('posts'));
+    }
 }

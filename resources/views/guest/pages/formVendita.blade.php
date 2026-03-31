@@ -21,8 +21,8 @@
                     </div>
             </div>
             
-            <div class="mt-4 p-3 bg-indigo-50 rounded-md">
-                <p class="text-xs text-indigo-700 leading-relaxed">
+            <div class="mt-4 p-3 bg-blue-50 rounded-md">
+                <p class="text-xs text-blue-700 leading-relaxed">
                     <span class="font-bold">Suggerimento:</span> Carica almeno 3 foto da diverse angolazioni per vendere più velocemente.
                 </p>
             </div>
@@ -92,7 +92,7 @@
                 <div class="flex justify-end items-center gap-4 pt-6 border-t">
                     <button type="reset" class="text-sm font-semibold text-gray-600 hover:text-gray-800">Svuota</button>
                     <button type="submit" 
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg shadow-indigo-200 transition-all active:scale-95">
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all active:scale-95">
                         Pubblica Post
                     </button>
                 </div>

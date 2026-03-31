@@ -114,7 +114,7 @@
                         </div>
                     @endif
                     <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full shadow-sm">
-                        <p class="text-[10px] font-bold text-indigo-600 uppercase">{{ $post->category }}</p>
+                        <p class="text-[10px] font-bold text-indigo-600 uppercase">{{ $post->category_name }}</p>
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 @extends('guest.master-guest')
 
-@section('title', 'Pagina 1')
+@section('title', 'Vendi con TuttoSubito')
 
 @section('content-guest')
     <div class="bg-gray-50 min-h-screen">

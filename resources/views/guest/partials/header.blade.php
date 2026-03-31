@@ -9,8 +9,8 @@
 
         <!-- Navbar Links (Desktop) -->
         <nav class="hidden md:flex items-center gap-6">
-            <a href="/" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Home</a>
-            <a href="#" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Esplora</a>
+            <a href="{{ route('home') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Home</a>
+            <a href="{{ route('esplora') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Esplora</a>
             <a href="{{ route('vendere') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Vendi</a>
         </nav>
 
@@ -24,14 +24,14 @@
             <!-- Mobile Menu Dropdown -->
                 <div x-show="mobileOpen" @click.away="mobileOpen = false" x-transition
                     class="absolute z-20 top-20 left-0 right-0 bg-white border-b border-gray-200 shadow-lg py-2">
-                    <a href="/" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Home</a>
-                    <a href="#" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Esplora</a>
+                    <a href="{{ route('home') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Home</a>
+                    <a href="{{ route('esplora') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Esplora</a>
                     <a href="{{ route('vendere') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Vendi</a>
             </div>
         </div>
 
         @guest
-        <div class="absolute z-50 flex items-center gap-2 md:gap-4">
+        <div class="relative z-50 flex items-center gap-2 md:gap-4">
             <a href="/login" class="inline-flex items-center justify-center px-3 py-1 md:px-5 md:py-1 bg-blue-600 text-white font-semibold rounded-full border-2 border-blue-600 hover:bg-blue-700 transition duration-300 text-sm md:text-base">
                 Accedi
             </a>
