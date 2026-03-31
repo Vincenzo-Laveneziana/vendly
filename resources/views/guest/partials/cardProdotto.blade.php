@@ -1,8 +1,8 @@
-<div class="group bg-white rounded-md border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full overflow-hidden relative">
+<div class="group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-row h-[180px] md:h-[210px] lg:h-[240px] overflow-hidden relative">
     
     <a href="{{ route('prodotto', ['id' => $post->id]) }}" class="absolute inset-0 z-10 md:hidden" aria-label="Vedi dettagli"></a>
 
-    <div class="relative aspect-[4/3] overflow-hidden bg-gray-50">
+    <div class="relative w-1/3 sm:w-2/5 md:w-2/5 lg:w-1/3 h-full overflow-hidden bg-gray-50 flex-shrink-0">
         @if($post->images->isNotEmpty())
             <img src="{{ $post->images->first()->image_url }}" 
                 alt="{{ $post->title }}" 
@@ -12,37 +12,43 @@
                 <span class="material-symbols-outlined text-4xl">image</span>
             </div>
         @endif
-        
-        <div class="absolute top-1 left-1 z-20"> <span class="bg-white/80 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-blue-600 uppercase">
-                {{ $post->category_name }}
-            </span>
-        </div>
     </div>
 
-    <div class="p-3 flex flex-col flex-grow">
-        <h3 class="text-[15px] md:text-lg font-semibold text-gray-900 line-clamp-1 mb-2 first-letter:uppercase">
-            <a href="{{ route('prodotto', ['id' => $post->id]) }}" class="hover:text-blue-600 transition-colors">
-                {{ $post->title }}
-            </a>
-        </h3>
+    <div class="p-4 md:p-5 lg:p-6 flex flex-col flex-grow justify-between min-w-0">
+        <div class="flex flex-col gap-1 md:gap-2">
+            <div class="flex items-center">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[9px] md:text-[10px] font-bold bg-blue-50 text-blue-600 uppercase tracking-wider border border-blue-100">
+                    {{ $post->category_name }}
+                </span>
+            </div>
+
+            <h3 class="text-sm md:text-lg lg:text-xl font-bold text-gray-900 leading-tight group-hover:text-blue-600 transition-colors first-letter:uppercase">
+                <a href="{{ route('prodotto', ['id' => $post->id]) }}" class="line-clamp-1 md:line-clamp-2">
+                    {{ $post->title }}
+                </a>
+            </h3>
+
+            <div class="block"> 
+                <p class="text-[11px] md:text-sm text-gray-500 line-clamp-2 md:line-clamp-3 leading-relaxed first-letter:uppercase font-sm opacity-80">
+                    {{ $post->description }}
+                </p>
+            </div>
+        </div>
         
-        <p class="text-[13px] md:text-sm text-gray-500 line-clamp-2 leading-relaxed flex-grow first-letter:uppercase">
-            {{ $post->description }}
-        </p>
-        
-        <div class="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
+        <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
             <div class="flex flex-col">
-                <span class="text-[10px] text-gray-400 uppercase font-bold">Prezzo</span>
-                <span class="text-md font-bold text-gray-900">
+                <span class="text-[9px] text-gray-400 uppercase font-bold tracking-wider">Prezzo</span>
+                <span class="text-md md:text-xl font-black text-gray-900">
                     {{ number_format($post->price, 2, ',', '.') }}€
                 </span>
             </div>
             
-            <div class="flex items-center gap-2 relative z-20"> <a href="#" title="Aggiungi al carrello" class="flex items-center justify-center bg-gray-900 hover:bg-blue-600 text-white w-8 h-9 rounded-md transition-colors shadow-sm">
-                    <span class="material-symbols-outlined text-base">shopping_cart</span>
+            <div class="flex items-center gap-2 relative z-20"> 
+                <a href="#" title="Aggiungi al carrello" class="flex items-center justify-center bg-gray-100 hover:bg-blue-600 hover:text-white text-gray-900 w-9 h-9 md:w-10 md:h-10 rounded-lg transition-all duration-300">
+                    <span class="material-symbols-outlined text-lg">shopping_cart</span>
                 </a>
                 
-                <a href="{{ route('prodotto', ['id' => $post->id]) }}" class="hidden md:flex bg-blue-600 hover:bg-blue-700 text-white h-full px-4 py-2 rounded-md text-sm font-semibold transition-all shadow-md shadow-blue-100">
+                <a href="{{ route('prodotto', ['id' => $post->id]) }}" class="hidden sm:flex bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all items-center justify-center">
                     Dettagli
                 </a>
             </div>

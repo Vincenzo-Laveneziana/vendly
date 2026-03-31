@@ -111,7 +111,7 @@
     <!-- Prodotti -->
 
     <div>
-        <div class="max-w-[1400px] mx-auto px-4 md:px-10 mb-12">
+        <div class="w-full px-4 md:px-10 mb-12">
     
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
                 
