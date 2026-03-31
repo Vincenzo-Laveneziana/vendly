@@ -15,7 +15,7 @@
                         <span class="material-symbols-outlined text-gray-400 text-3xl">add</span>
                         <p class="text-xs text-gray-500 mt-1 font-medium">Aggiungi</p>
                     </div>
-                    </label>
+                </label>
                 
                 <div id="preview-container" class="contents">
                     </div>
@@ -34,14 +34,17 @@
                 <p class="text-gray-500 text-sm mt-1">Inserisci i dettagli del tuo annuncio per attirare i compratori.</p>
             </div>
 
-            <form action="{{ route('createPost') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('createPost') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="postForm">
                 @csrf
                 
-                <input id="images" name="images[]" type="file" class="hidden" accept="image/*" multiple onchange="previewImages(event)">
+                <input id="images" name="images[]" type="file" class="hidden" accept="image/*" multiple>
 
                 <div>
-                    <label for="title" class="block text-sm font-medium text-gray-700">Titolo dell'annuncio</label>
-                    <input type="text" name="title" id="title" placeholder="Es: iPhone 15 Pro - Come nuovo" value="{{ old('title') }}" 
+                    <div class="flex justify-between">
+                        <label for="title" class="block text-sm font-medium text-gray-700">Titolo dell'annuncio</label>
+                        <span id="title-char-count" class="text-xs text-gray-400">0 / 30</span>
+                    </div>
+                    <input type="text" name="title" id="title" maxlength="30" placeholder="Es: iPhone 15 Pro - Come nuovo" value="{{ old('title') }}" 
                         class="p-2.5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('title') border-red-500 @enderror" 
                         required>
                     @error('title')
@@ -50,8 +53,11 @@
                 </div>
 
                 <div>
-                    <label for="description" class="block text-sm font-medium text-gray-700">Descrizione</label>
-                    <textarea name="description" id="description" placeholder="Descrivi il prodotto, il suo stato, difetti..." rows="5" 
+                    <div class="flex justify-between">
+                        <label for="description" class="block text-sm font-medium text-gray-700">Descrizione</label>
+                        <span id="desc-char-count" class="text-xs text-gray-400">0 / 200</span>
+                    </div>
+                    <textarea name="description" id="description" maxlength="200" placeholder="Descrivi il prodotto, il suo stato, difetti..." rows="5" 
                         class="p-2.5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
                     @error('description')
                         <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -65,7 +71,7 @@
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <span class="text-gray-500 sm:text-sm">€</span>
                             </div>
-                            <input type="number" name="price" id="price" placeholder="0.00" step="0.01" value="{{ old('price') }}" 
+                            <input type="number" name="price" id="price" placeholder="0.00" step="0.01" min="0" value="{{ old('price') }}" 
                                 class="pl-8 p-2.5 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('price') border-red-500 @enderror" 
                                 required>
                         </div>
@@ -77,7 +83,7 @@
                     <div>
                         <label for="category" class="block text-sm font-medium text-gray-700">Categoria</label>
                         <select name="category" id="category" 
-                            class="p-2.5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('category') border-red-500 @enderror">
+                            class="p-2.5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('category') border-red-500 @enderror" required>
                             <option value="">Seleziona una categoria</option>
                             @foreach(\App\Models\Post::getCategoriesFromJson() as $id => $name)
                                 <option value="{{ $id }}" {{ old('category') == $id ? 'selected' : '' }}>{{ $name }}</option>
@@ -90,7 +96,7 @@
                 </div>
 
                 <div class="flex justify-end items-center gap-4 pt-6 border-t">
-                    <button type="reset" class="text-sm font-semibold text-gray-600 hover:text-gray-800">Svuota</button>
+                    <button type="reset" id="resetBtn" class="text-sm font-semibold text-gray-600 hover:text-gray-800">Svuota</button>
                     <button type="submit" 
                         class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-all active:scale-95">
                         Pubblica Post
@@ -102,27 +108,72 @@
 </div>
 
 <script>
-function previewImages(event) {
-    const container = document.getElementById('preview-container');
-    container.innerHTML = ''; 
+// --- LOGICA GESTIONE IMMAGINI ---
+let filesArray = []; 
+const imagesInput = document.getElementById('images');
+const container = document.getElementById('preview-container');
 
-    if (event.target.files) {
-        Array.from(event.target.files).forEach(file => {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const div = document.createElement('div');
-                div.className = "relative h-32 w-full";
-                div.innerHTML = `
-                    <img src="${e.target.result}" class="h-full w-full object-cover rounded-lg border border-gray-200 shadow-sm">
-                    <button type="button" onclick="this.parentElement.remove()" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-6 w-6 flex items-center justify-center shadow-md hover:bg-red-600">
-                        <span class="material-symbols-outlined text-[16px]">close</span>
-                    </button>
-                `;
-                container.appendChild(div);
-            }
-            reader.readAsDataURL(file);
-        });
-    }
+imagesInput.addEventListener('change', function(e) {
+    const newFiles = Array.from(e.target.files);
+    
+    newFiles.forEach(file => {
+        filesArray.push(file); // Aggiunge i nuovi file a quelli esistenti
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const index = filesArray.length - 1;
+            const div = document.createElement('div');
+            div.className = "relative h-32 w-full animate-fade-in";
+            div.innerHTML = `
+                <img src="${event.target.result}" class="h-full w-full object-cover rounded-lg border border-gray-200 shadow-sm">
+                <button type="button" class="remove-img-btn absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-6 w-6 flex items-center justify-center shadow-md hover:bg-red-600">
+                    <span class="material-symbols-outlined text-[16px]">close</span>
+                </button>
+            `;
+            
+            // Gestione rimozione specifica
+            div.querySelector('.remove-img-btn').onclick = function() {
+                const currentFiles = Array.from(imagesInput.files);
+                filesArray = filesArray.filter(f => f !== file);
+                div.remove();
+                updateInputFiles();
+            };
+            
+            container.appendChild(div);
+        }
+        reader.readAsDataURL(file);
+    });
+    updateInputFiles();
+});
+
+// Funzione fondamentale per sincronizzare l'input file con l'array JS
+function updateInputFiles() {
+    const dataTransfer = new DataTransfer();
+    filesArray.forEach(file => dataTransfer.items.add(file));
+    imagesInput.files = dataTransfer.files;
 }
+
+// --- CONTROLLI TESTO (COUNTER) ---
+const titleInput = document.getElementById('title');
+const descInput = document.getElementById('description');
+const titleCount = document.getElementById('title-char-count');
+const descCount = document.getElementById('desc-char-count');
+
+titleInput.addEventListener('input', () => {
+    titleCount.textContent = `${titleInput.value.length} / 30`;
+    titleCount.className = titleInput.value.length >= 30 ? "text-xs text-red-500 font-bold" : "text-xs text-gray-400";
+});
+
+descInput.addEventListener('input', () => {
+    descCount.textContent = `${descInput.value.length} / 200`;
+    descCount.className = descInput.value.length >= 200 ? "text-xs text-red-500 font-bold" : "text-xs text-gray-400";
+});
+
+// Svuota tutto al reset
+document.getElementById('resetBtn').onclick = () => {
+    filesArray = [];
+    container.innerHTML = '';
+    titleCount.textContent = "0 / 30";
+    descCount.textContent = "0 / 200";
+};
 </script>
 @endsection

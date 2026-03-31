@@ -8,22 +8,53 @@
         
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col md:flex-row">
             
-            <div class="md:w-1/2 lg:w-2/5 relative bg-gray-200 aspect-square md:aspect-auto">
-                @if($post->images->isNotEmpty())
-                    <img src="{{ $post->images->first()->image_url }}" 
-                         alt="{{ $post->title }}" 
-                         class="w-full h-full object-cover">
-                @else
-                    <div class="flex items-center justify-center h-full text-gray-400">
-                        <span class="material-symbols-outlined text-6xl">image</span>
-                    </div>
-                @endif
-                
-                <div class="absolute top-4 left-4">
+            <div class="md:w-1/2 lg:w-2/5 relative bg-gray-200 aspect-square md:aspect-auto" x-data="{ activePhoto: 0 }">
+    
+                <div class="w-full h-full relative overflow-hidden">
+                    @if($post->images->isNotEmpty())
+                        @foreach($post->images as $index => $image)
+                            <img src="{{ $image->image_url }}" 
+                                alt="{{ $post->title }}" 
+                                x-show="activePhoto === {{ $index }}"
+                                x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 transform scale-95"
+                                x-transition:enter-end="opacity-100 transform scale-100"
+                                class="w-full h-full object-cover absolute inset-0"
+                                style="display: none;">
+                        @endforeach
+                    @else
+                        <div class="flex items-center justify-center h-full text-gray-400 bg-gray-100">
+                            <span class="material-symbols-outlined text-6xl">image</span>
+                        </div>
+                    @endif
+                </div>
+
+                <div class="absolute top-4 left-4 z-10">
                     <span class="bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-blue-600 uppercase shadow-sm">
                         {{ $post->category_name ?? 'Annuncio' }}
                     </span>
                 </div>
+
+                @if($post->images->count() > 1)
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10 bg-black/20 backdrop-blur-sm p-2 rounded-full">
+                        @foreach($post->images as $index => $image)
+                            <button @click="activePhoto = {{ $index }}" 
+                                    :class="activePhoto === {{ $index }} ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/80 w-2'"
+                                    class="h-2 rounded-full transition-all duration-300 shadow-sm"
+                                    aria-label="Vai alla foto {{ $index + 1 }}">
+                            </button>
+                        @endforeach
+                    </div>
+
+                    <button @click="activePhoto = (activePhoto === 0) ? {{ $post->images->count() - 1 }} : activePhoto - 1" 
+                            class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1 rounded-full shadow-md z-10 transition-colors">
+                        <span class="material-symbols-outlined text-gray-800">chevron_left</span>
+                    </button>
+                    <button @click="activePhoto = (activePhoto === {{ $post->images->count() - 1 }}) ? 0 : activePhoto + 1" 
+                            class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1 rounded-full shadow-md z-10 transition-colors">
+                        <span class="material-symbols-outlined text-gray-800">chevron_right</span>
+                    </button>
+                @endif
             </div>
 
             <div class="md:w-1/2 lg:w-3/5 p-6 md:p-10 flex flex-col">
