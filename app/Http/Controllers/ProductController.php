@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function createProduct(CreateProductRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = auth()->id();
+        $data['user_id'] = Auth::id();
         $save = Product::create($data);
 
         
@@ -62,7 +63,7 @@ class ProductController extends Controller
     public function showUserProducts()
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
-        $products = Product::with('images')->where('user_id', auth()->id())->latest()->get();
+        $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
         
         return view('guest.pages.profilo', compact('products'));
     }
