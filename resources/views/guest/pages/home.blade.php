@@ -21,31 +21,41 @@
             </div>
         </div>
 
-        <div class="absolute left-1/2 -translate-x-1/2 h-auto bottom-0 translate-y-1/2 w-full max-w-4xl px-4 z-20  flex-col items-center">
-            <div class="mt-2 md:mt-0 bg-white border border-gray-200 shadow-sm rounded-2xl px-1 py-1 md:py-3 md:px-2 w-full flex items-center gap-2 md:gap-4">
+        <div class="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2 w-full max-w-4xl px-4 z-20">
+            <div class="bg-white border border-gray-200 shadow-sm rounded-2xl px-1 py-1 md:py-3 md:px-2 w-full flex items-center gap-2 md:gap-4">
                 
-                <div class="w-full flex items-center left gap-2 text-gray-500 md:px-4 whitespace-nowrap">
-                    <span class="material-symbols-outlined text-black-900 absolute pl-1">search</span>
-                    <input type="text" placeholder="Cosa stai cercando?" 
-                        class="w-full pl-7 py-3 rounded-xl text-sm md:text-md bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 outline-none text-gray-700">
-                </div>
+                <form action="{{ route('ricerca') }}" method="GET" id="searchForm" class="w-full flex items-center gap-2 md:gap-4">
+                    <!-- Input di ricerca -->
+                    <div class="w-full flex items-center relative gap-2 text-gray-500 md:px-4 whitespace-nowrap">
+                        <span class="material-symbols-outlined text-gray-900 absolute pl-1">search</span>
+                        <input 
+                            id="searchInput"
+                            name="query"
+                            placeholder="Cosa stai cercando?" 
+                            class="w-full pl-7 py-3 rounded-xl text-sm md:text-md bg-gray-50 border-none focus:ring-2 focus:ring-blue-500 outline-none text-gray-700"
+                            autocomplete="off"
+                        >
+                    </div>
 
-                <div class="md:flex items-center gap-2 text-gray-500 border-l border-gray-200 px-4 whitespace-nowrap">
-                    <span class="material-symbols-outlined text-blue-600 text-sm md:text-md">location_on</span>
-                    <span class="text-xs md:text-sm font-medium">Italia, San Donaci</span>
-                </div>
-
-                <a href="/vendere" class="hidden w-full md:w-auto whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all md:flex items-center justify-center gap-2 active:scale-95">
-                    <span class="material-symbols-outlined">add</span> 
-                    <span class="text-sm md:textmd">Inserisci Annuncio</span>
-                </a>
+                    <div class="md:flex items-center gap-2 text-gray-500 border-l border-gray-200 px-4 whitespace-nowrap">
+                        <span class="material-symbols-outlined text-blue-600 text-sm md:text-md">location_on</span>
+                        <span class="text-xs md:text-sm font-medium">Italia, San Donaci</span>
+                    </div>
+                    <a href="/vendere" class="hidden w-full md:w-auto whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl transition-all md:flex items-center justify-center gap-2 active:scale-95">
+                        <span class="material-symbols-outlined">add</span> 
+                        <span class="text-sm md:textmd">Inserisci Annuncio</span>
+                    </a>
+                </form>                
             </div>
             <a href="/vendere" class="mt-2 flex w-full md:w-auto whitespace-nowrap bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl transition-all md:hidden items-center justify-center gap-2 active:scale-95">
                 <span class="material-symbols-outlined">add</span> 
                 <span class="text-xs md:textmd">Inserisci Annuncio</span>
             </a>
         </div>
-        </div>
+        
+    </div>
+
+   
     
     <!-- Categorie -->
     <section class="py-12 bg-gray-50"> 

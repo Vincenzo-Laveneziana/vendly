@@ -9,9 +9,9 @@ use App\Models\Product;
 
 Route::get('/', [ProductController::class, 'show'])->name('home');
 
-Route::get('/esplora', [ProductController::class, 'showAll'], [Product::class, 'getCategoryNameAttribute'])->name('esplora');
+Route::get('/ricerca', [ProductController::class, 'search'])->name('ricerca');
 
-Route::get('/esplora/{category}', [ProductController::class, 'showAll'], [Product::class, 'getCategoryNameAttribute'])->name('esplora.categoria');
+Route::get('/esplora', [ProductController::class, 'showAll'], [Product::class, 'getCategoryNameAttribute'])->name('esplora');
 
 Route::get('/esplora/prodotto/{id}', [ProductController::class, 'showProduct'])->name('prodotto');
 
@@ -19,6 +19,8 @@ Route::get('/esplora/prodotto/{id}', [ProductController::class, 'showProduct'])-
 Route::get('/vendere', function () {
     return view('guest.pages.vendere');
 })->name('vendere');
+
+Route::get('/esplora/filtri', [ProductController::class, 'filtri'])->name('categoria');
 
 Route::get('/login', function () {
     return view('guest.pages.loginPage');

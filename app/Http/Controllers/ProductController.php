@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -66,5 +67,40 @@ class ProductController extends Controller
         $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
         
         return view('guest.pages.profilo', compact('products'));
+    }
+
+    public function filtri(Request $request)
+{
+    $category = $request->query('category');
+    $sort     = $request->query('sort');
+    $search   = $request->query('search');
+
+    // Una sola query
+    $products = Product::with('images')->get();
+
+    // Filtri in memoria con Collection
+    $products = $products
+        ->when($category, fn($c) => $c->where('category', $category))
+        ->when($search,   fn($c) => $c->filter(
+            fn($p) => str_contains(strtolower($p->title), strtolower($search))
+        ))
+        ->when($sort === 'price_asc',  fn($c) => $c->sortBy('price'))
+        ->when($sort === 'price_desc', fn($c) => $c->sortByDesc('price'))
+        ->when(!$sort,                 fn($c) => $c->sortByDesc('created_at'))
+        ->values(); // reindex
+
+    $categories = Product::getCategoriesFromJson();
+
+    return view('guest.pages.esplora', compact('products', 'categories'));
+    }
+
+    public function search(Request $request){
+        $search = $request->query('query');
+
+        $products = Product::with('images')->where('title', 'like', "%$search%")->get();
+
+        $categories = Product::getCategoriesFromJson();
+
+        return view('guest.pages.esplora', compact('products', 'categories'));
     }
 }
