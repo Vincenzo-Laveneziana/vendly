@@ -49,8 +49,8 @@ Route::post('/password-request', [UtentiController::class, 'sendResetLink'])->na
 Route::post('/reset-password', [UtentiController::class, 'updatePassword'])->name('password.update');
 
 Route::group(['middleware' => 'auth'], function () {
-    // prendo i dati degli utenti e li passo a utenti.blade.php
-    Route::get('/utenti', [UtentiController::class, 'utenti'])->name('utenti');
+
+    Route::get('/profilo', [ProductController::class, 'showUserProducts'])->name('profilo');
 
     // rotta post per visualizzare il form di vendita
     Route::get('/vendere/nuovo', function () {

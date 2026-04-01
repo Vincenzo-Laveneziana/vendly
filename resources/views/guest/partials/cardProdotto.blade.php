@@ -44,10 +44,6 @@
             </div>
             
             <div class="flex items-center gap-2 relative z-20"> 
-                <a href="#" title="Aggiungi al carrello" class="flex items-center justify-center bg-gray-100 hover:bg-blue-600 hover:text-white text-gray-900 w-9 h-9 md:w-10 md:h-10 rounded-lg transition-all duration-300">
-                    <span class="material-symbols-outlined text-lg">shopping_cart</span>
-                </a>
-                
                 <a href="{{ route('prodotto', ['id' => $product->id]) }}" class="hidden sm:flex bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-all items-center justify-center">
                     Dettagli
                 </a>

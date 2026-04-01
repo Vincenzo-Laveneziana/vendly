@@ -58,4 +58,12 @@ class ProductController extends Controller
         
         return view('guest.pages.prodotto', compact('product', 'user', 'products'));
     }
+
+    public function showUserProducts()
+    {
+        // Recupera tutti i post con le immagini, ordinati per data di creazione
+        $products = Product::with('images')->where('user_id', auth()->id())->latest()->get();
+        
+        return view('guest.pages.profilo', compact('products'));
+    }
 }
