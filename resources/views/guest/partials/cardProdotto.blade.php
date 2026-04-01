@@ -4,9 +4,9 @@
 
     <div class="relative w-1/3 sm:w-2/5 md:w-2/5 lg:w-1/3 h-full overflow-hidden bg-gray-50 flex-shrink-0">
         @if($product->images->isNotEmpty())
-            <img src="{{ $product->images->first()->image_url }}" 
-                alt="{{ $product->title }}" 
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src="{{ Storage::url($product->images->first()->path) }}" 
+                     alt="{{ $product->title }}" 
+                     class="w-full h-full object-cover">
         @else
             <div class="flex items-center justify-center h-full bg-gray-100 text-gray-400">
                 <span class="material-symbols-outlined text-4xl">image</span>

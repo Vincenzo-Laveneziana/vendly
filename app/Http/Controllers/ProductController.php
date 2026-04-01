@@ -13,17 +13,15 @@ class ProductController extends Controller
         $data['user_id'] = auth()->id();
         $save = Product::create($data);
 
+        
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-
-                // VERIFICA SE IL FILE È VALIDO E SE ESISTE ANCORA
-
                 if ($file && $file->isValid()) {
-                    $filename = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
-                    $file->move(public_path('products'), $filename);
+                    $path = $file->store('products', 'public');
                     
                     $save->images()->create([
-                        'path' => 'products/' . $filename,
+                        'path' => $path, // Salverà una stringa tipo "products/nomefile.jpg"
                         'alt_text' => $save->title,
                     ]);
                 }
