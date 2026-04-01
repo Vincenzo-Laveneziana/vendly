@@ -4,12 +4,17 @@
 
 @section('content-guest')
 <div class="min-h-screen bg-gray-100 py-10 px-4">
+    @if ($errors->any())
+        <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-4 text-sm border border-red-200">
+            {{ $errors->first() }}
+        </div>
+    @endif
     <div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row gap-8 items-start">
-        
         <div class="w-full md:w-1/3 bg-white p-6 shadow-md rounded-lg">
             <label class="block text-sm font-bold text-gray-700 mb-4 uppercase tracking-wider">Foto del prodotto</label>
             
             <div class="grid grid-cols-2 gap-4">
+                {{-- L'attributo 'accept' nel file input sotto limiterà già la scelta nei file picker --}}
                 <label for="images" class="relative cursor-pointer flex flex-col items-center justify-center h-32 w-full border-2 border-dashed border-gray-300 rounded-lg hover:border-indigo-500 hover:bg-gray-50 transition-all">
                     <div class="flex flex-col items-center justify-center">
                         <span class="material-symbols-outlined text-gray-400 text-3xl">add</span>
@@ -17,8 +22,7 @@
                     </div>
                 </label>
                 
-                <div id="preview-container" class="contents">
-                    </div>
+                <div id="preview-container" class="contents"></div>
             </div>
             
             <div class="mt-4 p-3 bg-blue-50 rounded-md">
@@ -34,10 +38,11 @@
                 <p class="text-gray-500 text-sm mt-1">Inserisci i dettagli del tuo annuncio per attirare i compratori.</p>
             </div>
 
-            <form action="{{ route('createPost') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="postForm">
+            <form action="{{ route('createProduct') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="postForm">
                 @csrf
                 
-                <input id="images" name="images[]" type="file" class="hidden" accept="image/*" multiple>
+                {{-- Controlli HTML: accept limita i formati, multiple permette più file --}}
+                <input id="images" name="images[]" type="file" class="hidden" accept="image/jpeg,image/png,image/webp" multiple>
 
                 <div>
                     <div class="flex justify-between">
@@ -55,9 +60,9 @@
                 <div>
                     <div class="flex justify-between">
                         <label for="description" class="block text-sm font-medium text-gray-700">Descrizione</label>
-                        <span id="desc-char-count" class="text-xs text-gray-400">0 / 200</span>
+                        <span id="desc-char-count" class="text-xs text-gray-400">0 / 1000</span>
                     </div>
-                    <textarea name="description" id="description" maxlength="200" placeholder="Descrivi il prodotto, il suo stato, difetti..." rows="5" 
+                    <textarea name="description" id="description" maxlength="1000" placeholder="Descrivi il prodotto, il suo stato, difetti..." rows="5" 
                         class="p-2.5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('description') border-red-500 @enderror">{{ old('description') }}</textarea>
                     @error('description')
                         <p class="mt-1 text-sm text-red-600 font-medium">{{ $message }}</p>
@@ -85,7 +90,7 @@
                         <select name="category" id="category" 
                             class="p-2.5 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 @error('category') border-red-500 @enderror" required>
                             <option value="">Seleziona una categoria</option>
-                            @foreach(\App\Models\Post::getCategoriesFromJson() as $id => $name)
+                            @foreach(\App\Models\Product::getCategoriesFromJson() as $id => $name)
                                 <option value="{{ $id }}" {{ old('category') == $id ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
                         </select>
@@ -108,7 +113,7 @@
 </div>
 
 <script>
-// --- LOGICA GESTIONE IMMAGINI ---
+// --- GESTIONE IMMAGINI (SOLO LOGICA FUNZIONALE) ---
 let filesArray = []; 
 const imagesInput = document.getElementById('images');
 const container = document.getElementById('preview-container');
@@ -117,10 +122,10 @@ imagesInput.addEventListener('change', function(e) {
     const newFiles = Array.from(e.target.files);
     
     newFiles.forEach(file => {
-        filesArray.push(file); // Aggiunge i nuovi file a quelli esistenti
+        filesArray.push(file);
+
         const reader = new FileReader();
         reader.onload = function(event) {
-            const index = filesArray.length - 1;
             const div = document.createElement('div');
             div.className = "relative h-32 w-full animate-fade-in";
             div.innerHTML = `
@@ -130,9 +135,7 @@ imagesInput.addEventListener('change', function(e) {
                 </button>
             `;
             
-            // Gestione rimozione specifica
             div.querySelector('.remove-img-btn').onclick = function() {
-                const currentFiles = Array.from(imagesInput.files);
                 filesArray = filesArray.filter(f => f !== file);
                 div.remove();
                 updateInputFiles();
@@ -142,10 +145,10 @@ imagesInput.addEventListener('change', function(e) {
         }
         reader.readAsDataURL(file);
     });
+
     updateInputFiles();
 });
 
-// Funzione fondamentale per sincronizzare l'input file con l'array JS
 function updateInputFiles() {
     const dataTransfer = new DataTransfer();
     filesArray.forEach(file => dataTransfer.items.add(file));
@@ -164,16 +167,15 @@ titleInput.addEventListener('input', () => {
 });
 
 descInput.addEventListener('input', () => {
-    descCount.textContent = `${descInput.value.length} / 200`;
-    descCount.className = descInput.value.length >= 200 ? "text-xs text-red-500 font-bold" : "text-xs text-gray-400";
+    descCount.textContent = `${descInput.value.length} / 1000`;
+    descCount.className = descInput.value.length >= 1000 ? "text-xs text-red-500 font-bold" : "text-xs text-gray-400";
 });
 
-// Svuota tutto al reset
 document.getElementById('resetBtn').onclick = () => {
     filesArray = [];
     container.innerHTML = '';
     titleCount.textContent = "0 / 30";
-    descCount.textContent = "0 / 200";
+    descCount.textContent = "0 / 1000";
 };
 </script>
 @endsection

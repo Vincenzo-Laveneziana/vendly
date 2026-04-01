@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Model
+class Product extends Model
 {
     use SoftDeletes;
 
@@ -36,6 +36,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    // CERCARE COME SI CHIAMANO QUESTE FUNZIONI PER CATEGORIE JSON
     /**
      * Carica le categorie dal file JSON e le mette in cache.
      */

@@ -1,19 +1,19 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Post;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UtentiController;
+use App\Models\Product;
 
-Route::get('/', [PostController::class, 'show'])->name('home');
+Route::get('/', [ProductController::class, 'show'])->name('home');
 
-Route::get('/esplora', [PostController::class, 'showAll'], [Post::class, 'getCategoryNameAttribute'])->name('esplora');
+Route::get('/esplora', [ProductController::class, 'showAll'], [Product::class, 'getCategoryNameAttribute'])->name('esplora');
 
-Route::get('/esplora/{category}', [PostController::class, 'showAll'], [Post::class, 'getCategoryNameAttribute'])->name('esplora.categoria');
+Route::get('/esplora/{category}', [ProductController::class, 'showAll'], [Product::class, 'getCategoryNameAttribute'])->name('esplora.categoria');
 
-Route::get('/esplora/prodotto/{id}', [PostController::class, 'showProduct'])->name('prodotto');
+Route::get('/esplora/prodotto/{id}', [ProductController::class, 'showProduct'])->name('prodotto');
 
 
 Route::get('/vendere', function () {
@@ -52,13 +52,12 @@ Route::group(['middleware' => 'auth'], function () {
     // prendo i dati degli utenti e li passo a utenti.blade.php
     Route::get('/utenti', [UtentiController::class, 'utenti'])->name('utenti');
 
-
     // rotta post per visualizzare il form di vendita
     Route::get('/vendere/nuovo', function () {
         return view('guest.pages.formVendita');
     })->name('formVendita');
 
-    Route::post('/vendere/crea', [PostController::class, 'createPost'])->name('createPost');
+    Route::post('/vendere/crea', [ProductController::class, 'createProduct'])->name('createProduct');
 
     Route::post('/delete-user', [UtentiController::class, 'deleteUser'])->name('Elimina');
 

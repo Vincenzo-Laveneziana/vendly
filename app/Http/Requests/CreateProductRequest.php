@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePostRequest extends FormRequest
+class CreateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class CreatePostRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
+            'description' => ['string'],
             'price' => ['required', 'numeric', 'min:0'],
-            'category' => ['required', 'integer'],
+            'category' => ['integer'],
             'images' => ['array', 'max:5'], // Massimo 5 immagini
-            'images.*' => ['file', 'image', 'mimes:jpeg,png,webpm', 'max:2048'], // Ogni immagine max 2MB
+            'images.*' => ['file', 'image', 'mimes:jpg,jpeg,png,webpm', 'max:2048'], // Ogni immagine max 2MB
         ];
     }
 
@@ -41,10 +41,8 @@ class CreatePostRequest extends FormRequest
             'category.required' => 'La categoria è obbligatoria.',
             'images.array' => 'Le immagini devono essere un array.',
             'images.max' => 'Puoi caricare al massimo 5 immagini.',
-            'images.*.file' => 'Ogni immagine deve essere un file valido.',
-            'images.*.image' => 'Ogni file deve essere un\'immagine.',
-            'images.*.mimes' => 'Le immagini devono essere in formato JPEG, PNG o WebP.',
-            'images.*.max' => 'Ogni immagine deve essere al massimo di 2MB.',
+            'images.mimes' => 'Formato non valido. Le immagini devono essere in formato jpg, jpeg, png o webpm.',
+            'images.max' => 'Ogni immagine deve essere al massimo di 2MB.',
         ];
     }
 }

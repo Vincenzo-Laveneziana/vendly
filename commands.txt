@@ -8,6 +8,8 @@ php artisan make:model nome crea solo model
 
 php artisan migrate crea le tabelle nel db
 
+php artisan migrate:fresh cancella e rifà le tabelle
+
 composer require filament/actions:"^3.3" -W
 
 php artisan filament:install --actions

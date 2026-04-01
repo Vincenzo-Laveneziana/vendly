@@ -113,7 +113,7 @@
     <div>
         <div class="w-full px-4 md:px-10 mb-12">
     
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-6">
                 
                 @forelse($posts as $post)
                     @include('guest.partials.cardProdotto', ['post' => $post])

@@ -20,6 +20,6 @@ class Conversation extends Model
 
     public function post()
     {
-        return $this->belongsTo(Posts::class, 'post_id');
+        return $this->belongsTo(Product::class, 'post_id');
     }
 }

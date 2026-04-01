@@ -12,7 +12,7 @@
         <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
     </div>
 
-    <main class="grow container mx-auto px-6 py-24">
+    <main class="grow container mx-auto px-6 py-8 ">
         @yield('content-guest')
         <a class="inline-flex w-full justify-center items-center gap-2 text-sm text-gray-600 hover:text-blue-800 transition" href="/">
             <span class="material-symbols-outlined">home</span>

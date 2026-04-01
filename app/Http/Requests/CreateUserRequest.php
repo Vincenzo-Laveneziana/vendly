@@ -36,7 +36,7 @@ class CreateUserRequest extends FormRequest
                 'max:15',
                 'regex:/^\\+?[1-9][0-9]{7,14}$/'
             ],
-            'email' => 'required|string|email|max:40|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ];
     }
@@ -60,7 +60,7 @@ class CreateUserRequest extends FormRequest
             'email.required' => 'L\'email è obbligatoria.',
             'email.email' => 'L\'email deve essere un indirizzo email valido.',
             'email.unique' => 'L\'email è già in uso.',
-            'email.max' => 'L\'email non può superare i 40 caratteri.',
+            'email.max' => 'L\'email nè troppo lunga',
             'phone.unique' => 'Il numero di telefono è già in uso.',
             'phone.string' => 'Il numero di telefono deve essere un testo valido.',
             'phone.min' => 'Il numero di telefono deve essere almeno di 9 caratteri.',

@@ -6,17 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
+    // CAMPI NULLABLE E NOME TABELLA
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('category');
+            $table->string('category')->nullable();
             $table->string('title');
-            $table->string('description');
+            $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->timestamp('sold_at')->nullable();
             $table->timestamps();
