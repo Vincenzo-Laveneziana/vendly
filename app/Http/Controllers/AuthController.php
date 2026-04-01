@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(LoginUserRequest $request) {
+    public function logout(Request $request) {
         // 1. Esegue il logout
         Auth::logout();
 
