@@ -77,7 +77,7 @@
                         <span class="material-symbols-outlined text-sm">person</span> Venditore
                     </span>
                     <p class="text-sm md:text-lg font-semibold text-gray-900 mt-1">
-                        {{ $user->name }} {{ $user->surname }}
+                        {{ $seller->name }} {{ $seller->surname }}
                     </p>
                 </div>
                 <div>
@@ -85,20 +85,18 @@
                         <span class="material-symbols-outlined text-sm">location_on</span> Città
                     </span>
                     <p class="text-sm md:text-lg font-semibold text-gray-900 mt-1">
-                        {{ $user->address['city'] ?? 'Non specificata' }}
+                        {{ $seller->address['city'] ?? 'Non specificata' }}
                     </p>
                 </div>
             </div>
 
             {{-- CTA --}}
-            @if($product->id !== auth()->id())
             <div class="mt-auto pt-1 pb-1">
-                <a href="{{ route('chat', ['idProdotto' => $product->id]) }}"
+                <a href="{{ route('esplora') }}"
                    class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 md:py-4 px-6 rounded-xl transition-all text-sm md:text-base">
-                    Contatta il venditore
+                    Indietro
                 </a>
             </div>
-            @endif
 
         </div>
     </div>

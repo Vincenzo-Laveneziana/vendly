@@ -28,7 +28,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('home')->with('success', 'Annuncio creato!');
+        return redirect()->route('profilo')->with('status', 'Utente aggiornato con successo.');
     }
 
     public function show()
@@ -101,4 +101,5 @@ class ProductController extends Controller
 
         return view('guest.pages.esplora', compact('products', 'categories'));
     }
+
 }

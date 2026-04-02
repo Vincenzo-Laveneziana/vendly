@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UtentiController;
@@ -55,6 +56,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profilo', [ProductController::class, 'showUserProducts'])->name('profilo');
 
     Route::put('/aggiorna-profilo', [UtentiController::class, 'updateUser'])->name('aggiornaProfilo');
+
+    //chat
+    Route::get('/chat', [ChatController::class, 'show'])->name('chat.index');
+    
+    Route::get('/chat/{idProdotto}/{idConversazione?}', [ChatController::class, 'showChat'])->name('chat');
+
+    route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('inviaMessaggio');
+
+    Route::get('/chat/{conversation}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
 
     // rotta post per visualizzare il form di vendita
     Route::get('/vendere/nuovo', function () {

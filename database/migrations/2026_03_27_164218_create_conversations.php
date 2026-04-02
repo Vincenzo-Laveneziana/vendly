@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
-            $table->string('post_id')->foreignId()->constrained('products')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('buyer_id')->constrained('users')->onDelete('cascade');
+            $table->unique(['product_id', 'seller_id', 'buyer_id']);
             $table->timestamps();
         });
     }

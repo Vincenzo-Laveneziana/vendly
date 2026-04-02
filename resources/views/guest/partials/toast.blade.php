@@ -27,7 +27,7 @@
 @endif
 
 <!-- Toast Notification Success -->
-@if (session('status') || session('success'))
+@if (session('success') || session('status'))
     <div 
         x-data="{ show: true }" 
         x-init="setTimeout(() => show = false, 5000)" 
@@ -41,7 +41,7 @@
             <span class="material-symbols-outlined">check_circle</span>
         </div>
         <div class="ml-3 text-sm font-normal text-gray-800">
-            {{ session('status') }}
+            {{ session('success') ?? session('status') }}
         </div>
         <button @click="show = false" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 inline-flex h-8 w-8">
             <span class="material-symbols-outlined text-sm">close</span>
