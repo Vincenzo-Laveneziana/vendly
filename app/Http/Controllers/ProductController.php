@@ -15,8 +15,6 @@ class ProductController extends Controller
         $data['user_id'] = Auth::id();
         $save = Product::create($data);
 
-        
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 if ($file && $file->isValid()) {

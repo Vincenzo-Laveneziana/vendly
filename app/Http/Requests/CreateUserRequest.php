@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateUserRequest extends FormRequest
 {
@@ -21,6 +22,28 @@ class CreateUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->isMethod('put')) {
+            $userId = Auth::user()->id;
+            return [
+                'name' => 'required|string|max:30',
+                'surname' => 'required|string|max:30',
+                'date_of_birth' => 'date|before:today|nullable',
+                'address.street' => 'string|max:100',
+                'address.city' => 'string|max:50',
+                'address.zip_code' => 'string|max:20',
+                'phone'    => [
+                    'unique:users,phone,' . $userId,
+                    'nullable', 
+                    'string', 
+                    'min:9',
+                    'max:15',
+                    'regex:/^\\+?[1-9][0-9]{7,14}$/'
+                ],
+                'email' => 'required|string|email|max:255|unique:users,email,' . $userId,
+                'password' => 'nullable|string|min:8|current_password',
+                'new_password' => 'nullable|string|min:8|different:password',
+            ];
+        }
         return [
             'name' => 'required|string|max:30',
             'surname' => 'required|string|max:30',
@@ -69,6 +92,10 @@ class CreateUserRequest extends FormRequest
             'password.required' => 'La password è obbligatoria.',
             'password.min' => 'La password deve essere almeno di 8 caratteri.',
             'password.confirmed' => 'La conferma della password non corrisponde.',
+            'date_of_birth.date' => 'La data di nascita deve essere una data valida.',
+            'date_of_birth.before' => 'La data di nascita deve essere una data passata.',
+            'new_password.min' => 'La nuova password deve essere almeno di 8 caratteri.',
+            'new_password.different' => 'La nuova password deve essere diversa da quella attuale.',
         ];
     }
 }

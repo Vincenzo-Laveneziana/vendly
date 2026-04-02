@@ -11,29 +11,10 @@ use Illuminate\Support\Str;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\CreateUserRequest;
 
 class UtentiController extends Controller
 {
-    public function utenti()
-    {
-        $data = User::all()->map(function ($user) {
-            return [
-                'id' => $user->id,
-                'name' => $user->name,
-                'surname' => $user->surname,
-                'phone' => $user->phone,
-                'CF' => $user->CF,
-                'address' => $user->address,
-                'email' => $user->email,
-                'status' => $user->status,
-                'created_at' => $user->created_at->format('d/m/Y'),
-            ];
-        })->toArray();
-
-        return view('auth.pages.utenti', ['data' => $data]);
-    }
-
     public function sendResetLink(StoreUserRequest $request)
     {
         // 1. Validazione base
@@ -97,43 +78,30 @@ class UtentiController extends Controller
         return redirect()->route('utenti')->with('status', 'Utente eliminato con successo.');
     }
 
-    function updateUser(User $user, UpdateUserRequest $request)
+    function updateUser(CreateUserRequest $request)
     {
-
-        // dd($Olduser);
-        
-        Log::info("Inizio updateUser per ID: " . $user->id, [
-            'dati_attuali_db' => $user->toArray(),
-            'dati_ricevuti_form' => $request->all()
-        ]);
-
+        $user = User::findOrFail(Auth::user()->id);
 
         // 1. Validiamo i dati in arrivo
         $validated = $request->validated();
-            
 
-        // 2. Aggiornamento utente nel database
-        $user['name'] = $validated['name'];
-        $user['surname'] = $validated['surname'];
-        $user['CF'] = $validated['CF'];
-        $user['address'] = $validated['address'] ?? null;
-        $user['phone'] = $validated['phone'] ?? null;
-        $user['email'] = $validated['email'];
-
-        // l'utente ha scritto qualcosa
-        if ($request->filled('password')) {
-            $user->password = Hash::make($validated['password']);
+         // Se è presente una nuova password, aggiorniamo anche quella
+        if (!empty($validated['new_password'])) {
+            $validated['password'] = $validated['new_password'];      
+            unset($validated['new_password']);  
+        } else {
+            $validated['password'] = $user->password; // Non aggiorniamo la password se non è stata fornita
         }
 
-        try {
-            $user->save();
+        if($user->update($validated)) {
             Log::info("Update riuscito per utente " . $user->id);
-            return redirect()->route('utenti')->with('status', 'Utente aggiornato con successo.');
-
-        } catch (\Exception $e) {
-            Log::error("Eccezione Database: " . $e->getMessage());
-            return back()->withInput()->with('error', 'Errore tecnico: ' . $e->getMessage());
+            return redirect()->route('profilo')->with('status', 'Utente aggiornato con successo.');
         }
+
+        Log::error("Update fallito per utente " . $user->id);
+        return back()->withErrors([
+            'email' => 'Si è verificato un errore durante l\'aggiornamento. Riprova più tardi.',
+        ]);
     }
 
     public function visualizza($id) {
@@ -145,7 +113,7 @@ class UtentiController extends Controller
         $logUser = Auth::user();
         
         if ($logUser->id == $id) {
-            return redirect()->route('utenti')->with('error', 'Non puoi modificare lo stato del tuo stesso account.');
+            return redirect()->route('profilo')->with('error', 'Non puoi modificare lo stato del tuo stesso account.');
         }
 
         $user = User::findOrFail($id);

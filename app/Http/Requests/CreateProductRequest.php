@@ -24,11 +24,11 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'description' => ['string'],
+            'description' => ['string','max:1000', 'nullable'],
             'price' => ['required', 'numeric', 'min:0'],
-            'category' => ['integer'],
+            'category' => ['integer','nullable'],
             'images' => ['array', 'max:5'], // Massimo 5 immagini
-            'images.*' => ['file', 'image', 'mimes:jpg,jpeg,png,webpm', 'max:2048'], // Ogni immagine max 2MB
+            'images.*' => ['file', 'image', 'mimes:jpg,jpeg,png,webp', 'max:8144'], // Ogni immagine max 2MB
         ];
     }
 
@@ -36,13 +36,18 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'title.required' => 'Il titolo è obbligatorio.',
-            'description.required' => 'La descrizione è obbligatoria.',
+            'title.string' => 'Il titolo deve essere una stringa.',
+            'title.max' => 'Il titolo non può superare i 255 caratteri.',
+            'description.string' => 'La descrizione deve essere una stringa.',
             'price.required' => 'Il prezzo è obbligatorio.',
-            'category.required' => 'La categoria è obbligatoria.',
+            'price.numeric' => 'Il prezzo deve essere un numero.',
+            'price.min' => 'Il prezzo deve essere almeno 0.',
             'images.array' => 'Le immagini devono essere un array.',
             'images.max' => 'Puoi caricare al massimo 5 immagini.',
-            'images.mimes' => 'Formato non valido. Le immagini devono essere in formato jpg, jpeg, png o webpm.',
-            'images.max' => 'Ogni immagine deve essere al massimo di 2MB.',
+            'images.*.mimes' => 'Formato non valido. Le immagini devono essere in formato jpg, jpeg, png o webpm.',
+            'images.*.max' => 'Ogni immagine deve essere al massimo di 8MB.',
+            'images.*.file' => 'Ogni immagine deve essere un file valido.',
+            'images.*.uploaded' => 'C\'è stato un errore durante l\'upload dell\'immagine.',
         ];
     }
 }

@@ -33,7 +33,7 @@
                         </p>
                     </div>
 
-                    <div class="md:col-span-2">
+                    <div>
                         <span class="text-[10px] md:text-xs text-gray-400 uppercase font-bold tracking-wider flex items-center gap-2 mb-2">
                             <span class="material-symbols-outlined text-sm">location_on</span> Indirizzo completo
                         </span>
@@ -44,6 +44,15 @@
                             @else
                                 Indirizzo non specificato
                             @endif
+                        </p>
+                    </div>
+
+                    <div>
+                        <span class="text-[10px] md:text-xs text-gray-400 uppercase font-bold tracking-wider flex items-center gap-2 mb-2">
+                            <span class="material-symbols-outlined text-sm">calendar_today</span> Data di Nascita
+                        </span>
+                        <p class="text-sm md:text-lg text-gray-700 font-medium">
+                            {{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth->format('d/m/Y') : 'Non specificata' }}
                         </p>
                     </div>
                 </div>
@@ -73,7 +82,7 @@
                 <p class="text-gray-500 text-[10px] md:text-sm mt-1">Aggiorna le tue informazioni</p>
             </div>
 
-            <form action="#" method="POST">
+            <form action="{{ route('aggiornaProfilo', auth()->user()) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -99,8 +108,8 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <label class="text-[9px] md:text-[10px] font-bold uppercase text-gray-400 mb-0.5 ml-1">Data di nascita</label>
-                        <input type="text" name="date_of_birth" value="{{ auth()->user()->date_of_birth ?? '' }}" class="w-full px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-gray-900 transition text-sm">
+                        <label class="text-[9px] md:text-[10px] font-bold uppercase text-gray-400 mb-0.5 ml-1">Data di Nascita</label>
+                        <input type="date" id="date_of_birth" name="date_of_birth" value="{{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth->format('Y-m-d') : '' }}" class="w-full px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:border-gray-900 transition text-sm">
                     </div>
 
                     <div class="flex flex-col">

@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/profilo', [ProductController::class, 'showUserProducts'])->name('profilo');
 
+    Route::put('/aggiorna-profilo', [UtentiController::class, 'updateUser'])->name('aggiornaProfilo');
+
     // rotta post per visualizzare il form di vendita
     Route::get('/vendere/nuovo', function () {
         return view('guest.pages.formVendita');

@@ -12,11 +12,11 @@
     <div id="page-loader" class="fixed inset-0 flex items-center justify-center bg-white transition-opacity duration-500">
         <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
     </div>
-
     <!-- includo header e footer -->
     @include('guest.partials.header')
 
     <main class="">
+        @include('guest.partials.toast')
         @yield('content-guest')
     </main>
 
