@@ -16,30 +16,35 @@
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Integralcf';
     src: url('../css/fonts/Fontspring-DEMO-integralcf-bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Integralcf';
     src: url('../css/fonts/Fontspring-DEMO-integralcf-medium.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Integralcf';
     src: url('../css/fonts/Fontspring-DEMO-integralcf-regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Integralcf';
     src: url('../css/fonts/Fontspring-DEMO-integralcf-light.otf') format('opentype');
     font-weight: 300;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Integralcf';
     src: url('../css/fonts/Fontspring-DEMO-integralcf-extrabold.otf') format('opentype');

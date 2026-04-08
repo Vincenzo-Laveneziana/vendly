@@ -34,7 +34,7 @@
         "clsx": "^2.1.1",
         "dnd-kit-vue": "^0.0.2",
         "lucide-vue-next": "^0.563.0",
-        "reka-ui": "^2.9.3",
+        "reka-ui": "^2.9.5",
         "tailwind-merge": "^3.5.0",
         "tailwindcss-animate": "^1.0.7"
     }
