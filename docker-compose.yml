@@ -4,6 +4,7 @@ services:
     container_name: laravel-app
     ports:
       - "8080:80"
+      - "8081:8081"
       - "5173:5173"
     volumes:
       # Configurazione Apache
@@ -33,6 +34,7 @@ services:
       - laravel-network
     
     restart: always
+    command: supervisord -n -c /etc/supervisor/conf.d/supervisord.conf
 
   db:
     image: mysql:8.0

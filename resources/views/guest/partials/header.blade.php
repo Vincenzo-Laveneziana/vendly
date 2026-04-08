@@ -2,8 +2,8 @@
     <div style="font-variation-settings: 'FILL' 2, 'wght' 300, 'GRAD' 0, 'opsz' 24;" class="container mx-auto px-6 py-4 flex justify-between items-center h-20">
         
         <div class="inline-flex items-center gap-2 md:gap-4">
-            <a href="/">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo TuttoSubito" class="h-12 md:h-18">
+            <a href="/" class="text-4xl font-bold text-[#08B2B4]" style="font-family: 'Integralcf', sans-serif; font-weight: 900;">
+                VENDLY
             </a>
         </div>
 
@@ -12,6 +12,7 @@
             <a href="{{ route('home') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Home</a>
             <a href="{{ route('esplora') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Esplora</a>
             <a href="{{ route('vendere') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Vendi</a>
+            <a href="{{ route('chat') }}" class="text-gray-700 font-medium hover:text-blue-600 transition-colors">Chat</a>
         </nav>
 
         <!-- Mobile Menu Toggle -->
@@ -27,6 +28,7 @@
                     <a href="{{ route('home') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Home</a>
                     <a href="{{ route('esplora') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Esplora</a>
                     <a href="{{ route('vendere') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Vendi</a>
+                    <a href="{{ route('chat') }}" class="block px-6 py-2 text-gray-700 hover:bg-gray-100 transition-colors">Chat</a>
             </div>
         </div>
 

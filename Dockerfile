@@ -28,7 +28,7 @@ RUN dnf -y install --setopt=tsflags=nodocs httpd httpd-tools php-pear php-devel 
 # IMPORTANTE: Ho aggiunto 'fileinfo', 'process', 'ctype' che servono a Laravel
 RUN dnf -y module reset php \
     && dnf -y module enable php:8.2 \
-    && dnf -y install php php-{common,curl,pdo,mysqlnd,json,mbstring,soap,xml,gd,bcmath,cli,pear,devel,intl,openssl,pdo_mysql,pecl-zip,fpm,zip,fileinfo,process,ctype} --allowerasing
+    && dnf -y install php php-{common,curl,pdo,mysqlnd,json,mbstring,soap,xml,gd,bcmath,cli,pear,devel,intl,openssl,pdo_mysql,pecl-zip,fpm,zip,fileinfo,process,ctype,opcache} --allowerasing
 
 # 7. Installazione Node.js 20
 RUN dnf module install -y nodejs:20 && \
@@ -39,10 +39,16 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
     && php -r "unlink('composer-setup.php');"
 
-# 9. Setup directory PHP-FPM
+# 9. Setup directory PHP-FPM e Configurazione OPcache
 RUN mkdir -p /run/php-fpm && \
     chown -R apache:apache /run/php-fpm && \
-    chmod -R 755 /run/php-fpm
+    chmod -R 755 /run/php-fpm && \
+    echo '[opcache]' > /etc/php.d/10-opcache.ini && \
+    echo 'opcache.enable=1' >> /etc/php.d/10-opcache.ini && \
+    echo 'opcache.memory_consumption=256' >> /etc/php.d/10-opcache.ini && \
+    echo 'opcache.interned_strings_buffer=16' >> /etc/php.d/10-opcache.ini && \
+    echo 'opcache.max_accelerated_files=10000' >> /etc/php.d/10-opcache.ini && \
+    echo 'opcache.revalidate_freq=0' >> /etc/php.d/10-opcache.ini
 
 # 10. Set working directory
 WORKDIR /var/www/html
@@ -60,21 +66,24 @@ COPY . .
 COPY vhost.conf /etc/httpd/conf.d/vhost.conf
 
 # ==========================================================
-# 14. FIX CRUCIALE: CREAZIONE SCRIPT ENTRYPOINT
-# Questo pezzo mancava nel tuo ultimo codice, per questo chmod falliva!
+# 14. FIX CRUCIALE: CREAZIONE SCRIPT ENTRYPOINT E REVERB
 # ==========================================================
 RUN echo '#!/bin/bash' > /usr/local/bin/docker-entrypoint.sh && \
     echo 'set -e' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Avvio Migrazioni..."' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php artisan migrate --force' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'echo "Avvio Server..."' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'php artisan config:clear' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'php artisan cache:clear' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'echo "Avvio Reverb Server..."' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'php artisan reverb:start --host=0.0.0.0 --port=8081 > /var/log/reverb.log 2>&1 &' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'echo "Avvio Web Server..."' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php-fpm -D' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'exec /usr/sbin/httpd -D FOREGROUND' >> /usr/local/bin/docker-entrypoint.sh
 
 # 15. Permessi finali e dump autoload
 # ORA chmod funzionerà perché il file è stato creato al passo 14
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-RUN composer dump-autoload --optimize
+RUN composer dump-autoload --optimize --no-scripts
 RUN chown -R apache:apache /var/www/html
 RUN chmod -R 775 storage bootstrap/cache
 

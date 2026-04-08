@@ -27,6 +27,7 @@ class UserFactory extends Factory
             'name' => fake()->firstName(),
             'surname' => fake()->lastName(), // Assicurati di avere anche i tuoi campi custom qui
             'email' => fake()->unique()->safeEmail(),
+            'date_of_birth' => fake()-date(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'status' => fake()->randomElement(['Active', 'Inactive']),

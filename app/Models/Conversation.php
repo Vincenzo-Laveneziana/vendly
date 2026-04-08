@@ -16,6 +16,7 @@ class Conversation extends Model
         ];
     }
 
+    // RELAZIONI
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
@@ -34,5 +35,16 @@ class Conversation extends Model
     public function messages()
     {
         return $this->hasMany(Message::class);
+    }
+
+    // --- AGGIUNTE PER LIVE CHAT ---
+    public function lastMessage()
+    {
+        return $this->hasOne(Message::class)->latestOfMany();
+    }
+
+    public function getInterlocutorAttribute()
+    {
+        return $this->buyer_id === auth()->id() ? $this->seller : $this->buyer;
     }
 }

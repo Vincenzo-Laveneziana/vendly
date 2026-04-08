@@ -58,9 +58,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/aggiorna-profilo', [UtentiController::class, 'updateUser'])->name('aggiornaProfilo');
 
     //chat
-    Route::get('/chat', [ChatController::class, 'show'])->name('chat.index');
-    
-    Route::get('/chat/{idProdotto}/{idConversazione?}', [ChatController::class, 'showChat'])->name('chat');
+
+    Route::get('/chat/{idProdotto?}/{idConversazione?}', [ChatController::class, 'showChat'])->name('chat');
 
     route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('inviaMessaggio');
 

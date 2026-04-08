@@ -21,7 +21,7 @@ class ProductController extends Controller
                     $path = $file->store('products', 'public');
                     
                     $save->images()->create([
-                        'path' => $path, // Salverà una stringa tipo "products/nomefile.jpg"
+                        'path' => $path, 
                         'alt_text' => $save->title,
                     ]);
                 }
@@ -68,28 +68,26 @@ class ProductController extends Controller
     }
 
     public function filtri(Request $request)
-{
-    $category = $request->query('category');
-    $sort     = $request->query('sort');
-    $search   = $request->query('search');
+    {
+        $category = $request->query('category');
+        $sort     = $request->query('sort');
+        $search   = $request->query('search');
 
-    // Una sola query
-    $products = Product::with('images')->get();
+        $products = Product::with('images')->get();
 
-    // Filtri in memoria con Collection
-    $products = $products
-        ->when($category, fn($c) => $c->where('category', $category))
-        ->when($search,   fn($c) => $c->filter(
-            fn($p) => str_contains(strtolower($p->title), strtolower($search))
-        ))
-        ->when($sort === 'price_asc',  fn($c) => $c->sortBy('price'))
-        ->when($sort === 'price_desc', fn($c) => $c->sortByDesc('price'))
-        ->when(!$sort,                 fn($c) => $c->sortByDesc('created_at'))
-        ->values(); // reindex
+        $products = $products
+            ->when($category, fn($c) => $c->where('category', $category))
+            ->when($search,   fn($c) => $c->filter(
+                fn($p) => str_contains(strtolower($p->title), strtolower($search))
+            ))
+            ->when($sort === 'price_asc',  fn($c) => $c->sortBy('price'))
+            ->when($sort === 'price_desc', fn($c) => $c->sortByDesc('price'))
+            ->when(!$sort,                 fn($c) => $c->sortByDesc('created_at'))
+            ->values();
 
-    $categories = Product::getCategoriesFromJson();
+        $categories = Product::getCategoriesFromJson();
 
-    return view('guest.pages.esplora', compact('products', 'categories'));
+        return view('guest.pages.esplora', compact('products', 'categories'));
     }
 
     public function search(Request $request){

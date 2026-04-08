@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('category')->nullable();
             $table->string('title');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->timestamp('sold_at')->nullable();
             $table->timestamps();

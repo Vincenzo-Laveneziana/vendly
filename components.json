@@ -3,9 +3,9 @@
   "style": "new-york",
   "typescript": true,
   "tailwind": {
-    "config": "",
+    "config": "tailwind.config.js",
     "css": "resources/css/app.css",
-    "baseColor": "stone",
+    "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
   },

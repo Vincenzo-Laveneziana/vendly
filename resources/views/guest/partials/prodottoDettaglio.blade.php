@@ -91,7 +91,7 @@
             </div>
 
             {{-- CTA --}}
-            @if($product->id !== auth()->id())
+            @if($product->user_id !== auth()->id())
             <div class="mt-auto pt-1 pb-1">
                 <a href="{{ route('chat', ['idProdotto' => $product->id]) }}"
                    class="block w-full text-center bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 md:py-4 px-6 rounded-xl transition-all text-sm md:text-base">
