@@ -3,14 +3,11 @@
 @section('title', 'Dettagli Annuncio')
 
 @section('content-guest')
-<div class="min-h-screen bg-gray-50 py-12">
-    
-    @include('guest.partials.prodottoDettaglio')
+    <div class="min-h-screen bg-gray-50">
 
-    <!-- Prodotti -->
-    <div class="my-10">
+        @include('guest.partials.prodottoDettaglio')
 
-    @include('guest.partials.annunciRecenti')
+        <!-- Prodotti -->
+        @include('guest.partials.annunciRecenti')
     </div>
-</div>
 @endsection

@@ -18,6 +18,13 @@
 }
 
 @font-face {
+    font-family: 'Satoshi';
+    src: url('../css/fonts/Satoshi-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Integralcf';
     src: url('../css/fonts/Fontspring-DEMO-integralcf-bold.otf') format('opentype');
     font-weight: bold;

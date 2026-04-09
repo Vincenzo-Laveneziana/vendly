@@ -19,9 +19,9 @@ class ProductController extends Controller
             foreach ($request->file('images') as $file) {
                 if ($file && $file->isValid()) {
                     $path = $file->store('products', 'public');
-                    
+
                     $save->images()->create([
-                        'path' => $path, 
+                        'path' => $path,
                         'alt_text' => $save->title,
                     ]);
                 }
@@ -33,8 +33,8 @@ class ProductController extends Controller
 
     public function show()
     {
-        $products = Product::with('images')->latest()->simplePaginate(4);
-        
+        $products = Product::with('images')->latest()->simplePaginate(6);
+
         return view('guest.pages.home', compact('products'));
     }
 
@@ -44,8 +44,8 @@ class ProductController extends Controller
         $products = Product::with('images')->latest()->get();
 
         $categories = Product::getCategoriesFromJson();
-        
-        return view('guest.pages.esplora', compact('products','categories'));
+
+        return view('guest.pages.esplora', compact('products', 'categories'));
     }
 
     public function showProduct()
@@ -55,7 +55,7 @@ class ProductController extends Controller
         $user = $product->user;
 
         $products = Product::with('images')->latest()->simplePaginate(4);
-        
+
         return view('guest.pages.prodotto', compact('product', 'user', 'products'));
     }
 
@@ -63,26 +63,26 @@ class ProductController extends Controller
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
         $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
-        
+
         return view('guest.pages.profilo', compact('products'));
     }
 
     public function filtri(Request $request)
     {
         $category = $request->query('category');
-        $sort     = $request->query('sort');
-        $search   = $request->query('search');
+        $sort = $request->query('sort');
+        $search = $request->query('search');
 
         $products = Product::with('images')->get();
 
         $products = $products
             ->when($category, fn($c) => $c->where('category', $category))
-            ->when($search,   fn($c) => $c->filter(
+            ->when($search, fn($c) => $c->filter(
                 fn($p) => str_contains(strtolower($p->title), strtolower($search))
             ))
-            ->when($sort === 'price_asc',  fn($c) => $c->sortBy('price'))
+            ->when($sort === 'price_asc', fn($c) => $c->sortBy('price'))
             ->when($sort === 'price_desc', fn($c) => $c->sortByDesc('price'))
-            ->when(!$sort,                 fn($c) => $c->sortByDesc('created_at'))
+            ->when(!$sort, fn($c) => $c->sortByDesc('created_at'))
             ->values();
 
         $categories = Product::getCategoriesFromJson();
@@ -90,7 +90,8 @@ class ProductController extends Controller
         return view('guest.pages.esplora', compact('products', 'categories'));
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $search = $request->query('query');
 
         $products = Product::with('images')->where('title', 'like', "%$search%")->get();
