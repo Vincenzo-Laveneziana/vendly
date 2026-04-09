@@ -1,13 +1,13 @@
 <div class="relative overflow-hidden z-0 w-full h-full flex justify-center items-center py-6 md:py-10 bg-transparent"
     style="font-family: 'Satoshi', sans-serif;">
     <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="absolute -z-10 bottom-10 -left-48 w-48 md:w-96 pointer-events-none rotate-[15deg]">
+        class="absolute -z-10 bottom-10 -left-48 w-48 md:w-96 pointer-events-none rotate-[15deg] opacity-70">
     <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="absolute -z-10 top-10 -right-48 w-48 md:w-96 pointer-events-none -rotate-[20deg]">
+        class="absolute -z-10 top-10 -right-48 w-48 md:w-96 pointer-events-none -rotate-[20deg] opacity-70">
     <div
         class="bg-white rounded-3xl shadow-md duration-300 border border-gray-100 p-5 md:p-8 flex flex-col w-full max-w-3xl mx-4">
 
-        {{-- IMMAGINE PRINCIPALE --}}
+        <!-- Immagine -->
         <div
             class="relative w-full aspect-video bg-gray-50 rounded-lg overflow-hidden flex justify-center items-center">
             @if($product->images && $product->images->isNotEmpty())
@@ -26,7 +26,7 @@
             @endif
         </div>
 
-        {{-- THUMBNAILS & PAGINATION --}}
+        <!-- Pagination-->
         @if($product->images && $product->images->count() > 1)
             <div class="flex mt-3 w-full justify-center gap-2 overflow-x-auto px-1">
                 @foreach($product->images as $i => $image)
@@ -50,10 +50,10 @@
             </div>
         @endif
 
-        {{-- CONTENUTO --}}
+        <!-- Contenuto -->
         <div class="w-full flex flex-col mt-2">
 
-            {{-- Categoria --}}
+            <!-- Categoria -->
             <div class="mb-3">
                 <span
                     class="inline-flex items-center px-3 py-1 rounded-full text-[9px] md:text-[10px] font-black bg-white text-gray-800 border-2 border-[#08B2B4] uppercase tracking-widest leading-none">
@@ -61,12 +61,12 @@
                 </span>
             </div>
 
-            {{-- Titolo --}}
+            <!-- Titolo -->
             <h1 class="text-xl md:text-2xl font-black text-gray-900 leading-tight">
                 {{ $product->title }}
             </h1>
 
-            {{-- Posizione e Utente --}}
+            <!-- Posizione -->
             <div class="flex flex-col mt-1 mb-4 gap-1">
                 <p class="text-[12px] md:text-[13px] text-gray-400 font-medium">
                     {{ $product->location ?? 'Mesagne (BR), 72023' }}
@@ -76,12 +76,12 @@
                 </p>
             </div>
 
-            {{-- Descrizione --}}
+            <!-- Descrizione -->
             <p class="text-gray-400 text-[12px] md:text-[13px] leading-relaxed mb-6 pt-1 transition-all">
                 {{ $product->description }}
             </p>
 
-            {{-- Prezzo e Bottone (Footer card) --}}
+            <!-- Prezzo e Bottone Contatta Venditore -->
             <div class="w-full flex flex-row items-center justify-between border-t border-gray-200 pt-5 mt-auto">
                 <div class="flex flex-col">
                     <span

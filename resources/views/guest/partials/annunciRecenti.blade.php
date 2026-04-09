@@ -1,9 +1,9 @@
 <section class="relative py-12 overflow-hidden">
     <!-- Immagini decorative di sfondo (bolle) -->
     <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="absolute top-16 -right-32 w-48 md:w-96 pointer-events-none rotate-[15deg]">
+        class="absolute top-16 -right-32 w-48 md:w-96 pointer-events-none rotate-[15deg] opacity-70">
     <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="absolute bottom-16 -left-32 w-48 md:w-96 pointer-events-none -rotate-[20deg]">
+        class="absolute bottom-16 -left-32 w-48 md:w-96 pointer-events-none -rotate-[20deg] opacity-70">
 
     <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div class="flex flex-col items-center justify-center mb-12 mt-8">
