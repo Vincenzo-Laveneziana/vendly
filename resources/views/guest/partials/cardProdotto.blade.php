@@ -45,6 +45,7 @@
                 {{ $product->user->name ?? 'Franco Rossi' }}
             </p>
         </div>
+        <div></div>
 
         <!-- Footer Card -->
         <div class="pt-3 md:pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
