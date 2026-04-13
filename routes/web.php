@@ -1,87 +1,85 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ChatController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UtentiController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Backoffice\ChatController;
+use App\Http\Controllers\Backoffice\ProductController;
+use App\Http\Controllers\Backoffice\UserController;
+use App\Http\Controllers\Frontoffice\PagesController;
 use App\Models\Product;
 
-Route::get('/', [ProductController::class, 'show'])->name('home');
+Route:: as('Auth.')->group(function () {
 
-Route::get('/ricerca', [ProductController::class, 'search'])->name('ricerca');
+    // Visualizzazione
 
-Route::get('/esplora', [ProductController::class, 'showAll'], [Product::class, 'getCategoryNameAttribute'])->name('esplora');
+    Route::get('/login', function () {
+        return view('auth.pages.loginPage');
+    })->name('loginPage');
 
-Route::get('/esplora/prodotto/{id}', [ProductController::class, 'showProduct'])->name('prodotto');
+    Route::get('/register', function () {
+        return view('auth.pages.regPage');
+    })->name('regPage');
 
+    // Invio dati
 
-Route::get('/vendere', function () {
-    return view('guest.pages.vendere');
-})->name('vendere');
+    Route::post('/login/auth', [AuthController::class, 'login'])->name('login');
 
-Route::get('/esplora/filtri', [ProductController::class, 'filtri'])->name('categoria');
+    Route::post('/registration/auth', [AuthController::class, 'register'])->name('register');
 
-Route::get('/login', function () {
-    return view('guest.pages.loginPage');
-})->name('login');
+    Route::post('/login', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('/register', function () {
-    return view('guest.pages.regPage');
-})->name('registrazione');
+    Route::put('/update-user/{user}', [UserController::class, 'updateUser'])->name('updateUser');
 
-Route::get('/password-request', function () {
-    return view('guest.pages.password-request');
-})->name('password-request');
-
-Route::get('/reset-password/{token}', function (string $token) {
-    return view('guest.pages.reset-password', [
-        'token' => $token, 
-        'email' => request('email') // L'email arriva nell'URL come parametro
-    ]);
-})->name('password.reset');
-
-// Post
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::post('/registration', [AuthController::class, 'register']);
-
-Route::post('/password-request', [UtentiController::class, 'sendResetLink'])->name('sendResetLink');
-
-Route::post('/reset-password', [UtentiController::class, 'updatePassword'])->name('password.update');
-
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::get('/profilo', [ProductController::class, 'showUserProducts'])->name('profilo');
-
-    Route::put('/aggiorna-profilo', [UtentiController::class, 'updateUser'])->name('aggiornaProfilo');
-
-    //chat
-
-    Route::get('/chat/{idProdotto?}/{idConversazione?}', [ChatController::class, 'showChat'])->name('chat');
-
-    route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('inviaMessaggio');
-
-    Route::get('/chat/{conversation}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
-
-    // rotta post per visualizzare il form di vendita
-    Route::get('/vendere/nuovo', function () {
-        return view('guest.pages.formVendita');
-    })->name('formVendita');
-
-    Route::post('/vendere/crea', [ProductController::class, 'createProduct'])->name('createProduct');
-
-    Route::post('/delete-user', [UtentiController::class, 'deleteUser'])->name('Elimina');
-
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    Route::put('/update-user/{user}', [UtentiController::class, 'updateUser'])->name('Aggiorna');
-    //modifica in get
-    Route::get('/visualizza/{id}', [UtentiController::class, 'visualizza'])->name('Modifica');
-
-    Route::get('/status/{id}', [UtentiController::class, 'status'])->name('status');
-
-    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 });
+
+
+Route:: as('Backoffice.')->group(function () {
+
+    // Backoffice 
+    Route::middleware(['auth'])->group(function () {
+
+        //chat
+
+        Route::get('/chat/{idProdotto?}/{idConversazione?}', [ChatController::class, 'show'])->name('createChat');
+
+        route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('sendMessage');
+
+        Route::get('/chat/{conversation}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
+
+        //vendita
+
+        Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
+
+        Route::get('/profilo', [UserController::class, 'showUserProducts'])->name('profile');
+
+        // Vendita
+
+        Route::get('/vendere/form', function () {
+            $categories = Product::categories();
+            return view('backoffice.sell.sellForm', compact('categories'));
+        })->name('sellForm');
+    });
+
+});
+Route::controller(PagesController::class)->as('Frontoffice.')->group(function () {
+    // Rotte per visualizzare le pagine
+
+    Route::get('/ricerca', 'search')->name('ricerca');
+
+    // Home
+    Route::get('/', 'index')->name('home');
+
+    // Esplora
+
+    Route::get('/esplora', 'show')->name('explore');
+
+    Route::get('/esplora/prodotto/{id}', 'product')->name('product');
+
+    //vendere
+
+    Route::get('/vendere', function () {
+        return view('frontoffice.sell.sell');
+    })->name('vendere');
+});
+
 

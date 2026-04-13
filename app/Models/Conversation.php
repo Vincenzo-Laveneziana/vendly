@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Conversation extends Model
 {
+    use HasFactory;
     protected $fillable = ['product_id', 'buyer_id', 'seller_id'];
 
     protected function casts(): array

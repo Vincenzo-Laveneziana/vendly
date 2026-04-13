@@ -25,15 +25,19 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->firstName(),
-            'surname' => fake()->lastName(), // Assicurati di avere anche i tuoi campi custom qui
+            'surname' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
-            'date_of_birth' => fake()-date(),
-            'password' => static::$password ??= Hash::make('password'),
+            'date_of_birth' => fake()->date(),
+            'password' => 'admin12345',
             'remember_token' => Str::random(10),
-            'status' => fake()->randomElement(['Active', 'Inactive']),
-            'CF' => fake()->regexify('/^[A-Za-z]{6}[0-9]{2}[A-Za-z]{1}[0-9]{2}[A-Za-z]{1}[0-9]{3}[A-Za-z]{1}$/'),
-            'phone' => fake()->regexify('/^\\+?[1-9][0-9]{7,14}$/'),
-            'address' => fake()->address(),
+            'phone' => fake()->unique()->phoneNumber(),
+            'address' => [
+                'street' => fake()->streetAddress(),
+                'city' => fake()->city(),
+                'state' => fake()->state(),
+                'zip' => fake()->postcode(),
+            ],
+            'is_admin' => 0,
         ];
     }
 
@@ -42,7 +46,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

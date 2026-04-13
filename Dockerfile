@@ -34,6 +34,10 @@ RUN dnf -y module reset php \
 RUN dnf module install -y nodejs:20 && \
     dnf clean all
 
+# 7b. Installazione Supervisor (per gestire httpd, php-fpm e reverb)
+RUN dnf install -y supervisor && \
+    dnf clean all
+
 # 8. Composer
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --install-dir=/usr/local/bin --filename=composer \
@@ -65,29 +69,26 @@ COPY . .
 # Sovrascriviamo la conf di apache
 COPY vhost.conf /etc/httpd/conf.d/vhost.conf
 
-# ==========================================================
-# 14. FIX CRUCIALE: CREAZIONE SCRIPT ENTRYPOINT E REVERB
-# ==========================================================
+# 14. Copia del file supervisord.conf nella posizione corretta
+RUN mkdir -p /etc/supervisor/conf.d
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# 15. Permessi finali e dump autoload
+RUN composer dump-autoload --optimize --no-scripts
+RUN chown -R apache:apache /var/www/html
+RUN chmod -R 775 storage bootstrap/cache
+
+# 16. Migrazioni all'avvio + Supervisor
 RUN echo '#!/bin/bash' > /usr/local/bin/docker-entrypoint.sh && \
     echo 'set -e' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'echo "Avvio Migrazioni..."' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php artisan migrate --force' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php artisan config:clear' >> /usr/local/bin/docker-entrypoint.sh && \
     echo 'php artisan cache:clear' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'echo "Avvio Reverb Server..."' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'php artisan reverb:start --host=0.0.0.0 --port=8081 > /var/log/reverb.log 2>&1 &' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'echo "Avvio Web Server..."' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'php-fpm -D' >> /usr/local/bin/docker-entrypoint.sh && \
-    echo 'exec /usr/sbin/httpd -D FOREGROUND' >> /usr/local/bin/docker-entrypoint.sh
+    echo 'echo "Avvio Supervisor..."' >> /usr/local/bin/docker-entrypoint.sh && \
+    echo 'exec supervisord -n -c /etc/supervisor/conf.d/supervisord.conf' >> /usr/local/bin/docker-entrypoint.sh && \
+    chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# 15. Permessi finali e dump autoload
-# ORA chmod funzionerà perché il file è stato creato al passo 14
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-RUN composer dump-autoload --optimize --no-scripts
-RUN chown -R apache:apache /var/www/html
-RUN chmod -R 775 storage bootstrap/cache
+EXPOSE 80 8081
 
-EXPOSE 80
-
-# 16. Avvio tramite lo script generato
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
