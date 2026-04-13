@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     protected $fillable = [
         'user_id',
@@ -36,34 +37,22 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    // CERCARE COME SI CHIAMANO QUESTE FUNZIONI PER CATEGORIE JSON
-    /**
-     * Carica le categorie dal file JSON e le mette in cache.
-     */
-    public static function getCategoriesFromJson(): array
-    {
-        return Cache::rememberForever('categories_list', function () {
-            $path = storage_path('app/categories.json');
-            if (!file_exists($path)) return [];
-            
-            return json_decode(file_get_contents($path), true);
-        });
-    }
-
-    /**
-     * trasforma l'ID del DB nel nome del JSON.
-     */
-    public function getCategoryNameAttribute(): string
-    {
-        $categories = self::getCategoriesFromJson();
-        
-        // Cerca l'ID della categoria e restituisce il nome, altrimenti "Nessuna Categoria"
-        return $categories[$this->category] ?? 'Nessuna Categoria';
-    }
-
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public static function categories(): array
+    {
+        return Cache::rememberForever(
+            'categories_list',
+            fn() =>
+            json_decode(@file_get_contents(storage_path('app/categories.json')), true) ?: []
+        );
+    }
+
+    public function getCategoryNameAttribute(): string
+    {
+        return self::categories()[$this->category] ?? 'Nessuna Categoria';
     }
 }

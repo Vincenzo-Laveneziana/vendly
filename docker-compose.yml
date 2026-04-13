@@ -34,7 +34,6 @@ services:
       - laravel-network
     
     restart: always
-    command: supervisord -n -c /etc/supervisor/conf.d/supervisord.conf
 
   db:
     image: mysql:8.0

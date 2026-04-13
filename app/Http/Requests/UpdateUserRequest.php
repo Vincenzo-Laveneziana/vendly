@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule\Phone;
 
 class CreateUserRequest extends FormRequest
 {
@@ -30,13 +31,11 @@ class CreateUserRequest extends FormRequest
                 'address.street' => 'string|max:100',
                 'address.city' => 'string|max:50',
                 'address.zip_code' => 'string|max:20',
-                'phone'    => [
+                'phone' => [
                     'unique:users,phone,' . $userId,
-                    'nullable', 
-                    'string', 
-                    'min:9',
-                    'max:15',
-                    'regex:/^\\+?[1-9][0-9]{7,14}$/'
+                    'nullable',
+                    'string',
+                    'regex:/^\+?[1-9][0-9]{7,14}$/'
                 ],
                 'email' => 'required|string|email|max:255|unique:users,email,' . $userId,
                 'password' => 'nullable|string|min:8|confirmed',
@@ -49,16 +48,14 @@ class CreateUserRequest extends FormRequest
             'address.street' => 'string|max:100',
             'address.city' => 'string|max:50',
             'address.zip_code' => 'string|max:20',
-            'phone'    => [
+            'phone' => [
                 'unique:users',
-                'nullable', 
-                'string', 
-                'min:9',
-                'max:15',
-                'regex:/^\\+?[1-9][0-9]{7,14}$/'
+                'nullable',
+                'string',
+                'regex:/^\+?[1-9][0-9]{7,14}$/'
             ],
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ];
     }
 
