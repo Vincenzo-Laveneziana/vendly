@@ -15,7 +15,8 @@
                     <div class="grid md:grid-cols-2 gap-12 items-start">
                         <!-- Colonna di sx -->
                         <div class="space-y-4">
-                            <label class="block text-sm font-semibold text-gray-700">Immagini del prodotto</label>
+                            <label
+                                class="block text-sm font-semibold text-gray-700">{{ __('message.product_images') }}</label>
 
                             <label for="images"
                                 class="relative cursor-pointer flex flex-col items-center justify-center aspect-[4/3] w-full border-2 border-dashed border-gray-200 rounded-3xl hover:border-[#08B2B4] hover:bg-[#08B2B4]/5 transition-all group">
@@ -24,7 +25,7 @@
                                         class="material-symbols-outlined text-gray-300 text-5xl group-hover:text-[#08B2B4] transition-colors mb-2">add</span>
                                     <p
                                         class="text-gray-400 font-medium text-sm group-hover:text-[#08B2B4] transition-colors">
-                                        Aggiungi una o più immagini
+                                        {{ __('message.add_images') }}
                                     </p>
                                 </div>
                             </label>
@@ -39,7 +40,8 @@
                             <!-- Titolo -->
                             <div>
                                 <div class="flex justify-between items-end mb-1.5">
-                                    <label for="title" class="text-sm font-semibold text-gray-700">Titolo</label>
+                                    <label for="title"
+                                        class="text-sm font-semibold text-gray-700">{{ __('message.title') }}</label>
                                     <span id="title-char-count" class="text-[11px] text-gray-400">0 / 30</span>
                                 </div>
                                 <div class="vue-island">
@@ -52,25 +54,25 @@
                             <!-- Descrizione -->
                             <div>
                                 <div class="flex justify-between items-end mb-1.5">
-                                    <label for="description" class="text-sm font-semibold text-gray-700">Descrizione</label>
+                                    <label for="description"
+                                        class="text-sm font-semibold text-gray-700">{{ __('message.description') }}</label>
                                     <span id="desc-char-count" class="text-[11px] text-gray-400">0 / 1000</span>
                                 </div>
                                 <textarea name="description" id="description" maxlength="1000"
-                                    placeholder="Inserisci la descrizione del prodotto.." rows="4"
+                                    placeholder="{{ __('message.product_description_placeholder') }}" rows="4"
                                     class="w-full p-4 text-sm bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#08B2B4]/10 focus:border-[#08B2B4] transition-all resize-none">{{ old('description') }}</textarea>
                             </div>
 
                             <!-- Categoria -->
                             <div>
                                 <label for="category"
-                                    class="block text-sm font-semibold text-gray-700 mb-1.5">Categoria</label>
+                                    class="block text-sm font-semibold text-gray-700 mb-1.5">{{ __('message.category') }}</label>
                                 <div class="relative">
                                     <select name="category" id="category"
                                         class="w-full h-12 px-4 pr-10 text-sm bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#08B2B4]/10 focus:border-[#08B2B4] transition-all appearance-none cursor-pointer">
-                                        <option value="" selected>Scegli una
-                                            categoria</option>
+                                        <option value="" selected>{{ __('message.choose_category') }}</option>
                                         @foreach($categories as $id => $name)
-                                            <option value="{{ $id }}">{{ $name }}
+                                            <option value="{{ $id }}">{{ $name[app()->getLocale()] ?? $name['it'] }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -82,12 +84,13 @@
 
                             <!-- Prezzo -->
                             <div>
-                                <label for="price" class="block text-sm font-semibold text-gray-700 mb-1.5">Prezzo</label>
+                                <label for="price" class="block text-sm font-semibold text-gray-700 mb-1.5">{{
+        __('message.price') }}</label>
                                 <div class="vue-island">
                                     <div class="relative">
                                         <div
                                             class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 z-10">
-                                            <span class="text-gray-400 font-medium text-sm">€</span>
+                                            <span class="text-gray-400 font-medium text-sm">{{ __('message.money') }}</span>
                                         </div>
                                         <ui-input type="number" name="price" id="price" placeholder="0,00" step="0.01"
                                             min="0"
@@ -100,7 +103,7 @@
                             <!-- Progress bar -->
                             <div id="upload-progress-container" class="hidden space-y-2 pt-2">
                                 <div class="flex justify-between text-[11px] font-bold text-[#08B2B4]">
-                                    <span>Caricamento in corso...</span>
+                                    <span>{{ __('Caricamento in corso...') }}</span>
                                     <span id="upload-percentage">0%</span>
                                 </div>
                                 <div class="w-full bg-gray-100 rounded-full h-1.5 overflow-hidden">
@@ -114,7 +117,7 @@
                                 <div class="vue-island">
                                     <ui-button type="submit" id="submitBtn"
                                         class="h-12 px-10 bg-[#08B2B4] hover:bg-[#069a9c] text-white font-bold rounded-xl transition-all active:scale-95 shadow-lg">
-                                        Salva
+                                        {{ __('message.save') }}
                                     </ui-button>
                                 </div>
                             </div>
@@ -142,13 +145,13 @@
                 const div = document.createElement('div');
                 div.className = "relative group aspect-square animate-fade-in";
                 div.innerHTML = `
-                                                                <div class="loading-placeholder h-full w-full rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-center">
-                                                                    <svg class="animate-spin h-6 w-6 text-[#08B2B4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                                                                    </svg>
-                                                                </div>
-                                                            `;
+                                                                                                <div class="loading-placeholder h-full w-full rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-center">
+                                                                                                    <svg class="animate-spin h-6 w-6 text-[#08B2B4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                                                                                                    </svg>
+                                                                                                </div>
+                                                                                            `;
                 container.appendChild(div);
 
                 compressImage(file).then(compressedFile => {
@@ -157,16 +160,16 @@
                     const reader = new FileReader();
                     reader.onload = function (event) {
                         div.innerHTML = `
-                                                                <div class="relative h-full w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm group">
-                                                                    <img src="${event.target.result}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-                                                                    <div class="cover-badge hidden absolute top-1.5 left-1.5 bg-[#08B2B4] text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm">
-                                                                        Copertina
-                                                                    </div>
-                                                                    <button type="button" class="remove-img-btn absolute top-1.5 right-1.5 bg-white/90 text-gray-600 rounded-full h-6 w-6 flex items-center justify-center shadow-sm hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100">
-                                                                        <span class="material-symbols-outlined text-[14px]">close</span>
-                                                                    </button>
-                                                                </div>
-                                                            `;
+                                                                                                <div class="relative h-full w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm group">
+                                                                                                    <img src="${event.target.result}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                                                                                    <div class="cover-badge hidden absolute top-1.5 left-1.5 bg-[#08B2B4] text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+                                                                                                        Copertina
+                                                                                                    </div>
+                                                                                                    <button type="button" class="remove-img-btn absolute top-1.5 right-1.5 bg-white/90 text-gray-600 rounded-full h-6 w-6 flex items-center justify-center shadow-sm hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                                                                                                        <span class="material-symbols-outlined text-[14px]">close</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            `;
 
                         div.querySelector('.remove-img-btn').onclick = function () {
                             filesArray = filesArray.filter(f => f !== compressedFile);

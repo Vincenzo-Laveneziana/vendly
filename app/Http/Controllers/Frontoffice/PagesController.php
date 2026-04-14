@@ -41,7 +41,7 @@ class PagesController extends Controller
 
         $products = Product::with('images')->where('title', 'like', "%$search%")->get();
 
-        $categories = Product::getCategoriesFromJson();
+        $categories = Product::categories();
 
         return view('frontoffice.products.explore', compact('products', 'categories'));
     }

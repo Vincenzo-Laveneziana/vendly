@@ -17,18 +17,21 @@
 <!-- Titolo e Info -->
 <div class="flex-1 min-w-0">
     <h3 class="text-sm md:text-base font-bold text-gray-900 truncate">{{ $product->title }}</h3>
-    <p class="text-[10px] md:text-xs text-gray-500 truncate mb-1">Venditore: {{ $product->user->name ?? 'Utente' }}</p>
+    <p class="text-[10px] md:text-xs text-gray-500 truncate mb-1">{{ __('message.user_label') }}
+        {{ $product->user->name ?? 'Utente' }}
+    </p>
 
     <a href="{{ route('Frontoffice.product', $product->id) }}"
         class="inline-block text-[10px] md:text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-1 px-3 rounded-full transition whitespace-nowrap">
-        Vedi annuncio
+        {{ __('message.see_ads') }}
     </a>
 </div>
 
 <!-- PREZZO -->
 <div class="text-right flex-shrink-0 pl-2">
-    <span class="text-[10px] md:text-xs text-gray-400 uppercase font-bold tracking-wider block">Prezzo</span>
+    <span
+        class="text-[10px] md:text-xs text-gray-400 uppercase font-bold tracking-wider block">{{ __('message.price') }}</span>
     <span class="text-xl md:text-2xl font-black text-blue-600">
-        {{ number_format($product->price, 2, ',', '.') }}€
+        {{ __('message.money') }}{{ number_format($product->price, 2, ',', '.') }}
     </span>
 </div>

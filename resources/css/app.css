@@ -159,6 +159,8 @@
 * available axes:
 'wght' (range from 300.0 to 900.0
 */
+
+/* Body */
 @font-face {
     font-family: 'Satoshi-VariableItalic';
     src: url('../../public/fonts/Satoshi-VariableItalic.woff2') format('woff2'),
@@ -169,6 +171,7 @@
     font-style: italic;
 }
 
+/* Logo */
 @font-face {
     font-family: 'Integralcf-bold';
     src: url('../../public/fonts/Fontspring-DEMO-integralcf-bold.otf') format('opentype');

@@ -37,6 +37,20 @@
     @include('frontoffice.partials.footer')
 
 </body>
+<style>
+    body {
+        font-family: 'Satoshi-Variable', sans-serif;
+    }
+
+    .text-vendly {
+        font-family: 'Integralcf-bold', sans-serif;
+        color: #08B2B4;
+    }
+
+    .bg-vendly {
+        background-color: #08B2B4;
+    }
+</style>
 <script>
     window.addEventListener('load', function () {
         const loader = document.getElementById('page-loader');

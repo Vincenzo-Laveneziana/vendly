@@ -57,7 +57,7 @@
             <div class="mb-3">
                 <span
                     class="inline-flex items-center px-3 py-1 rounded-full text-[9px] md:text-[10px] font-black bg-white text-gray-800 border-2 border-[#08B2B4] uppercase tracking-widest leading-none">
-                    {{ $product->category_name ?? 'CATEGORIA' }}
+                    {{ $product->category_name }}
                 </span>
             </div>
 
@@ -85,9 +85,9 @@
             <div class="w-full flex flex-row items-center justify-between border-t border-gray-200 pt-5 mt-auto">
                 <div class="flex flex-col">
                     <span
-                        class="text-[9px] text-gray-500 uppercase font-black tracking-widest leading-none mb-1">PREZZO</span>
+                        class="text-[9px] text-gray-500 uppercase font-black tracking-widest leading-none mb-1">{{ __('message.price') }}</span>
                     <span class="text-lg md:text-xl font-black text-gray-900 leading-none">
-                        € {{ number_format($product->price, 2, ',', '.') }}
+                        {{ __('message.money') }} {{ number_format($product->price, 2, ',', '.') }}
                     </span>
                 </div>
 
@@ -95,7 +95,7 @@
                     <div>
                         <a href="{{ route('Backoffice.createChat', ['idProdotto' => $product->id]) }}"
                             class="bg-[#08B2B4] hover:bg-[#069a9b] text-white px-5 md:px-6 py-2 md:py-2.5 rounded-lg text-[13px] md:text-sm font-black transition-all flex items-center justify-center">
-                            Contatta venditore
+                            {{ __('message.contact_seller') }}
                         </a>
                     </div>
                 @endif

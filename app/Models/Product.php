@@ -53,6 +53,9 @@ class Product extends Model
 
     public function getCategoryNameAttribute(): string
     {
-        return self::categories()[$this->category] ?? 'Nessuna Categoria';
+        $categories = self::categories();
+        $key = $categories[$this->category] ?? null;
+
+        return $key ? __('categories.' . $key) : __('messages.no_category');
     }
 }

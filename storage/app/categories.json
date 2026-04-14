@@ -1,10 +1,10 @@
 {
-    "5": "Elettronica",
-    "10": "Casa e Arredamento",
-    "15": "Sport",
-    "20": "Abbigliamento",
-    "25": "Giardinaggio",
-    "30": "Libri",
-    "35": "Giochi e Videogiochi",
-    "40": "Musica e Film"
+    "5": "electronics",
+    "10": "home_and_furniture",
+    "15": "sport",
+    "20": "clothing",
+    "25": "gardening",
+    "30": "books",
+    "35": "games_and_video_games",
+    "40": "music_and_movies"
 }

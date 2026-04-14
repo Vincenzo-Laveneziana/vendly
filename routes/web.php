@@ -62,6 +62,13 @@ Route:: as('Backoffice.')->group(function () {
 
 });
 Route::controller(PagesController::class)->as('Frontoffice.')->group(function () {
+
+    Route::get('language/{locale}', function ($locale) {
+        app()->setLocale($locale);
+        session()->put('locale', $locale);
+
+        return redirect()->back();
+    });
     // Rotte per visualizzare le pagine
 
     Route::get('/ricerca', 'search')->name('ricerca');
