@@ -13,7 +13,7 @@
         <div id="chat-sidebar"
             class="hidden md:flex w-full md:w-1/3 flex-col bg-white md:border md:border-gray-200 md:rounded-xl md:shadow-sm h-full overflow-hidden shrink-0">
             <div class="p-4 border-b border-gray-100 flex-shrink-0">
-                <h2 class="text-lg font-bold text-gray-800">{{ __('Le tue conversazioni') }}</h2>
+                <h2 class="text-lg font-bold text-gray-800">{{ __('message.your_conversations') }}</h2>
             </div>
 
             <div class="flex-1 overflow-y-auto p-2 space-y-1">
@@ -70,7 +70,7 @@
                 @if(isset($product))
                     @include('backoffice.chat.partials.chatWindow')
                 @else
-                    <div>{{ __('Seleziona Chat') }}</div>
+                    <div>{{ __('message.select_chat') }}</div>
                 @endif
             </div>
             @if(isset($product))

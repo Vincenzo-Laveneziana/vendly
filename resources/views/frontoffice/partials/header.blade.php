@@ -33,7 +33,7 @@
                 <div class="relative flex items-center group">
                     <span
                         class="material-symbols-outlined absolute left-3 text-gray-400 text-lg md:text-xl transition-colors group-focus-within:text-[#08B2B4]">search</span>
-                    <ui-input name="query" placeholder="{{ __('Cerca prodotti...') }}"
+                    <ui-input name="query" placeholder="{{ __('message.search_products') }}"
                         class="pl-10 pr-4 py-2 bg-gray-100/80 focus:bg-white focus:border-[#08B2B4] focus:ring-4 focus:ring-[#08B2B4]/10 rounded-2xl transition-all w-full h-10 md:h-11 text-sm shadow-inner"></ui-input>
                 </div>
             </form>
@@ -51,7 +51,7 @@
                     <div class="vue-island flex items-center gap-2">
                         <ui-button as="a" href="{{ route('Auth.loginPage') }}" variant="outline"
                             class="inline-flex border-[#08B2B4] text-[#08B2B4] hover:bg-[#08B2B4]/5 font-bold rounded-xl px-2 md:px-4 h-8 md:h-10 text-xs md:text-sm transition-all">
-                            {{ __('Accedi | Registrati') }}
+                            {{ __('message.login_register') }}
                         </ui-button>
                     </div>
                 @endguest
@@ -72,18 +72,18 @@
                             class="absolute right-0 mt-3 w-56 bg-white border border-gray-200 rounded-xl shadow-sm py-2 z-50 overflow-hidden">
                             <a href="{{ route('Backoffice.profile') }}"
                                 class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#08B2B4] transition-colors">
-                                <span class="material-symbols-outlined text-xl">person</span> {{ __('Profilo') }}
+                                <span class="material-symbols-outlined text-xl">person</span> {{ __('message.profile') }}
                             </a>
                             <a href="{{ route('Backoffice.sellForm') }}"
                                 class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#08B2B4] transition-colors">
-                                <span class="material-symbols-outlined text-xl">add_circle</span> {{ __('Crea Annuncio') }}
+                                <span class="material-symbols-outlined text-xl">add_circle</span> {{ __('message.create_ad') }}
                             </a>
                             <div class="border-t border-gray-200 my-1"></div>
                             <form method="POST" action="{{ route('Auth.logout') }}">
                                 @csrf
                                 <button type="submit"
                                     class="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold">
-                                    <span class="material-symbols-outlined text-xl">logout</span> {{ __('Esci') }}
+                                    <span class="material-symbols-outlined text-xl">logout</span> {{ __('message.log_out') }}
                                 </button>
                             </form>
                         </div>
@@ -93,7 +93,7 @@
                 <div class="vue-island flex items-center gap-2">
                     <ui-button as="a" href="{{ route('Frontoffice.vendere') }}"
                         class="inline-flex bg-[#08B2B4] text-white font-bold rounded-xl px-2 md:px-4 h-8 md:h-10 text-xs md:text-sm transition-all">
-                        {{ __('Vendly subito') }}
+                        {{ __('message.sell_on_vendly') }}
                     </ui-button>
                 </div>
             </div>

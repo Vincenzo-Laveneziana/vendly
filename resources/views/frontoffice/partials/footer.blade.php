@@ -38,58 +38,58 @@
 
             <!-- AZIENDA -->
             <div class="flex flex-col">
-                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('AZIENDA') }}
+                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('message.company') }}
                 </h4>
                 <ul class="space-y-3 text-[13px] md:text-sm text-white/95">
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Chi Siamo') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.who_we_are') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Progetti futuri') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.future_projects') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Collaborazioni') }}
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.collaborations') }}
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Carriera') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.career') }}</a>
                     </li>
                 </ul>
             </div>
 
             <!-- AIUTO -->
             <div class="flex flex-col">
-                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('AIUTO') }}
+                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('message.help') }}
                 </h4>
                 <ul class="space-y-3 text-[13px] md:text-sm text-white/95">
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Servizio Clienti') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.customer_service') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Dettaglio spedizioni') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.shipping_details') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Termini & Condizioni') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.terms_and_conditions') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Privacy Policy') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.privacy_policy') }}</a>
                     </li>
                 </ul>
             </div>
 
             <!-- FAQ -->
             <div class="flex flex-col">
-                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('FAQ') }}</h4>
+                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('message.faq') }}</h4>
                 <ul class="space-y-3 text-[13px] md:text-sm text-white/95">
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Account') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.account') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Ordini') }}</a></li>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.orders') }}</a></li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Pagamenti') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.payments') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('Consegne') }}</a>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.deliveries') }}</a>
                     </li>
                 </ul>
             </div>

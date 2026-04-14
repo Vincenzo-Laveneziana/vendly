@@ -11,7 +11,7 @@
             <span class="material-symbols-outlined">error</span>
         </div>
         <div class="ml-3 text-sm font-normal text-gray-800">
-            <span class="font-bold block text-red-600">{{ __('Errore') }}</span>
+            <span class="font-bold block text-red-600">{{ __('message.error') }}</span>
             {{ $errors->first() }}
         </div>
         <button @click="show = false"

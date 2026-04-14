@@ -10,7 +10,7 @@
         <div id="chat-sidebar"
             class="flex w-full md:w-1/3 flex-col bg-white md:border md:border-gray-200 md:rounded-xl md:shadow-sm h-full overflow-hidden shrink-0">
             <div class="p-4 border-b border-gray-100 flex-shrink-0">
-                <h2 class="text-lg font-bold text-gray-800">{{ __('Le tue conversazioni') }}</h2>
+                <h2 class="text-lg font-bold text-gray-800">{{ __('message.your_conversations') }}</h2>
             </div>
         </div>
 
@@ -29,7 +29,7 @@
                     </svg>
                 </div>
 
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ __('Le tue conversazioni') }}</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ __('message.your_conversations') }}</h3>
                 <p class="text-sm text-gray-500 max-w-sm mx-auto">
                     {{ __('Seleziona una chat dalla barra laterale per visualizzare i messaggi o iniziare una nuova conversazione.') }}
                 </p>

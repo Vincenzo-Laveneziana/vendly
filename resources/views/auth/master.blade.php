@@ -70,7 +70,7 @@
                     <a href="/"
                         class="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-vendly transition-colors underline-offset-4 hover:underline">
                         <span class="material-symbols-outlined text-base">arrow_back</span>
-                        {{ __('Torna alla Home') }}
+                        {{ __('message.back_to_home') }}
                     </a>
                 </div>
             </div>

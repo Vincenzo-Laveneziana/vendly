@@ -1,34 +1,10 @@
 {
-    "5": {
-        "it": "Elettronica",
-        "en": "Electronics"
-    },
-    "10": {
-        "it": "Casa e Arredamento",
-        "en": "Home and Furniture"
-    },
-    "15": {
-        "it": "Sport",
-        "en": "Sport"
-    },
-    "20": {
-        "it": "Abbigliamento",
-        "en": "Clothing"
-    },
-    "25": {
-        "it": "Giardinaggio",
-        "en": "Gardening"
-    },
-    "30": {
-        "it": "Libri",
-        "en": "Books"
-    },
-    "35": {
-        "it": "Giochi e Videogiochi",
-        "en": "Games and Video Games"
-    },
-    "40": {
-        "it": "Musica e Film",
-        "en": "Music and Movies"
-    }
+    "5": "electronics",
+    "10": "home_and_furniture",
+    "15": "sport",
+    "20": "clothing",
+    "25": "gardening",
+    "30": "books",
+    "35": "games_and_video_games",
+    "40": "music_and_movies"
 }

@@ -54,12 +54,8 @@ class Product extends Model
     public function getCategoryNameAttribute(): string
     {
         $categories = self::categories();
-        $category = $categories[$this->category] ?? null;
+        $key = $categories[$this->category] ?? null;
 
-        if (is_array($category)) {
-            return $category[app()->getLocale()] ?? $category['it'] ?? __('Nessuna Categoria');
-        }
-
-        return $category ?? __('Nessuna Categoria');
+        return $key ? __('categories.' . $key) : __('messages.no_category');
     }
 }
