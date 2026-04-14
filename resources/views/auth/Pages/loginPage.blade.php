@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="text-center mb-8">
-        <h2 class="text-2xl font-bold text-gray-800">Accedi al tuo account</h2>
-        <p class="text-gray-400 text-sm mt-2 font-medium">Inserisci le credenziali per accedere</p>
+        <h2 class="text-2xl font-bold text-gray-800">{{ __('Accedi al tuo account') }}</h2>
+        <p class="text-gray-400 text-sm mt-2 font-medium">{{ __('Inserisci le credenziali per accedere') }}</p>
     </div>
 
     <form action="{{ route('Auth.login') }}" method="POST" class="space-y-5">
@@ -38,7 +38,7 @@
 
         <button type="submit"
             class="w-full bg-vendly hover:bg-[#0e9a96] text-white font-bold py-3 px-4 rounded-xl shadow-sm hover:shadow-md transition-all duration-300">
-            Accedi
+            {{ __('Accedi') }}
         </button>
 
     </form>
@@ -46,7 +46,7 @@
     <div class="mt-6">
         <a href="{{ route('Auth.regPage') }}"
             class="flex items-center justify-center w-full py-3 px-4 border-2 border-vendly/20 text-vendly font-bold rounded-xl hover:bg-vendly/5 transition-all duration-300">
-            Crea un account?
+            {{ __('Crea un account?') }}
         </a>
     </div>
 @endsection

@@ -31,6 +31,21 @@
         <div class="w-12 h-12 border-4 border-[#10b1ac] border-t-transparent rounded-full animate-spin"></div>
     </div>
 
+    <div class="fixed top-6 right-6 z-60 flex gap-2">
+        <a href="/language/it"
+            class="px-3 py-1.5 text-xs font-bold rounded-xl transition-all duration-300 shadow-sm flex items-center gap-1.5 {{ app()->getLocale() == 'it' ? 'bg-vendly text-white shadow-[#08B2B4]/30' : 'bg-white text-gray-500 hover:bg-gray-50 border border-gray-100' }}">
+            <span
+                class="w-1.5 h-1.5 rounded-full {{ app()->getLocale() == 'it' ? 'bg-white' : 'bg-transparent border border-gray-300' }}"></span>
+            IT
+        </a>
+        <a href="/language/en"
+            class="px-3 py-1.5 text-xs font-bold rounded-xl transition-all duration-300 shadow-sm flex items-center gap-1.5 {{ app()->getLocale() == 'en' ? 'bg-vendly text-white shadow-[#08B2B4]/30' : 'bg-white text-gray-500 hover:bg-gray-50 border border-gray-100' }}">
+            <span
+                class="w-1.5 h-1.5 rounded-full {{ app()->getLocale() == 'en' ? 'bg-white' : 'bg-transparent border border-gray-300' }}"></span>
+            EN
+        </a>
+    </div>
+
     <div class="flex flex-col lg:flex-row min-h-screen">
         <!-- Left Section: Image Collage (Hidden on mobile) -->
         <div class="hidden lg:flex lg:w-1/2 items-center justify-center p-12 bg-gray-50/30">
@@ -55,7 +70,7 @@
                     <a href="/"
                         class="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-vendly transition-colors underline-offset-4 hover:underline">
                         <span class="material-symbols-outlined text-base">arrow_back</span>
-                        Torna alla Home
+                        {{ __('Torna alla Home') }}
                     </a>
                 </div>
             </div>

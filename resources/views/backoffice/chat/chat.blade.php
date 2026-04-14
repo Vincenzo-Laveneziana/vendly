@@ -10,22 +10,7 @@
         <div id="chat-sidebar"
             class="flex w-full md:w-1/3 flex-col bg-white md:border md:border-gray-200 md:rounded-xl md:shadow-sm h-full overflow-hidden shrink-0">
             <div class="p-4 border-b border-gray-100 flex-shrink-0">
-                <h2 class="text-lg font-bold text-gray-800">Le tue conversazioni</h2>
-            </div>
-
-            <div class="flex-1 overflow-y-auto p-2 space-y-1">
-
-                {{-- Esempio di Chat nella lista (Trasformato in tag <a> per permettere la navigazione) --}}
-                    {{-- Quando farai il ciclo @foreach, qui inserirai l'URL corretto per aprire la chat --}}
-                    <a href="#"
-                        class="chat-item-btn block w-full text-left p-3 border-l-4 border-transparent hover:bg-gray-50 hover:border-blue-300 rounded-r-lg transition">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="font-semibold text-gray-800 text-sm truncate">Nome Utente / Prodotto</span>
-                            <span class="text-[10px] text-gray-400">10:30</span>
-                        </div>
-                        <p class="text-xs text-gray-500 truncate">Ultimo messaggio inviato...</p>
-                    </a>
-
+                <h2 class="text-lg font-bold text-gray-800">{{ __('Le tue conversazioni') }}</h2>
             </div>
         </div>
 
@@ -44,9 +29,9 @@
                     </svg>
                 </div>
 
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Le tue conversazioni</h3>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ __('Le tue conversazioni') }}</h3>
                 <p class="text-sm text-gray-500 max-w-sm mx-auto">
-                    Seleziona una chat dalla barra laterale per visualizzare i messaggi o iniziare una nuova conversazione.
+                    {{ __('Seleziona una chat dalla barra laterale per visualizzare i messaggi o iniziare una nuova conversazione.') }}
                 </p>
             </div>
 

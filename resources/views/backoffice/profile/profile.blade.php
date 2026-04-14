@@ -10,11 +10,11 @@
         <div class="max-w-7xl mx-auto my-6 px-4 md:px-8 pb-20">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
-                    I tuoi annunci
+                    {{ __('I tuoi annunci') }}
                 </h2>
                 <a href="{{ route('Frontoffice.explore') }}"
                     class="text-gray-700 hover:text-[#08B2B4] font-semibold text-sm flex items-center gap-1 transition">
-                    Vai agli annunci <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ __('Vai agli annunci') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
@@ -24,7 +24,7 @@
                     @include('frontoffice.partials.cardProdotto', ['product' => $product])
                 @empty
                     <div class="col-span-full text-center py-20 bg-gray-50 rounded-[2rem]">
-                        <p class="text-gray-500">Nessun annuncio trovato.</p>
+                        <p class="text-gray-500">{{ __('Nessun annuncio trovato.') }}</p>
                     </div>
                 @endforelse
             </div>

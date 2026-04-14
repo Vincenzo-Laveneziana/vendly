@@ -19,7 +19,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24">
 
                     <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-black text-gray-900">Filtri</h2>
+                        <h2 class="text-xl font-black text-gray-900">{{ __('Filtri') }}</h2>
                         <span class="material-symbols-outlined text-gray-400">tune</span>
                     </div>
 
@@ -29,7 +29,7 @@
                     <collapsible class="mb-6 w-full" :default-open="true">
                         <collapsible-trigger
                             class="w-full flex items-center justify-between mb-3 text-sm font-bold text-gray-700 cursor-pointer [&[data-state=open]>span.icon]:rotate-180">
-                            <span>Categorie</span>
+                            <span>{{ __('Categorie') }}</span>
                             <span
                                 class="icon material-symbols-outlined text-gray-400 text-sm transition-transform duration-200">expand_more</span>
                         </collapsible-trigger>
@@ -45,7 +45,7 @@
                                                 class="material-symbols-outlined absolute text-white text-[12px] opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
                                         </div>
                                         <span
-                                            class="text-sm text-gray-500 group-hover:text-gray-800 transition-colors">{{ $name }}</span>
+                                            class="text-sm text-gray-500 group-hover:text-gray-800 transition-colors">{{ $name[app()->getLocale()] ?? $name['it'] }}</span>
                                     </label>
                                 @endforeach
                             </div>
@@ -58,7 +58,7 @@
                     <collapsible class="mb-6 w-full text" :default-open="true">
                         <collapsible-trigger
                             class="w-full flex items-center justify-between mb-4 text-sm font-bold text-gray-700 cursor-pointer [&[data-state=open]>span.icon]:rotate-180">
-                            <span>Prezzo</span>
+                            <span>{{ __('Prezzo') }}</span>
                             <span
                                 class="icon material-symbols-outlined text-gray-400 text-sm transition-transform duration-200">expand_more</span>
                         </collapsible-trigger>
@@ -100,10 +100,10 @@
                     <!-- Località -->
                     <div>
                         <div class="flex items-center justify-between mb-3 text-sm font-bold text-gray-700">
-                            <span>Località</span>
+                            <span>{{ __('Località') }}</span>
                         </div>
                         <div class="relative group flex justify-center">
-                            <input type="text" id="locationInput" placeholder="Cerca.."
+                            <input type="text" id="locationInput" placeholder="{{ __('Cerca..') }}"
                                 class="w-full pl-3 pr-8 py-2 text-sm font-medium border border-gray-200 rounded-lg text-gray-700 outline-none focus:border-[#08B2B4]">
                             <span id="clearLocation"
                                 class="material-symbols-outlined absolute top-8 -translate-y-1/2 right-3 text-gray-400 text-lg transition-colors hover:text-red-400 cursor-pointer hidden">close</span>
@@ -126,7 +126,7 @@
                 <div id="noResults"
                     class="w-full text-center py-20 bg-white shadow-sm border border-gray-100 rounded-2xl hidden">
                     <span class="material-symbols-outlined text-5xl text-gray-300 mb-4">search_off</span>
-                    <p class="text-gray-500 font-medium">Nessun annuncio trovato con questi filtri.</p>
+                    <p class="text-gray-500 font-medium">{{ __('Nessun annuncio trovato con questi filtri.') }}</p>
                 </div>
 
                 <!-- Paginazione JS -->

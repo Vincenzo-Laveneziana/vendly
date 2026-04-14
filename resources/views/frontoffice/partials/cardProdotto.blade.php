@@ -22,7 +22,7 @@
         <div class="flex items-center justify-between mb-2 md:mb-3">
             <span
                 class="inline-flex items-center px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[8px] md:text-[9px] font-black bg-white text-gray-800 uppercase tracking-widest border-2 border-[#08B2B4]">
-                {{ $product->category_name ?? 'CATEGORIA' }}
+                {{ $product->category_name ?? __('CATEGORIA') }}
             </span>
             <button
                 class="relative z-20 text-[#08B2B4] hover:scale-110 transition-transform hidden md:block focus:outline-none">
@@ -50,7 +50,7 @@
         <div class="pt-3 md:pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
             <div class="flex flex-col">
                 <span
-                    class="text-[8px] md:text-[9px] text-gray-500 uppercase font-black tracking-widest leading-none mb-1">PREZZO</span>
+                    class="text-[8px] md:text-[9px] text-gray-500 uppercase font-black tracking-widest leading-none mb-1">{{ __('PREZZO') }}</span>
                 <span class="text-sm md:text-lg font-black text-gray-900 leading-none">
                     € {{ number_format($product->price, 2, ',', '.') }}
                 </span>

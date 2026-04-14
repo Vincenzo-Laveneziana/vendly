@@ -13,7 +13,7 @@
         <div id="chat-sidebar"
             class="hidden md:flex w-full md:w-1/3 flex-col bg-white md:border md:border-gray-200 md:rounded-xl md:shadow-sm h-full overflow-hidden shrink-0">
             <div class="p-4 border-b border-gray-100 flex-shrink-0">
-                <h2 class="text-lg font-bold text-gray-800">Le tue conversazioni</h2>
+                <h2 class="text-lg font-bold text-gray-800">{{ __('Le tue conversazioni') }}</h2>
             </div>
 
             <div class="flex-1 overflow-y-auto p-2 space-y-1">
@@ -29,11 +29,11 @@
 
                         <a href="{{ route('Backoffice.createChat', ['idProdotto' => $chat->product_id, 'idConversazione' => $chat->id]) }}"
                             class="chat-item-btn block w-full p-3 border-l-4 rounded-r-lg transition 
-                                                                                                                                                                                            {{ $isActive ? 'bg-blue-50 border-blue-600' : 'border-transparent hover:bg-gray-50' }}">
+                                                                                                                                                                                                                                            {{ $isActive ? 'bg-blue-50 border-blue-600' : 'border-transparent hover:bg-gray-50' }}">
 
                             <div class="flex justify-between items-center mb-1">
                                 <span class="font-semibold text-gray-800 text-sm truncate">
-                                    {{ $otherPerson->name ?? 'Utente eliminato' }}
+                                    {{ $otherPerson->name ?? __('Utente eliminato') }}
                                 </span>
                                 <span class="text-[10px] text-gray-400">
                                     {{ $chat->updated_at->format('d/m H:i') }}
@@ -41,13 +41,13 @@
                             </div>
 
                             <p class="text-xs {{ $isActive ? 'text-gray-600' : 'text-gray-500' }} truncate">
-                                {{ $chat->product->title ?? 'Prodotto rimosso' }}
+                                {{ $chat->product->title ?? __('Prodotto rimosso') }}
                             </p>
                         </a>
                     @endforeach
                 @else
                     <div class="p-4 text-center">
-                        <p class="text-sm text-gray-500">Non hai ancora nessuna conversazione.</p>
+                        <p class="text-sm text-gray-500">{{ __('Non hai ancora nessuna conversazione.') }}</p>
                     </div>
                 @endif
             </div>
@@ -70,7 +70,7 @@
                 @if(isset($product))
                     @include('backoffice.chat.partials.chatWindow')
                 @else
-                    <div>Selezione Chat</div>
+                    <div>{{ __('Seleziona Chat') }}</div>
                 @endif
             </div>
             @if(isset($product))
