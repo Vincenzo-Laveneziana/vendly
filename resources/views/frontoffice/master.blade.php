@@ -32,6 +32,10 @@
 
 </body>
 <style>
+    [x-cloak] {
+        display: none !important;
+    }
+
     body {
         font-family: 'Satoshi-Regular', sans-serif;
     }

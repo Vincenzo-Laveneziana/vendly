@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Product;
+use App\Models\Favorite;
 
 class UserController extends Controller
 {
@@ -40,12 +41,26 @@ class UserController extends Controller
     public function showProfile()
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
-        $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
+        $productsCount = Product::where('user_id', Auth::id())->count();
 
         $soldProductCount = Product::where('user_id', Auth::id())->whereNotNull('sold_at')->count();
 
         $pendingProductCount = Product::where('user_id', Auth::id())->whereNull('sold_at')->count();
 
-        return view('backoffice.profile.profile', compact('products', 'soldProductCount', 'pendingProductCount'));
+        return view('backoffice.profile.profile', compact('productsCount', 'soldProductCount', 'pendingProductCount'));
+    }
+
+    public function showAds()
+    {
+        $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
+
+        return view('backoffice.profile.ads', compact('products'));
+    }
+
+    public function showFavorites()
+    {
+        $favorites = Favorite::where('user_id', Auth::id())->get();
+
+        return view('backoffice.profile.favorites', compact('favorites'));
     }
 }

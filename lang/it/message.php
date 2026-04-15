@@ -112,4 +112,11 @@ return [
     'my_ads' => 'I miei Annunci',
     'my_orders' => 'I miei Ordini',
     'my_chats' => 'Le mie Chat',
+    'your_favorite' => 'I tuoi preferiti',
+    'search_chat' => 'Cerca chat...',
+    'product_removed' => 'Prodotto rimosso',
+    'user_placeholder' => 'Utente',
+    'no_conversations' => 'Nessuna conversazione ancora.',
+    'select_chat_instruction' => 'Seleziona una chat dalla barra laterale per visualizzare i messaggi o iniziare una nuova conversazione.',
+    'view' => 'Vedi',
 ];

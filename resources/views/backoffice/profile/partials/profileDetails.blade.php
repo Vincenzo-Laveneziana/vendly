@@ -36,7 +36,7 @@
                         <div class="flex justify-between items-center">
                             <span
                                 class="text-[14px] text-gray-500 font-bold">{{ __('message.products_uploaded') }}</span>
-                            <span class="text-xl font-normal text-gray-900">{{ $products->count() }}</span>
+                            <span class="text-xl font-normal text-gray-900">{{ $productsCount }}</span>
                         </div>
                         <div class="flex justify-between items-center">
                             <span class="text-[14px] text-gray-500 font-bold">{{ __('message.products_sold') }}</span>

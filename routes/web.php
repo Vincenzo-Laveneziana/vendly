@@ -38,6 +38,10 @@ Route:: as('Backoffice.')->group(function () {
     // Backoffice 
     Route::middleware(['auth'])->group(function () {
 
+        // Product
+
+        Route::post('/favorite/{product}', [ProductController::class, 'addFavorite'])->name('addFavorite');
+
         //chat
 
         Route::get('/chat/{idProdotto?}/{idConversazione?}', [ChatController::class, 'show'])->name('createChat');
@@ -46,13 +50,16 @@ Route:: as('Backoffice.')->group(function () {
 
         Route::get('/chat/{conversation}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
 
-        //vendita
-
-        Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
+        //profilo
 
         Route::get('/profilo', [UserController::class, 'showProfile'])->name('profile');
 
+        Route::get('/profilo/annunci', [UserController::class, 'showAds'])->name('ads');
+
+        Route::get('/profilo/preferiti', [UserController::class, 'showFavorites'])->name('favorites');
+
         // Vendita
+        Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
 
         Route::get('/vendere/form', function () {
             $categories = Product::categories();

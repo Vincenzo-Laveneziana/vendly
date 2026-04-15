@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Models\Favorite;
 
 class ProductController extends Controller
 {
@@ -44,6 +44,28 @@ class ProductController extends Controller
                 'success' => false,
                 'message' => 'Errore durante il salvataggio: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    public function addFavorite(Product $product)
+    {
+        $favorite = Favorite::where('product_id', $product->id)->where('user_id', Auth::id())->first();
+
+        if ($favorite) {
+            $favorite->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Prodotto rimosso dai preferiti!',
+            ], 200);
+        } else {
+            $favorite = Favorite::create([
+                'product_id' => $product->id,
+                'user_id' => Auth::id(),
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Prodotto aggiunto ai preferiti!',
+            ], 200);
         }
     }
 

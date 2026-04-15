@@ -72,8 +72,7 @@
                                         class="w-full h-12 px-4 pr-10 text-sm bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#08B2B4]/10 focus:border-[#08B2B4] transition-all appearance-none cursor-pointer">
                                         <option value="" selected>{{ __('message.choose_category') }}</option>
                                         @foreach($categories as $id => $name)
-                                            <option value="{{ $id }}">{{ $name[app()->getLocale()] ?? $name['it'] }}
-                                            </option>
+                                            <option value="{{ $id }}">{{ __('categories.' . $name) }}</option>
                                         @endforeach
                                     </select>
                                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -145,13 +144,13 @@
                 const div = document.createElement('div');
                 div.className = "relative group aspect-square animate-fade-in";
                 div.innerHTML = `
-                                                                                                <div class="loading-placeholder h-full w-full rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-center">
-                                                                                                    <svg class="animate-spin h-6 w-6 text-[#08B2B4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                                                                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
-                                                                                                    </svg>
-                                                                                                </div>
-                                                                                            `;
+                                                                                                        <div class="loading-placeholder h-full w-full rounded-2xl border border-gray-100 bg-gray-50 flex items-center justify-center">
+                                                                                                            <svg class="animate-spin h-6 w-6 text-[#08B2B4]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                                                                                                            </svg>
+                                                                                                        </div>
+                                                                                                    `;
                 container.appendChild(div);
 
                 compressImage(file).then(compressedFile => {
@@ -160,16 +159,16 @@
                     const reader = new FileReader();
                     reader.onload = function (event) {
                         div.innerHTML = `
-                                                                                                <div class="relative h-full w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm group">
-                                                                                                    <img src="${event.target.result}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
-                                                                                                    <div class="cover-badge hidden absolute top-1.5 left-1.5 bg-[#08B2B4] text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm">
-                                                                                                        Copertina
-                                                                                                    </div>
-                                                                                                    <button type="button" class="remove-img-btn absolute top-1.5 right-1.5 bg-white/90 text-gray-600 rounded-full h-6 w-6 flex items-center justify-center shadow-sm hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100">
-                                                                                                        <span class="material-symbols-outlined text-[14px]">close</span>
-                                                                                                    </button>
-                                                                                                </div>
-                                                                                            `;
+                                                                                                        <div class="relative h-full w-full rounded-2xl overflow-hidden border border-gray-100 shadow-sm group">
+                                                                                                            <img src="${event.target.result}" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                                                                                            <div class="cover-badge hidden absolute top-1.5 left-1.5 bg-[#08B2B4] text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+                                                                                                                Copertina
+                                                                                                            </div>
+                                                                                                            <button type="button" class="remove-img-btn absolute top-1.5 right-1.5 bg-white/90 text-gray-600 rounded-full h-6 w-6 flex items-center justify-center shadow-sm hover:bg-red-500 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                                                                                                                <span class="material-symbols-outlined text-[14px]">close</span>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                    `;
 
                         div.querySelector('.remove-img-btn').onclick = function () {
                             filesArray = filesArray.filter(f => f !== compressedFile);

@@ -85,11 +85,44 @@
             <div class="flex items-center gap-2 relative z-20">
                 <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
                     title="Condividi">
+                    <!-- Eventuale implementazione share futura -->
                     <span class="material-symbols-outlined text-[#08B2B4] text-[20px]">share</span>
                 </button>
-                <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
+                
+                @php
+                    $isFavorite = auth()->check() ? \App\Models\Favorite::where('product_id', $product->id)->where('user_id', auth()->id())->exists() : false;
+                @endphp
+                <button 
+                    x-data="{ isFavorite: {{ $isFavorite ? 'true' : 'false' }} }"
+                    @click.prevent="
+                        if (!{{ auth()->check() ? 'true' : 'false' }}) {
+                            window.location.href = '{{ route('Auth.loginPage') }}';
+                            return;
+                        }
+                        
+                        fetch('{{ route('Backoffice.addFavorite', $product->id) }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if(data.success) {
+                                isFavorite = !isFavorite;
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                    "
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
                     title="Aggiungi ai preferiti">
-                    <span class="material-symbols-outlined text-[#08B2B4] text-[22px]">favorite</span>
+                    <span class="material-symbols-outlined text-[22px] transition-colors"
+                          :class="isFavorite ? 'text-red-500' : 'text-[#08B2B4]'"
+                          :style="isFavorite ? 'font-variation-settings: \'FILL\' 1' : 'font-variation-settings: \'FILL\' 0'">
+                        favorite
+                    </span>
                 </button>
             </div>
         </div>
