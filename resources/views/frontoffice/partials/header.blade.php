@@ -1,4 +1,4 @@
-<header class="bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm sticky top-0 z-50">
+<header class="bg-white/80 backdrop-blur-md sticky top-0 z-50">
     <div class="container mx-auto px-2 sm:px-2 lg:px-4 flex justify-between items-center h-16 md:h-20">
 
         <!-- Logo e Navigazione Principale -->
@@ -76,14 +76,16 @@
                             </a>
                             <a href="{{ route('Backoffice.sellForm') }}"
                                 class="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#08B2B4] transition-colors">
-                                <span class="material-symbols-outlined text-xl">add_circle</span> {{ __('message.create_ad') }}
+                                <span class="material-symbols-outlined text-xl">add_circle</span>
+                                {{ __('message.create_ad') }}
                             </a>
                             <div class="border-t border-gray-200 my-1"></div>
                             <form method="POST" action="{{ route('Auth.logout') }}">
                                 @csrf
                                 <button type="submit"
                                     class="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold">
-                                    <span class="material-symbols-outlined text-xl">logout</span> {{ __('message.log_out') }}
+                                    <span class="material-symbols-outlined text-xl">logout</span>
+                                    {{ __('message.log_out') }}
                                 </button>
                             </form>
                         </div>

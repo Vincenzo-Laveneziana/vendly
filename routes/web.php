@@ -50,7 +50,7 @@ Route:: as('Backoffice.')->group(function () {
 
         Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
 
-        Route::get('/profilo', [UserController::class, 'showUserProducts'])->name('profile');
+        Route::get('/profilo', [UserController::class, 'showProfile'])->name('profile');
 
         // Vendita
 

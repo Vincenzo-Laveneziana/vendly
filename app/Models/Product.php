@@ -56,6 +56,6 @@ class Product extends Model
         $categories = self::categories();
         $key = $categories[$this->category] ?? null;
 
-        return $key ? __('categories.' . $key) : __('messages.no_category');
+        return $key ? __('categories.' . $key) : __('message.no_category');
     }
 }

@@ -16,12 +16,6 @@
     <!-- Sfondo base fisso -->
     <div class="fixed inset-0 bg-gray-100 -z-20"></div>
 
-    <!-- Blob decorativi globali -->
-    <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="fixed bottom-0 -left-32 w-64 md:w-[28rem] pointer-events-none rotate-[15deg] opacity-60 -z-10 select-none">
-    <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="fixed top-16 -right-32 w-64 md:w-[28rem] pointer-events-none -rotate-[20deg] opacity-60 -z-10 select-none">
-
     <div id="page-loader"
         class="fixed inset-0 flex items-center justify-center bg-white transition-opacity duration-500">
         <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
@@ -39,7 +33,7 @@
 </body>
 <style>
     body {
-        font-family: 'Satoshi-Variable', sans-serif;
+        font-family: 'Satoshi-Regular', sans-serif;
     }
 
     .text-vendly {

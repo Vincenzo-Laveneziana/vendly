@@ -37,11 +37,15 @@ class UserController extends Controller
         ]);
     }
 
-    public function showUserProducts()
+    public function showProfile()
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
         $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
 
-        return view('backoffice.profile.profile', compact('products'));
+        $soldProductCount = Product::where('user_id', Auth::id())->whereNotNull('sold_at')->count();
+
+        $pendingProductCount = Product::where('user_id', Auth::id())->whereNull('sold_at')->count();
+
+        return view('backoffice.profile.profile', compact('products', 'soldProductCount', 'pendingProductCount'));
     }
 }

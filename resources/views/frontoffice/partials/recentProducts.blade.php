@@ -7,8 +7,7 @@
 
     <div class="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div class="flex flex-col items-center justify-center mb-12 mt-8">
-            <h2 class="text-2xl md:text-4xl font-black text-[#08B2B4] uppercase"
-                style="font-family: 'Integralcf', sans-serif;">
+            <h2 class="text-2xl md:text-4xl text-vendly uppercase">
                 {{ __('message.recent_ads') }}
             </h2>
         </div>
