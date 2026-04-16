@@ -45,7 +45,7 @@
                 oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
 
             <button type="submit"
-                class="absolute right-2 w-10 h-10 flex items-center justify-center bg-transparent text-vendly hover:bg-gray-50 rounded-full transition-all active:scale-90">
+                class="absolute right-2 w-10 h-10 flex items-center justify-center bg-transparent text-green hover:bg-gray-50 rounded-full transition-all active:scale-90">
                 <span class="material-symbols-outlined text-[24px]">send</span>
             </button>
         </div>

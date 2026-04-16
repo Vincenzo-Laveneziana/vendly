@@ -15,7 +15,7 @@
                 <div
                     class="relative flex items-center bg-white/95 rounded-2xl shadow-inner border border-white/20 px-3 group focus-within:ring-2 focus-within:ring-white/20 transition-all">
                     <span
-                        class="material-symbols-outlined text-gray-400 text-lg transition-colors group-focus-within:text-vendly flex-shrink-0">search</span>
+                        class="material-symbols-outlined text-gray-400 text-lg transition-colors group-focus-within:text-green flex-shrink-0">search</span>
                     <input type="text" placeholder="{{ __('message.search_chat') }}"
                         class="w-full pl-2 pr-4 py-2 bg-transparent border-none focus:outline-none focus:ring-0 text-sm">
                 </div>

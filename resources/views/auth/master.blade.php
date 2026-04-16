@@ -8,20 +8,6 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <style>
-        body {
-            font-family: 'Satoshi-VariableItalic', sans-serif;
-        }
-
-        .text-vendly {
-            font-family: 'Integralcf-bold', sans-serif;
-            color: #08B2B4;
-        }
-
-        .bg-vendly {
-            background-color: #08B2B4;
-        }
-    </style>
 </head>
 
 <body class="bg-white min-h-screen">
@@ -69,7 +55,7 @@
                 <!-- Back to Home Link -->
                 <div class="mt-8">
                     <a href="/"
-                        class="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-vendly transition-colors underline-offset-4 hover:underline">
+                        class="flex items-center justify-center gap-2 text-sm text-gray-500 hover:text-green transition-colors underline-offset-4 hover:underline">
                         <span class="material-symbols-outlined text-base">arrow_back</span>
                         {{ __('message.back_to_home') }}
                     </a>

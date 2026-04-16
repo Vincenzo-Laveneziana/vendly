@@ -44,21 +44,21 @@
                 <div class="flex items-center gap-2 md:gap-3">
                     <!-- Help Icon -->
                     <a href="#"
-                        class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly/30 text-vendly hover:bg-vendly/5 transition-all">
+                        class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly/30 text-green hover:bg-vendly/5 transition-all">
                         <span class="material-symbols-outlined text-xl md:text-2xl">help</span>
                     </a>
 
                     @auth
                         <!-- Chat Icon -->
                         <a href="{{ route('Backoffice.createChat') }}"
-                            class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly/30 text-vendly hover:bg-vendly/5 transition-all relative">
+                            class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly/30 text-green hover:bg-vendly/5 transition-all relative">
                             <span class="material-symbols-outlined text-xl md:text-2xl">chat_bubble</span>
                         </a>
 
                         <!-- Profile Icon Dropdown -->
                         <div class="relative" x-data="{ open: false }">
                             <div @click="open = !open"
-                                class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly text-vendly hover:bg-vendly/5 transition-all cursor-pointer">
+                                class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly text-green hover:bg-vendly/5 transition-all cursor-pointer">
                                 <span class="material-symbols-outlined text-xl md:text-2xl">account_circle</span>
                             </div>
 
@@ -69,12 +69,12 @@
                                 x-transition:enter-end="transform opacity-100 scale-100"
                                 class="absolute right-0 mt-3 w-56 bg-white border border-gray-100 rounded-[1.5rem] shadow-xl py-3 z-50 overflow-hidden ring-1 ring-black/5">
                                 <a href="{{ route('Backoffice.profile') }}"
-                                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-vendly/5 hover:text-vendly transition-colors">
+                                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-vendly/5 hover:text-green transition-colors">
                                     <span class="material-symbols-outlined text-xl">person</span>
                                     {{ __('message.profile') }}
                                 </a>
                                 <a href="{{ route('Backoffice.sellForm') }}"
-                                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-vendly/5 hover:text-vendly transition-colors">
+                                    class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-gray-700 hover:bg-vendly/5 hover:text-green transition-colors">
                                     <span class="material-symbols-outlined text-xl">add_circle</span>
                                     {{ __('message.create_ad') }}
                                 </a>
@@ -91,7 +91,7 @@
                         </div>
                     @else
                         <a href="{{ route('Auth.loginPage') }}"
-                            class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly text-vendly hover:bg-vendly/5 transition-all">
+                            class="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full border border-vendly text-green hover:bg-vendly/5 transition-all">
                             <span class="material-symbols-outlined text-xl md:text-2xl">login</span>
                         </a>
                     @endauth
@@ -105,7 +105,7 @@
 
                 <!-- Mobile Menu Toggle -->
                 <button @click="mobileSearch = !mobileSearch"
-                    class="md:hidden flex items-center justify-center w-10 h-10 text-vendly active:scale-90 transition-transform">
+                    class="md:hidden flex items-center justify-center w-10 h-10 text-green active:scale-90 transition-transform">
                     <span class="material-symbols-outlined text-3xl"
                         x-text="mobileSearch ? 'close' : 'menu'">menu</span>
                 </button>
@@ -148,7 +148,7 @@
         <form action="{{ route('Frontoffice.ricerca') }}" method="GET" class="w-full">
             <div class="relative flex items-center group">
                 <span
-                    class="material-symbols-outlined absolute left-3 text-gray-400 text-lg transition-colors group-focus-within:text-vendly select-none">search</span>
+                    class="material-symbols-outlined absolute left-3 text-gray-400 text-lg transition-colors group-focus-within:text-green select-none">search</span>
                 <input type="text" name="query" placeholder="{{ __('message.search_products') }}"
                     class="w-full pl-10 pr-4 py-2.5 bg-gray-100/80 focus:bg-white border border-transparent focus:border-vendly/20 rounded-xl text-sm shadow-inner outline-none transition-all">
             </div>

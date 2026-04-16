@@ -54,10 +54,12 @@
                 <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[220px] xl:min-w-[280px] lg:pr-8">
                     <label class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.location') }}</label>
                     <div class="relative">
-                        <input id="locationInput" type="text" placeholder="{{ __('message.all_cities') }}"
-                            class="w-full h-11 pl-4 pr-10 text-[15px] border border-gray-200 rounded-xl outline-none focus:border-vendly focus:ring-4 focus:ring-vendly/10 bg-white shadow-sm transition-all" />
+                        <div class="vue-island">
+                            <ui-input id="locationInput" type="text" placeholder="{{ __('message.all_cities') }}"
+                                class="pr-10" />
+                        </div>
                         <span id="clearLocation"
-                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 cursor-pointer hidden text-xl">close</span>
+                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 cursor-pointer hidden text-xl z-20">close</span>
                     </div>
                 </div>
 
@@ -69,14 +71,9 @@
                     <label
                         class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.price_filter') }}</label>
                     <div class="px-2 pt-3 pb-0">
-                        <div id="priceSlider" class="relative w-full h-[6px] bg-gray-200 rounded-full mb-3 shadow-inner">
-                            <div id="sliderRange" class="absolute h-full bg-[#08B2B4] rounded-full"></div>
-                            <div id="thumbMin"
-                                class="absolute -top-[5px] w-4 h-4 bg-white border-2 border-[#08B2B4] rounded-full cursor-pointer z-10 shadow-sm">
-                            </div>
-                            <div id="thumbMax"
-                                class="absolute -top-[5px] w-4 h-4 bg-white border-2 border-[#08B2B4] rounded-full cursor-pointer z-10 shadow-sm">
-                            </div>
+                        <div class="vue-island">
+                            <ui-slider :model-value="[0, 500]" :max="500" :step="5" class="py-4"
+                                @update:model-value="val => { window.updatePriceRange(val[0], val[1]) }" />
                         </div>
                         <div class="flex items-center justify-between text-sm text-gray-900 px-2 font-medium">
                             <span>{{ __('message.money') }} <span id="priceMinLabel">0</span></span>
@@ -89,22 +86,19 @@
 
                 <!-- Divider -->
                 <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
-
                 <!-- Ordina Container -->
-                <div class="flex flex-row items-center gap-4 w-full lg:w-auto md:w-auto lg:pr-0">
-                    <button id="sortAsc"
-                        class="flex-1 lg:flex-none h-11 px-4 flex items-center justify-center gap-2 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-vendly bg-white transition-all shadow-sm">
+                <div class="flex flex-row items-center gap-4 w-full lg:w-auto md:w-auto lg:pr-0 vue-island">
+                    <ui-button id="sortAsc" variant="outline" size="sm"
+                        class="flex-1 lg:flex-none uppercase text-[11px] font-bold h-11 px-4 gap-2">
                         <span class="material-symbols-outlined text-gray-600 text-[20px]">arrow_upward</span>
-                        <span
-                            class="text-sm text-gray-700 font-medium whitespace-nowrap">{{ __('message.price_ascending') }}</span>
-                    </button>
+                        {{ __('message.price_ascending') }}
+                    </ui-button>
 
-                    <button id="sortDesc"
-                        class="flex-1 lg:flex-none h-11 px-4 flex items-center justify-center gap-2 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-vendly bg-white transition-all shadow-sm">
+                    <ui-button id="sortDesc" variant="outline" size="sm"
+                        class="flex-1 lg:flex-none uppercase text-[11px] font-bold h-11 px-4 gap-2">
                         <span class="material-symbols-outlined text-gray-600 text-[20px]">arrow_downward</span>
-                        <span
-                            class="text-sm text-gray-700 font-medium whitespace-nowrap">{{ __('message.price_descending') }}</span>
-                    </button>
+                        {{ __('message.price_descending') }}
+                    </ui-button>
                 </div>
 
             </div>
@@ -149,7 +143,8 @@
             </div>
 
             <!-- Paginazione JS -->
-            <div id="paginationContainer" class="mt-12 flex justify-center items-center gap-2 select-none"></div>
+            <!-- Paginazione JS -->
+            <div id="paginationContainer" class="mt-12 flex justify-center items-center gap-2 select-none vue-island"></div>
 
         </div>
     </div>
@@ -286,61 +281,61 @@
 
                 if (query) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
-                                                <b>${query}</b>
-                                                <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                                                            <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
+                                                            <b>${query}</b>
+                                                            <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                            </button>
+                                                        </span>`;
                 }
 
                 if (categorySelect.value) {
                     const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
-                                                <b>${categoryText}</b>
-                                                <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                                                            <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
+                                                            <b>${categoryText}</b>
+                                                            <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                            </button>
+                                                        </span>`;
                 }
 
                 if (locationInput.value.trim()) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
-                                                <b>${locationInput.value}</b>
-                                                <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                                                            <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
+                                                            <b>${locationInput.value}</b>
+                                                            <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                            </button>
+                                                        </span>`;
                 }
 
                 if (parseFloat(priceMinHidden.value) > 0 || parseFloat(priceMaxHidden.value) < PRICE_MAX_LIMIT) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
-                                                <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
-                                                <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                                                            <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
+                                                            <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
+                                                            <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                            </button>
+                                                        </span>`;
                 }
 
                 if (currentSort === 'asc') {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
-                                                <b>{{ __('message.price_ascending') }}</b>
-                                                <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                                                            <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
+                                                            <b>{{ __('message.price_ascending') }}</b>
+                                                            <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                            </button>
+                                                        </span>`;
                 } else if (currentSort === 'desc') {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
-                                                <b>{{ __('message.price_descending') }}</b>
-                                                <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                                                            <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
+                                                            <b>{{ __('message.price_descending') }}</b>
+                                                            <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                            </button>
+                                                        </span>`;
                 }
 
                 if (summaryHTML === '') {
@@ -382,76 +377,39 @@
                 paginationContainer.innerHTML = '';
                 if (totalPages <= 1) return;
 
-                const prevBtn = createPageBtn('chevron_left', currentPage <= 1);
-                prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; renderPage(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
-                paginationContainer.appendChild(prevBtn);
-
-                for (let i = 1; i <= totalPages; i++) {
-                    const btn = document.createElement('button');
-                    btn.textContent = i;
-                    btn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
-                    btn.onclick = () => { currentPage = i; renderPage(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
-                    paginationContainer.appendChild(btn);
-                }
-
-                const nextBtn = createPageBtn('chevron_right', currentPage >= totalPages);
-                nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; renderPage(); window.scrollTo({ top: 0, behavior: 'smooth' }); } };
-                paginationContainer.appendChild(nextBtn);
+                paginationContainer.innerHTML = `
+                                <ui-pagination :total="${filteredCards.length}" :items-per-page="${ITEMS_PER_PAGE}" :default-page="${currentPage}"
+                                    @update:page="p => { window.onPageChange(p) }">
+                                    <ui-pagination-content>
+                                        <ui-pagination-prev />
+                                        <ui-pagination-item v-for="p in ${totalPages}" :key="p">
+                                            <ui-pagination-link :is-active="p === ${currentPage}" @click="window.onPageChange(p)">
+                                                \${p}
+                                            </ui-pagination-link>
+                                        </ui-pagination-item>
+                                        <ui-pagination-next />
+                                    </ui-pagination-content>
+                                </ui-pagination>
+                            `;
             }
 
-            function createPageBtn(icon, disabled) {
-                const btn = document.createElement('button');
-                btn.innerHTML = `<span class="material-symbols-outlined">${icon}</span>`;
-                btn.className = `page-btn ${disabled ? 'disabled' : ''}`;
-                return btn;
-            }
+            window.onPageChange = function (p) {
+                currentPage = p;
+                renderPage();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
 
             let dragging = null;
             let sliderMin = 0;
             let sliderMax = PRICE_MAX_LIMIT;
 
-            function updateSliderUI() {
-                const trackWidth = sliderTrack.offsetWidth;
-                const minPercent = (sliderMin / PRICE_MAX_LIMIT) * 100;
-                const maxPercent = (sliderMax / PRICE_MAX_LIMIT) * 100;
-
-                thumbMin.style.left = `calc(${minPercent}% - 8px)`;
-                thumbMax.style.left = `calc(${maxPercent}% - 8px)`;
-                sliderRange.style.left = `${minPercent}%`;
-                sliderRange.style.width = `${maxPercent - minPercent}%`;
-
-                priceMinLabel.textContent = Math.round(sliderMin);
-                priceMaxLabel.textContent = Math.round(sliderMax);
-                priceMinHidden.value = Math.round(sliderMin);
-                priceMaxHidden.value = Math.round(sliderMax);
+            window.updatePriceRange = function (min, max) {
+                priceMinHidden.value = Math.round(min);
+                priceMaxHidden.value = Math.round(max);
+                priceMinLabel.textContent = Math.round(min);
+                priceMaxLabel.textContent = Math.round(max);
+                applyFilters();
             }
-
-            function getSliderValue(clientX) {
-                const rect = sliderTrack.getBoundingClientRect();
-                let percent = (clientX - rect.left) / rect.width;
-                percent = Math.max(0, Math.min(1, percent));
-                return Math.round(percent * PRICE_MAX_LIMIT / 5) * 5;
-            }
-
-            function onPointerMove(e) {
-                if (!dragging) return;
-                const val = getSliderValue(e.clientX);
-                if (dragging === 'min') sliderMin = Math.min(val, sliderMax - 5);
-                else sliderMax = Math.max(val, sliderMin + 5);
-                updateSliderUI();
-            }
-
-            function onPointerUp() {
-                if (dragging) {
-                    dragging = null;
-                    applyFilters();
-                }
-                document.removeEventListener('pointermove', onPointerMove);
-                document.removeEventListener('pointerup', onPointerUp);
-            }
-
-            thumbMin.onpointerdown = e => { dragging = 'min'; document.addEventListener('pointermove', onPointerMove); document.addEventListener('pointerup', onPointerUp); };
-            thumbMax.onpointerdown = e => { dragging = 'max'; document.addEventListener('pointermove', onPointerMove); document.addEventListener('pointerup', onPointerUp); };
 
             categorySelect.onchange = applyFilters;
             locationInput.oninput = function () {
@@ -473,8 +431,6 @@
                 sortAscBtn.classList.remove('sort-active');
                 applyFilters();
             };
-
-            updateSliderUI();
             applyFilters();
         });
     </script>

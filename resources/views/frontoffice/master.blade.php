@@ -35,19 +35,6 @@
     [x-cloak] {
         display: none !important;
     }
-
-    body {
-        font-family: 'Satoshi-Regular', sans-serif;
-    }
-
-    .text-vendly {
-        font-family: 'Integralcf-bold', sans-serif;
-        color: #08B2B4;
-    }
-
-    .bg-vendly {
-        background-color: #08B2B4;
-    }
 </style>
 <script>
     window.addEventListener('load', function () {

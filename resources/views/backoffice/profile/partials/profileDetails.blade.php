@@ -60,11 +60,12 @@
         <div class="bg-white rounded-[2rem] md:rounded-[40px] shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-8 py-6 md:px-12 md:py-8 border-b border-gray-50 flex justify-between items-center">
                 <h2 class="text-xl font-semibold text-gray-900 tracking-tight">{{ __('message.personal_info') }}</h2>
-                <button @click="openModal = true"
-                    class="inline-flex items-center gap-2 bg-[#08B2B4] hover:bg-[#079fa1] text-white font-semibold text-[11px] uppercase tracking-wider py-2.5 px-6 rounded-xl transition-all shadow-sm active:scale-95">
-                    <span class="material-symbols-outlined text-[16px]">edit</span>
-                    {{ __('message.edit') }}
-                </button>
+                <div class="vue-island">
+                    <ui-button @click="openModal = true" variant="default" size="sm" class="gap-2 uppercase tracking-wider text-[11px]">
+                        <span class="material-symbols-outlined text-[16px]">edit</span>
+                        {{ __('message.edit') }}
+                    </ui-button>
+                </div>
             </div>
             <div class="p-8 md:p-12">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-y-10 gap-x-12">
@@ -164,96 +165,112 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                     <!-- Nome/Cognome -->
                     <div class="space-y-6 md:space-y-8">
-                        <h3 class="text-xs font-semibold text-[#08B2B4] uppercase tracking-[0.2em] pt-2">
+                        <h3 class="text-xs font-semibold text-green uppercase tracking-[0.2em] pt-2">
                             {{ __('message.personal_info') }}
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.name') }}</label>
-                                <input type="text" name="name" value="{{ auth()->user()->name }}"
-                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                                <div class="vue-island">
+                                    <ui-input type="text" name="name" default-value="{{ auth()->user()->name }}" />
+                                </div>
                             </div>
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.surname') }}</label>
-                                <input type="text" name="surname" value="{{ auth()->user()->surname }}"
-                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                                <div class="vue-island">
+                                    <ui-input type="text" name="surname" default-value="{{ auth()->user()->surname }}" />
+                                </div>
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.date_of_birth') }}</label>
-                                <input type="date" name="date_of_birth"
-                                    value="{{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth->format('Y-m-d') : '' }}"
-                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                                <div class="vue-island">
+                                    <ui-input type="date" name="date_of_birth"
+                                        default-value="{{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth->format('Y-m-d') : '' }}" />
+                                </div>
                             </div>
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.phone') }}</label>
-                                <input type="text" name="phone" value="{{ auth()->user()->phone }}"
-                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                                <div class="vue-island">
+                                    <ui-input type="text" name="phone" default-value="{{ auth()->user()->phone }}" />
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col">
                             <label
                                 class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.email') }}</label>
-                            <input type="email" name="email" value="{{ auth()->user()->email }}"
-                                class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                            <div class="vue-island">
+                                <ui-input type="email" name="email" default-value="{{ auth()->user()->email }}" />
+                            </div>
                         </div>
                     </div>
 
                     <!-- Residenza -->
                     <div class="space-y-6 md:space-y-8">
-                        <h3 class="text-xs font-semibold text-[#08B2B4] uppercase tracking-[0.2em] pt-2">
+                        <h3 class="text-xs font-semibold text-green uppercase tracking-[0.2em] pt-2">
                             {{ __('message.residence_data') }}
                         </h3>
                         <div class="flex flex-col">
                             <label
                                 class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.street') }}</label>
-                            <input type="text" name="address[street]"
-                                value="{{ auth()->user()->address['street'] ?? '' }}"
-                                class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                            <div class="vue-island">
+                                <ui-input type="text" name="address[street]"
+                                    default-value="{{ auth()->user()->address['street'] ?? '' }}" />
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.city') }}</label>
-                                <input type="text" name="address[city]"
-                                    value="{{ auth()->user()->address['city'] ?? '' }}"
-                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                                <div class="vue-island">
+                                    <ui-input type="text" name="address[city]"
+                                        default-value="{{ auth()->user()->address['city'] ?? '' }}" />
+                                </div>
                             </div>
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.zip_code') }}</label>
-                                <input type="text" name="address[zip]"
-                                    value="{{ auth()->user()->address['zip'] ?? '' }}"
-                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                                <div class="vue-island">
+                                    <ui-input type="text" name="address[zip]"
+                                        default-value="{{ auth()->user()->address['zip'] ?? '' }}" />
+                                </div>
                             </div>
                         </div>
                         <div class="flex flex-col">
                             <label
                                 class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.old_password') }}</label>
-                            <input type="password" name="old_password"
-                                class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm"
-                                placeholder="{{ __('message.oldpassword_text') }}">
+                            <div class="vue-island">
+                                <ui-input type="password" name="old_password"
+                                    placeholder="{{ __('message.oldpassword_text') }}" />
+                            </div>
                         </div>
                         <div class="flex flex-col">
                             <label
                                 class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.new_password') }}</label>
-                            <input type="password" name="new_password"
-                                class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm"
-                                placeholder="{{ __('message.newpassword_text') }}">
+                            <div class="vue-island">
+                                <ui-input type="password" name="new_password"
+                                    placeholder="{{ __('message.newpassword_text') }}" />
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-12 flex flex-col md:flex-row gap-5">
-                    <button type="button" @click="openModal = false"
-                        class="order-2 md:order-1 flex-1 py-4 text-gray-400 font-semibold uppercase tracking-widest text-[11px] hover:text-gray-900 transition-colors">{{ __('message.cancel') }}</button>
-                    <button type="submit"
-                        class="order-1 md:order-2 flex-[2] bg-gray-900 text-white font-semibold uppercase tracking-widest text-[11px] py-4 rounded-2xl hover:bg-black transition-all shadow-lg active:scale-95">{{ __('message.save_changes') }}</button>
+                    <div class="order-2 md:order-1 flex-1 vue-island">
+                        <ui-button type="button" @click="openModal = false" variant="ghost" class="w-full text-gray-400 font-semibold uppercase tracking-widest text-[11px] hover:text-gray-900 transition-colors">
+                            {{ __('message.cancel') }}
+                        </ui-button>
+                    </div>
+                    <div class="order-1 md:order-2 flex-[2] vue-island">
+                        <ui-button type="submit" variant="default" class="w-full bg-gray-900 hover:bg-black text-white font-semibold uppercase tracking-widest text-[11px] h-14 rounded-2xl transition-all shadow-lg active:scale-95">
+                            {{ __('message.save_changes') }}
+                        </ui-button>
+                    </div>
                 </div>
             </form>
         </div>
