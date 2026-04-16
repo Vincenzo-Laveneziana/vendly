@@ -45,7 +45,7 @@
 
         <div class="flex items-center gap-2 mb-2">
             <p class="text-sm text-gray-900 font-medium flex items-center">
-                {{ __('Venduto da:') }}
+                {{ __('message.sold_by') }}
                 <span class="text-gray-400 decoration-gray-400 underline decoration-1 underline-offset-4 mx-2">
                     {{ $product->user->name ?? 'User' }}
                 </span>
@@ -74,7 +74,7 @@
             <!-- Price -->
             <div class="flex flex-col">
                 <span class="text-[9px] text-gray-400 uppercase font-black tracking-widest leading-none mb-1.5">
-                    {{ __('PREZZO') }}
+                    {{ __('message.price') }}
                 </span>
                 <span class="text-xl font-black text-gray-900 leading-none">
                     {{ __('message.money') }} {{ number_format($product->price, 2, ',', '.') }}

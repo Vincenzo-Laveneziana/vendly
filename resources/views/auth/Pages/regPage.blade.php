@@ -28,7 +28,8 @@
             </div>
 
             <div class="space-y-1">
-                <label for="phone" class="block text-sm font-semibold text-gray-600">{{ __('message.phone_number') }}</label>
+                <label for="phone"
+                    class="block text-sm font-semibold text-gray-600">{{ __('message.phone_number') }}</label>
                 <input type="text" id="phone" name="phone" value="{{ old('phone') }}" maxlength="15"
                     placeholder="3471802344"
                     class="w-full px-4 py-2.5 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-vendly/20 focus:border-vendly transition duration-200 placeholder:text-gray-300">
@@ -58,8 +59,8 @@
 
         <div class="space-y-1">
             <label for="address_zip" class="block text-sm font-semibold text-gray-600">{{ __('message.zip_code') }}</label>
-            <input type="text" id="address_zip" name="address[zip_code]" value="{{ old('address.zip_code') }}"
-                maxlength="100" placeholder="12023"
+            <input type="text" id="address_zip" name="address[zip]" value="{{ old('address.zip') }}" maxlength="100"
+                placeholder="12023"
                 class="w-full px-4 py-2.5 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-vendly/20 focus:border-vendly transition duration-200 placeholder:text-gray-300">
         </div>
 
@@ -80,7 +81,8 @@
             </div>
 
             <div class="space-y-1">
-                <label for="password_confirmation" class="block text-sm font-semibold text-gray-600">{{ __('message.confirm_password') }}</label>
+                <label for="password_confirmation"
+                    class="block text-sm font-semibold text-gray-600">{{ __('message.confirm_password') }}</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" placeholder="••••••••"
                     class="w-full px-4 py-2.5 rounded-lg bg-white border border-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-vendly/20 focus:border-vendly transition duration-200 placeholder:text-gray-300"
                     required>

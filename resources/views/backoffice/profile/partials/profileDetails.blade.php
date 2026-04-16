@@ -119,7 +119,7 @@
                         <label
                             class="block text-[11px] text-gray-400 uppercase font-semibold tracking-[0.1em] mb-2">{{ __('message.zip_code') }}</label>
                         <p class="text-base font-normal text-gray-900 tracking-tight">
-                            {{ auth()->user()->address['zip_code'] ?? __('message.not_specified') }}
+                            {{ auth()->user()->address['zip'] ?? __('message.not_specified') }}
                         </p>
                     </div>
                     <div>
@@ -146,9 +146,9 @@
             @click.stop>
             <div class="flex justify-between items-center mb-8 md:mb-10">
                 <div>
-                    <h1 class="text-2xl font-semibold text-gray-900 tracking-tight">{{ __('message.edit_profile') }}
+                    <h1 class="text-2xl font-bold text-gray-900 tracking-tight">{{ __('message.edit_profile') }}
                     </h1>
-                    <p class="text-gray-400 text-[13px] font-semibold mt-1">
+                    <p class="text-gray-400 text-[13px] mt-1">
                         {{ __('message.update_info') }}
                     </p>
                 </div>
@@ -181,17 +181,25 @@
                                     class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
                             </div>
                         </div>
-                        <div class="flex flex-col">
-                            <label
-                                class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.date_of_birth') }}</label>
-                            <input type="date" name="date_of_birth"
-                                value="{{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth->format('Y-m-d') : '' }}"
-                                class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.date_of_birth') }}</label>
+                                <input type="date" name="date_of_birth"
+                                    value="{{ auth()->user()->date_of_birth ? auth()->user()->date_of_birth->format('Y-m-d') : '' }}"
+                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                            </div>
+                            <div class="flex flex-col">
+                                <label
+                                    class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.phone') }}</label>
+                                <input type="text" name="phone" value="{{ auth()->user()->phone }}"
+                                    class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
+                            </div>
                         </div>
                         <div class="flex flex-col">
                             <label
-                                class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.phone') }}</label>
-                            <input type="text" name="phone" value="{{ auth()->user()->phone }}"
+                                class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.email') }}</label>
+                            <input type="email" name="email" value="{{ auth()->user()->email }}"
                                 class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
                         </div>
                     </div>
@@ -219,10 +227,17 @@
                             <div class="flex flex-col">
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.zip_code') }}</label>
-                                <input type="text" name="address[zip_code]"
-                                    value="{{ auth()->user()->address['zip_code'] ?? '' }}"
+                                <input type="text" name="address[zip]"
+                                    value="{{ auth()->user()->address['zip'] ?? '' }}"
                                     class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm">
                             </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <label
+                                class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.old_password') }}</label>
+                            <input type="password" name="old_password"
+                                class="w-full px-5 py-3.5 md:py-4 rounded-2xl bg-gray-50 border border-gray-100 text-gray-900 font-normal focus:outline-none focus:border-[#08B2B4] transition text-sm"
+                                placeholder="{{ __('message.oldpassword_text') }}">
                         </div>
                         <div class="flex flex-col">
                             <label

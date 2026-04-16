@@ -100,6 +100,7 @@ return [
     'buy' => 'Acquista',
     'back' => 'Torna indietro',
     'newpassword_text' => 'Lascia vuoto per non cambiare',
+    'oldpassword_text' => 'Inserisci la vecchia password',
     'residence_data' => 'Dati di residenza',
     'personal_info' => 'Informazioni Personali',
     'update_info' => 'Aggiorna le tue informazioni',

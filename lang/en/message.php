@@ -100,6 +100,7 @@ return [
     'buy' => 'Buy',
     'back' => 'Back',
     'newpassword_text' => 'Leave empty to not change',
+    'oldpassword_text' => 'Insert old password',
     'residence_data' => 'Residence data',
     'personal_info' => 'Personal Information',
     'update_info' => 'Update your information',
