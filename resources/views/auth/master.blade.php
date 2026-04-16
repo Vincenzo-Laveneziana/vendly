@@ -7,8 +7,7 @@
     <title>@yield('title', 'Vendly')</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         body {
             font-family: 'Satoshi-VariableItalic', sans-serif;
@@ -26,6 +25,7 @@
 </head>
 
 <body class="bg-white min-h-screen">
+    <script>console.log('loading..');</script>
     <div id="page-loader"
         class="fixed inset-0 flex items-center justify-center bg-white z-50 transition-opacity duration-500">
         <div class="w-12 h-12 border-4 border-[#10b1ac] border-t-transparent rounded-full animate-spin"></div>
@@ -49,7 +49,8 @@
     <div class="flex flex-col lg:flex-row min-h-screen">
         <!-- Left Section: Image Collage (Hidden on mobile) -->
         <div class="hidden lg:flex lg:w-1/2 items-center justify-center p-12 bg-gray-50/30">
-            <img src="{{ asset('images/GroupImages.png') }}" alt="Vendly Show" class="max-w-full h-auto object-contain">
+            <img src="{{ asset('images/GroupImages.webp') }}" alt="Vendly Show"
+                class="max-w-full h-auto object-contain">
         </div>
 
         <!-- Right Section: Form Content -->

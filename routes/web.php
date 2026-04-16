@@ -61,7 +61,7 @@ Route:: as('Backoffice.')->group(function () {
         // Vendita
         Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
 
-        Route::get('/vendere/form', function () {
+        Route::get('/vendere', function () {
             $categories = Product::categories();
             return view('backoffice.sell.sellForm', compact('categories'));
         })->name('sellForm');
@@ -88,12 +88,6 @@ Route::controller(PagesController::class)->as('Frontoffice.')->group(function ()
     Route::get('/esplora', 'show')->name('explore');
 
     Route::get('/esplora/prodotto/{id}', 'product')->name('product');
-
-    //vendere
-
-    Route::get('/vendere', function () {
-        return view('frontoffice.sell.sell');
-    })->name('vendere');
 });
 
 

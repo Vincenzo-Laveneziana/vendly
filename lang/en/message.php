@@ -119,4 +119,8 @@ return [
     'no_conversations' => 'No conversations yet.',
     'select_chat_instruction' => 'Select a chat from the sidebar to view messages or start a new conversation.',
     'view' => 'View',
+    'all_cities' => 'All cities',
+    'reset_filters' => 'Reset filters',
+    'email' => 'Email',
+    'no_ads_found_general' => 'No ads found.',
 ];

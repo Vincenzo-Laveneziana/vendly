@@ -1,5 +1,5 @@
 <div data-name="{{ strtolower($product->title) }}" data-category="{{ $product->category ?? '' }}"
-    data-price="{{ $product->price }}" data-location="{{ strtolower($product->location ?? '') }}"
+    data-price="{{ $product->price }}" data-location="{{ strtolower($product->user->address['city'] ?? '') }}"
     class="product-card group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full overflow-hidden relative"
     style="font-family: 'Satoshi-Regular', sans-serif;">
 
@@ -88,13 +88,11 @@
                     <!-- Eventuale implementazione share futura -->
                     <span class="material-symbols-outlined text-[#08B2B4] text-[20px]">share</span>
                 </button>
-                
+
                 @php
                     $isFavorite = auth()->check() ? \App\Models\Favorite::where('product_id', $product->id)->where('user_id', auth()->id())->exists() : false;
                 @endphp
-                <button 
-                    x-data="{ isFavorite: {{ $isFavorite ? 'true' : 'false' }} }"
-                    @click.prevent="
+                <button x-data="{ isFavorite: {{ $isFavorite ? 'true' : 'false' }} }" @click.prevent="
                         if (!{{ auth()->check() ? 'true' : 'false' }}) {
                             window.location.href = '{{ route('Auth.loginPage') }}';
                             return;
@@ -115,12 +113,11 @@
                             }
                         })
                         .catch(error => console.error('Error:', error));
-                    "
-                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
+                    " class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
                     title="Aggiungi ai preferiti">
                     <span class="material-symbols-outlined text-[22px] transition-colors"
-                          :class="isFavorite ? 'text-red-500' : 'text-[#08B2B4]'"
-                          :style="isFavorite ? 'font-variation-settings: \'FILL\' 1' : 'font-variation-settings: \'FILL\' 0'">
+                        :class="isFavorite ? 'text-red-500' : 'text-[#08B2B4]'"
+                        :style="isFavorite ? 'font-variation-settings: \'FILL\' 1' : 'font-variation-settings: \'FILL\' 0'">
                         favorite
                     </span>
                 </button>

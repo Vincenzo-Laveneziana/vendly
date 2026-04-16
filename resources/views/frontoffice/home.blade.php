@@ -6,7 +6,7 @@
     <div class="min-h-screen bg-gray-50">
         <div class="relative">
             <div class="relative w-full overflow-hidden shadow-lg h-[320px] md:h-[420px] flex flex-col justify-center text-left px-8 md:px-24"
-                style="background-image: url('{{ asset('images/home.jpg') }}'); background-size: cover; background-position: top;">
+                style="background-image: url('{{ asset('images/home.webp') }}'); background-size: cover; background-position: top;">
 
                 <!-- Filtro grigio per scurire lo sfondo -->
                 <div class="absolute inset-0 bg-gray-900/50 pointer-events-none"></div>

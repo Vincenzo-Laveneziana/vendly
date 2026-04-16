@@ -8,12 +8,13 @@
 
 @section('content')
     <!-- Decorative Blobs -->
-    <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="fixed bottom-0 -left-64 w-[32rem] pointer-events-none rotate-[15deg] opacity-20 -z-0 select-none">
-    <img src="{{ asset('images/blob_02.png') }}" alt=""
-        class="fixed top-32 -right-64 w-[32rem] pointer-events-none -rotate-[20deg] opacity-20 -z-0 select-none">
+    <img src="{{ asset('images/blob_02.webp') }}" alt=""
+        class="absolute bottom-0 -left-64 w-[32rem] pointer-events-none rotate-[15deg] opacity-20 -z-20 select-none">
+    <img src="{{ asset('images/blob_02.webp') }}" alt=""
+        class="absolute top-32 -right-64 w-[32rem] pointer-events-none -rotate-[20deg] opacity-20 -z-20 select-none">
 
-    <div class="h-[calc(100vh-80px)] w-full p-6 flex bg-transparent md:p-6 md:gap-6 overflow-hidden relative z-10">
+    <div
+        class="h-[calc(100vh-80px)] w-full p-6 flex flex-col bg-transparent md:p-6 md:flex-row md:gap-6 overflow-hidden relative z-10">
 
         <!-- COLONNA SINISTRA: Sidebar -->
         <div id="chat-sidebar"
@@ -39,7 +40,7 @@
 
                         <a href="{{ route('Backoffice.createChat', ['idProdotto' => $chat->product_id, 'idConversazione' => $chat->id]) }}"
                             class="chat-item-btn block w-full p-4 bg-white rounded-2xl shadow-sm transition-all hover:shadow-md hover:scale-[1.02] active:scale-95 
-                                              {{ $isActive ? 'ring-2 ring-white ring-offset-2 ring-offset-vendly' : '' }}">
+                                                                                                                                                                                                                                                                                                                                                                      {{ $isActive ? 'ring-2 ring-white ring-offset-2 ring-offset-vendly' : '' }}">
 
                             <div class="flex gap-4 items-center">
                                 <!-- Product Image Small -->
@@ -98,6 +99,7 @@
                 @include('backoffice.chat.partials.textArea')
             @endif
         </div>
+
 
     </div>
 

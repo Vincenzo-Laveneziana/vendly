@@ -8,7 +8,7 @@
 
         {{-- HERO SECTION --}}
         <div class="relative w-full h-[400px] md:h-[500px] flex items-start justify-end bg-cover bg-center overflow-hidden p-8 md:p-12 lg:p-16"
-            style="background-image: url('{{ asset('images/explore.jpg') }}')">
+            style="background-image: url('{{ asset('images/explore.webp') }}')">
 
             <div class="relative z-10 max-w-4xl text-right mr-10">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl text-vendly font-black uppercase drop-shadow-2xl leading-none">
@@ -27,16 +27,17 @@
         </div>
 
         {{-- TOP BAR: FILTRI --}}
-        <div class="bg-white border-b border-gray-200 vue-island">
-            <div class="max-w-full mx-auto px-4 md:px-6 py-4 flex flex-wrap items-center justify-center gap-0">
+        <div class="bg-white border-b border-gray-200 vue-island relative z-20 shadow-sm md:shadow-none">
+            <div
+                class="max-w-full mx-auto px-4 md:px-6 py-4 flex flex-col lg:flex-row lg:flex-wrap items-stretch lg:items-center justify-start lg:justify-center gap-5 lg:gap-0">
 
                 <!-- Categoria -->
-                <div class="flex flex-col gap-2 pr-8 min-w-[280px]">
-                    <label class="text-sm font-bold text-gray-800">{{ __('Categoria') }}</label>
+                <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[220px] xl:min-w-[280px] lg:pr-8">
+                    <label class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.category') }}</label>
                     <div class="relative flex items-center">
                         <select id="categorySelect"
-                            class="w-full h-11 pl-4 pr-10 text-[15px] text-gray-700 border border-gray-200 rounded-xl outline-none focus:border-gray-300 appearance-none bg-white transition-all cursor-pointer">
-                            <option value="">{{ __('Seleziona una categoria') }}</option>
+                            class="w-full h-11 pl-4 pr-10 text-[15px] text-gray-700 border border-gray-200 rounded-xl outline-none focus:border-vendly focus:ring-4 focus:ring-vendly/10 appearance-none bg-white transition-all cursor-pointer shadow-sm">
+                            <option value="">{{ __('message.choose_category') }}</option>
                             @foreach($categories as $id => $name)
                                 <option value="{{ $id }}">{{ __('categories.' . $name) }}</option>
                             @endforeach
@@ -50,11 +51,11 @@
                 <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
 
                 <!-- Località -->
-                <div class="flex flex-col gap-2 pr-8 min-w-[280px]">
-                    <label class="text-sm font-bold text-gray-800">{{ __('Località') }}</label>
+                <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[220px] xl:min-w-[280px] lg:pr-8">
+                    <label class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.location') }}</label>
                     <div class="relative">
-                        <input id="locationInput" type="text" placeholder="{{ __('Tutte le città') }}"
-                            class="w-full h-11 pl-4 pr-10 text-[15px] border border-gray-200 rounded-xl outline-none focus:border-gray-300 bg-white" />
+                        <input id="locationInput" type="text" placeholder="{{ __('message.all_cities') }}"
+                            class="w-full h-11 pl-4 pr-10 text-[15px] border border-gray-200 rounded-xl outline-none focus:border-vendly focus:ring-4 focus:ring-vendly/10 bg-white shadow-sm transition-all" />
                         <span id="clearLocation"
                             class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 cursor-pointer hidden text-xl">close</span>
                     </div>
@@ -64,19 +65,20 @@
                 <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
 
                 <!-- Prezzo Slider -->
-                <div class="flex flex-col gap-2 pr-8 min-w-[240px]">
-                    <label class="text-sm font-bold text-gray-800">{{ __('Prezzo') }}</label>
+                <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[240px] xl:min-w-[280px] lg:pr-8">
+                    <label
+                        class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.price_filter') }}</label>
                     <div class="px-2 pt-3 pb-0">
-                        <div id="priceSlider" class="relative w-full h-[6px] bg-gray-200 rounded-full mb-3">
+                        <div id="priceSlider" class="relative w-full h-[6px] bg-gray-200 rounded-full mb-3 shadow-inner">
                             <div id="sliderRange" class="absolute h-full bg-[#08B2B4] rounded-full"></div>
                             <div id="thumbMin"
-                                class="absolute -top-[5px] w-4 h-4 bg-white border-2 border-[#08B2B4] rounded-full cursor-pointer z-10">
+                                class="absolute -top-[5px] w-4 h-4 bg-white border-2 border-[#08B2B4] rounded-full cursor-pointer z-10 shadow-sm">
                             </div>
                             <div id="thumbMax"
-                                class="absolute -top-[5px] w-4 h-4 bg-white border-2 border-[#08B2B4] rounded-full cursor-pointer z-10">
+                                class="absolute -top-[5px] w-4 h-4 bg-white border-2 border-[#08B2B4] rounded-full cursor-pointer z-10 shadow-sm">
                             </div>
                         </div>
-                        <div class="flex items-center justify-between text-sm font-bold text-gray-900 px-4">
+                        <div class="flex items-center justify-between text-sm text-gray-900 px-2 font-medium">
                             <span>{{ __('message.money') }} <span id="priceMinLabel">0</span></span>
                             <span>{{ __('message.money') }} <span id="priceMaxLabel">500</span></span>
                         </div>
@@ -86,26 +88,22 @@
                 </div>
 
                 <!-- Divider -->
-                <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-10"></div>
-
-                <!-- Ordina Crescente -->
-                <div class="flex items-center gap-3 pr-8">
-                    <span class="text-sm font-semibold text-gray-900">{{ __('Prezzo crescente') }}</span>
-                    <button id="sortAsc"
-                        class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                        <span class="material-symbols-outlined text-gray-600 text-[20px]">sort</span>
-                    </button>
-                </div>
-
-                <!-- Divider opzionale -->
                 <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
 
-                <!-- Ordina Decrescente -->
-                <div class="flex items-center gap-3">
-                    <span class="text-sm font-semibold text-gray-900">{{ __('Prezzo decrescente') }}</span>
+                <!-- Ordina Container -->
+                <div class="flex flex-row items-center gap-4 w-full lg:w-auto md:w-auto lg:pr-0">
+                    <button id="sortAsc"
+                        class="flex-1 lg:flex-none h-11 px-4 flex items-center justify-center gap-2 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-vendly bg-white transition-all shadow-sm">
+                        <span class="material-symbols-outlined text-gray-600 text-[20px]">arrow_upward</span>
+                        <span
+                            class="text-sm text-gray-700 font-medium whitespace-nowrap">{{ __('message.price_ascending') }}</span>
+                    </button>
+
                     <button id="sortDesc"
-                        class="w-10 h-10 flex items-center justify-center border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                        <span class="material-symbols-outlined text-gray-600 text-[20px]">sort</span>
+                        class="flex-1 lg:flex-none h-11 px-4 flex items-center justify-center gap-2 border border-gray-200 rounded-xl hover:bg-gray-50 hover:border-vendly bg-white transition-all shadow-sm">
+                        <span class="material-symbols-outlined text-gray-600 text-[20px]">arrow_downward</span>
+                        <span
+                            class="text-sm text-gray-700 font-medium whitespace-nowrap">{{ __('message.price_descending') }}</span>
                     </button>
                 </div>
 
@@ -113,6 +111,19 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 md:px-6 w-full py-8 md:py-12 relative z-10">
+
+            <!-- Riassunto Filtri -->
+            <div id="filtersSummaryContainer" class="hidden mb-6">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-semibold text-gray-800">{{ __('message.filters') }}</h3>
+                    <a href="/esplora"
+                        class="text-sm text-vendly font-semibold hover:underline flex items-center gap-1 transition-all active:scale-95">
+                        <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                        {{ __('message.reset_filters') }}
+                    </a>
+                </div>
+                <div id="activeFiltersSummary" class="flex flex-wrap gap-2"></div>
+            </div>
 
             {{-- PRODOTTI GRID --}}
             <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -126,8 +137,15 @@
             <div id="noResults"
                 class="w-full text-center py-24 bg-white shadow-sm border border-gray-100 rounded-3xl hidden">
                 <span class="material-symbols-outlined text-6xl text-gray-200 mb-4">search_off</span>
-                <h3 class="text-xl font-black text-gray-900 mb-2">{{ __('Nessun risultato') }}</h3>
+                <h3 class="text-xl font-black text-gray-900 mb-2">{{ __('message.no_ads_found') }}</h3>
                 <p class="text-gray-400 font-medium">{{ __('message.no_ads_found_filters') }}</p>
+                <div class="mt-6">
+                    <a href="/esplora"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-bold transition-all">
+                        <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                        {{ __('message.reset_filters') }}
+                    </a>
+                </div>
             </div>
 
             <!-- Paginazione JS -->
@@ -203,6 +221,29 @@
             let filteredCards = [...allCards];
             let currentSort = null;
 
+            window.removeFilter = function (type) {
+                if (type === 'query') {
+                    window.location.href = '{{ route("Frontoffice.ricerca") }}';
+                } else if (type === 'category') {
+                    categorySelect.value = '';
+                    applyFilters();
+                } else if (type === 'location') {
+                    locationInput.value = '';
+                    if (clearLocation) clearLocation.classList.add('hidden');
+                    applyFilters();
+                } else if (type === 'price') {
+                    sliderMin = 0;
+                    sliderMax = PRICE_MAX_LIMIT;
+                    updateSliderUI();
+                    applyFilters();
+                } else if (type === 'sort') {
+                    currentSort = null;
+                    sortAscBtn.classList.remove('sort-active');
+                    sortDescBtn.classList.remove('sort-active');
+                    applyFilters();
+                }
+            };
+
             function applyFilters() {
                 const selectedCategory = categorySelect.value;
                 const minPrice = parseFloat(priceMinHidden.value) || 0;
@@ -228,8 +269,87 @@
                     filteredCards.sort((a, b) => parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price')));
                 }
 
+                updateSummary();
                 currentPage = 1;
                 renderPage();
+            }
+
+            function updateSummary() {
+                const summaryContainer = document.getElementById('filtersSummaryContainer');
+                const activeContainer = document.getElementById('activeFiltersSummary');
+                if (!summaryContainer || !activeContainer) return;
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const query = urlParams.get('query');
+
+                let summaryHTML = '';
+
+                if (query) {
+                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
+                                                <b>${query}</b>
+                                                <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                </button>
+                                            </span>`;
+                }
+
+                if (categorySelect.value) {
+                    const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
+                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
+                                                <b>${categoryText}</b>
+                                                <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                </button>
+                                            </span>`;
+                }
+
+                if (locationInput.value.trim()) {
+                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
+                                                <b>${locationInput.value}</b>
+                                                <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                </button>
+                                            </span>`;
+                }
+
+                if (parseFloat(priceMinHidden.value) > 0 || parseFloat(priceMaxHidden.value) < PRICE_MAX_LIMIT) {
+                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
+                                                <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
+                                                <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                </button>
+                                            </span>`;
+                }
+
+                if (currentSort === 'asc') {
+                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
+                                                <b>{{ __('message.price_ascending') }}</b>
+                                                <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                </button>
+                                            </span>`;
+                } else if (currentSort === 'desc') {
+                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
+                                                <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
+                                                <b>{{ __('message.price_descending') }}</b>
+                                                <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                </button>
+                                            </span>`;
+                }
+
+                if (summaryHTML === '') {
+                    summaryContainer.classList.add('hidden');
+                    activeContainer.innerHTML = '';
+                } else {
+                    activeContainer.innerHTML = summaryHTML;
+                    summaryContainer.classList.remove('hidden');
+                }
             }
 
             function renderPage() {

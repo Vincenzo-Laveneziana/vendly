@@ -1,8 +1,8 @@
 <div class="relative overflow-hidden z-0 w-full h-full flex justify-center items-center py-6 md:py-10 bg-transparent">
     <!-- Blob decorativi originali configurazione -->
-    <img src="{{ asset('images/blob_02.png') }}" alt=""
+    <img src="{{ asset('images/blob_02.webp') }}" alt=""
         class="absolute -z-10 bottom-10 -left-48 w-48 md:w-96 pointer-events-none rotate-[15deg] opacity-70">
-    <img src="{{ asset('images/blob_02.png') }}" alt=""
+    <img src="{{ asset('images/blob_02.webp') }}" alt=""
         class="absolute -z-10 top-10 -right-48 w-48 md:w-96 pointer-events-none -rotate-[20deg] opacity-70">
 
     <div class="max-w-6xl mx-auto px-4 md:px-6">

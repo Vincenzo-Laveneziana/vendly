@@ -7,12 +7,12 @@
     <title>@yield('title', 'TuttoSubito')</title>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="flex flex-col min-h-screen">
+    <script>console.log('loading..');</script>
     <!-- Sfondo base fisso -->
     <div class="fixed inset-0 bg-gray-100 -z-20"></div>
 

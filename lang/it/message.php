@@ -119,4 +119,8 @@ return [
     'no_conversations' => 'Nessuna conversazione ancora.',
     'select_chat_instruction' => 'Seleziona una chat dalla barra laterale per visualizzare i messaggi o iniziare una nuova conversazione.',
     'view' => 'Vedi',
+    'all_cities' => 'Tutte le città',
+    'reset_filters' => 'Azzera filtri',
+    'email' => 'Email',
+    'no_ads_found_general' => 'Nessun annuncio trovato.',
 ];
