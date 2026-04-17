@@ -14,7 +14,7 @@ return [
     'date_of_birth' => 'Data di Nascita',
     'street' => 'Via',
     'city' => 'Città',
-    'zip_code' => 'CAP',
+    'zip' => 'CAP',
     'password' => 'Password',
     'confirm_password' => 'Conferma Password',
     'forgot_password' => 'Password dimenticata?',
@@ -124,4 +124,18 @@ return [
     'reset_filters' => 'Azzera filtri',
     'email' => 'Email',
     'no_sale_found_general' => 'Nessun annuncio trovato.',
+    'add_favorite' => 'Aggiungi ai preferiti',
+    'remove_favorite' => 'Rimuovi dai preferiti',
+
+    // MESSAGGI DI ERRORE SUCCESSO
+    'update_user' => 'Utente aggiornato con successo.',
+    'error_update_user' => 'Si è verificato un errore durante l\'aggiornamento. Riprova più tardi.',
+    'error_chat_self' => 'Non puoi avviare una conversazione con te stesso.',
+    'logout' => 'Logout completato!',
+    'register_message' => 'Registrazione completata!',
+    'error_register' => 'Si è verificato un errore durante la registrazione. Riprova più tardi.',
+    'error_login' => 'Si è verificato un errore durante il login. Riprova più tardi.',
+    'error_while_upload' => 'Si è verificato un errore durante il caricamento del prodotto. Riprova più tardi.',
+
+
 ];

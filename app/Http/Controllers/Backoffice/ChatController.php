@@ -41,7 +41,11 @@ class ChatController extends Controller
             return $this->create($idProdotto);
         }
 
-        $titoloProdotto = $product->title;
+        $titoloProdotto = 'chat';
+
+        if ($product) {
+            $titoloProdotto = $product->title;
+        }
 
         // Passiamo tutto alla vista. Se non c'è una chat attiva, 
         // le variabili saranno null (o una collezione vuota) ma "esistenti".
@@ -105,11 +109,7 @@ class ChatController extends Controller
         return response()->json([
             'success' => true,
             'message' => [
-                'id' => $message->id,
                 'content' => $message->content,
-                'sender_id' => $message->sender_id,
-                'conversation_id' => $message->conversation_id,
-                'created_at' => $message->created_at->format('H:i'),
             ]
         ]);
     }

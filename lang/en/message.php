@@ -14,7 +14,7 @@ return [
     'date_of_birth' => 'Date of Birth',
     'street' => 'Street',
     'city' => 'City',
-    'zip_code' => 'ZIP Code',
+    'zip' => 'ZIP Code',
     'password' => 'Password',
     'confirm_password' => 'Confirm Password',
     'forgot_password' => 'Forgot your password?',
@@ -124,4 +124,18 @@ return [
     'reset_filters' => 'Reset filters',
     'email' => 'Email',
     'no_sale_found_general' => 'No sale found.',
+    'add_favorite' => 'Add favorite',
+    'remove_favorite' => 'Remove favorite',
+
+    // MESSAGGI DI ERRORE SUCCESSO
+    'update_user' => 'User updated successfully.',
+    'error_update_user' => 'An error occurred while updating the user. Please try again later.',
+    'error_chat_self' => 'You cannot start a conversation with yourself.',
+    'logout' => 'Logout successfully.',
+    'register_message' => 'Register successfully.',
+    'error_register' => 'An error occurred while registering. Please try again later.',
+    'error_login' => 'An error occurred while logging in. Please try again later.',
+    'error_while_upload' => 'An error occurred while uploading the product. Please try again later.',
+
+
 ];

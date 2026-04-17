@@ -19,10 +19,10 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 
-                @forelse($favorites as $favorite)
-                    @include('frontoffice.partials.cardProdotto', ['product' => $favorite->product])
+                @forelse($products as $product)
+                    @include('frontoffice.partials.cardProdotto', ['product' => $product])
                 @empty
                     <div class="col-span-full text-center py-20 bg-gray-100/50 rounded-[2rem]">
                         <p class="text-gray-500">{{ __('message.no_sale_found_general') }}</p>

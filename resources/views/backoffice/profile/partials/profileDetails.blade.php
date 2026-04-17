@@ -10,6 +10,7 @@
 
     <div class="max-w-6xl mx-auto px-4 md:px-6 space-y-6 md:space-y-8">
         <!-- Sezione 1: Header Profilo -->
+
         <div
             class="bg-white rounded-[2rem] md:rounded-[40px] shadow-sm border border-gray-100 p-6 md:p-12 overflow-hidden">
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -60,8 +61,8 @@
         <div class="bg-white rounded-[2rem] md:rounded-[40px] shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-8 py-6 md:px-12 md:py-8 border-b border-gray-50 flex justify-between items-center">
                 <h2 class="text-xl font-semibold text-gray-900 tracking-tight">{{ __('message.personal_info') }}</h2>
-                <div class="vue-island">
-                    <ui-button @click="openModal = true" variant="default" size="sm" class="gap-2 uppercase tracking-wider text-[11px]">
+                <div class="vue-island" @click="openModal = true">
+                    <ui-button variant="default" size="sm" class="gap-2 uppercase tracking-wider text-[11px]">
                         <span class="material-symbols-outlined text-[16px]">edit</span>
                         {{ __('message.edit') }}
                     </ui-button>
@@ -118,7 +119,7 @@
                     </div>
                     <div>
                         <label
-                            class="block text-[11px] text-gray-400 uppercase font-semibold tracking-[0.1em] mb-2">{{ __('message.zip_code') }}</label>
+                            class="block text-[11px] text-gray-400 uppercase font-semibold tracking-[0.1em] mb-2">{{ __('message.zip') }}</label>
                         <p class="text-base font-normal text-gray-900 tracking-tight">
                             {{ auth()->user()->address['zip'] ?? __('message.not_specified') }}
                         </p>
@@ -180,7 +181,8 @@
                                 <label
                                     class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.surname') }}</label>
                                 <div class="vue-island">
-                                    <ui-input type="text" name="surname" default-value="{{ auth()->user()->surname }}" />
+                                    <ui-input type="text" name="surname"
+                                        default-value="{{ auth()->user()->surname }}" />
                                 </div>
                             </div>
                         </div>
@@ -234,7 +236,7 @@
                             </div>
                             <div class="flex flex-col">
                                 <label
-                                    class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.zip_code') }}</label>
+                                    class="text-[10px] font-semibold uppercase text-gray-400 mb-2 ml-1 tracking-widest">{{ __('message.zip') }}</label>
                                 <div class="vue-island">
                                     <ui-input type="text" name="address[zip]"
                                         default-value="{{ auth()->user()->address['zip'] ?? '' }}" />
@@ -261,13 +263,15 @@
                 </div>
 
                 <div class="mt-12 flex flex-col md:flex-row gap-5">
-                    <div class="order-2 md:order-1 flex-1 vue-island">
-                        <ui-button type="button" @click="openModal = false" variant="ghost" class="w-full text-gray-400 font-semibold uppercase tracking-widest text-[11px] hover:text-gray-900 transition-colors">
+                    <div class="order-2 md:order-1 flex-1 vue-island" @click="openModal = false">
+                        <ui-button type="button" variant="ghost"
+                            class="w-full text-gray-400 font-semibold uppercase tracking-widest text-[11px] hover:text-gray-900 transition-colors">
                             {{ __('message.cancel') }}
                         </ui-button>
                     </div>
                     <div class="order-1 md:order-2 flex-[2] vue-island">
-                        <ui-button type="submit" variant="default" class="w-full bg-gray-900 hover:bg-black text-white font-semibold uppercase tracking-widest text-[11px] h-14 rounded-2xl transition-all shadow-lg active:scale-95">
+                        <ui-button type="submit" variant="default"
+                            class="w-full bg-gray-900 hover:bg-black text-white font-semibold uppercase tracking-widest text-[11px] h-14 rounded-2xl transition-all shadow-lg active:scale-95">
                             {{ __('message.save_changes') }}
                         </ui-button>
                     </div>

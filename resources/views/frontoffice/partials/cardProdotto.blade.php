@@ -4,7 +4,7 @@
     style="font-family: 'Satoshi-Regular', sans-serif;">
 
     <!-- Link intera card per accessibilità -->
-    <a href="{{ route('Frontoffice.product', ['id' => $product->id]) }}" class="absolute inset-0 z-10"
+    <a href="{{ route('Frontoffice.product', ['product' => $product->id]) }}" class="absolute inset-0 z-10"
         aria-label="Vedi dettagli"></a>
 
     <!-- Top: Image Section -->
@@ -85,38 +85,39 @@
             <div class="flex items-center gap-2 relative z-20">
                 <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
                     title="Condividi">
-                    <!-- Eventuale implementazione share futura -->
+                    <!-- Share -->
                     <span class="material-symbols-outlined text-[#08B2B4] text-[20px]">share</span>
                 </button>
 
-                @php
-                    $isFavorite = auth()->check() ? \App\Models\Favorite::where('product_id', $product->id)->where('user_id', auth()->id())->exists() : false;
-                @endphp
-                <button x-data="{ isFavorite: {{ $isFavorite ? 'true' : 'false' }} }" @click.prevent="
-                        if (!{{ auth()->check() ? 'true' : 'false' }}) {
-                            window.location.href = '{{ route('Auth.loginPage') }}';
-                            return;
-                        }
-                        
-                        fetch('{{ route('Backoffice.addFavorite', $product->id) }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Accept': 'application/json'
-                            }
-                        })
-                        .then(response => response.json())
-                            .then(data => {
-                                if(data.success) {
-                                    isFavorite = !isFavorite;
+                <!-- Bottone Preferiti  -->
+                <button x-data="{ 
+                        isFavorite: {{ $product->isFavoritedBy(auth()->user()) ? 'true' : 'false' }},
+                        loading: false,
+                        toggle() {
+
+                            if (this.loading) return;
+                            this.loading = true;
+
+                            fetch('{{ route('Backoffice.addFavorite', $product->id) }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json'
                                 }
                             })
-                        .catch(error => console.error('Error:', error));
-                    " class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
-                    title="Aggiungi ai preferiti">
-                    <span class="material-symbols-outlined text-[22px] transition-colors"
-                        :class="isFavorite ? 'text-red-500' : 'text-[#08B2B4]'"
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) this.isFavorite = data.isFavorite;
+                            })
+                            .catch(err => console.error(err))
+                            .finally(() => this.loading = false);
+                        }
+                    }" @click.prevent="toggle()"
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
+                    :title="isFavorite ? __('message.remove_favorite') : __('message.add_favorite')">
+                    <span class="material-symbols-outlined text-[22px] transition-all"
+                        :class="[isFavorite ? 'text-red-500' : 'text-[#08B2B4]', loading ? 'animate-pulse opacity-50' : '']"
                         :style="isFavorite ? 'font-variation-settings: \'FILL\' 1' : 'font-variation-settings: \'FILL\' 0'">
                         favorite
                     </span>

@@ -64,7 +64,7 @@
         </div>
 
         <div class="space-y-1">
-            <label for="address_zip" class="block text-sm font-semibold text-gray-600">{{ __('message.zip_code') }}</label>
+            <label for="address_zip" class="block text-sm font-semibold text-gray-600">{{ __('message.zip') }}</label>
             <div class="vue-island">
                 <ui-input type="text" id="address_zip" name="address[zip]" default-value="{{ old('address.zip') }}"
                     maxlength="100" placeholder="12023" />

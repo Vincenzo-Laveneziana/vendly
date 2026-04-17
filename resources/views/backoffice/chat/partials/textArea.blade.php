@@ -52,11 +52,8 @@
     </form>
 </div>
 
-</div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 1. Variabili globali
         const conversationId = {{ $conversation->id }};
         const currentUserId = {{ auth()->id() }};
         const messagesContainer = document.getElementById('messages-container');
@@ -68,36 +65,24 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // 2. ASCOLTO LIVE CON REVERB (Laravel Echo)
+        // --- 1. ASCOLTO LIVE CON REVERB ---
         if (typeof window.Echo !== 'undefined' && conversationId) {
-
-            console.log('📡 Sottoscrizione al canale privato: chat.' + conversationId);
-
-            // Usiamo leave() invece di leaveAll() per pulire solo questo canale specifico se necessario
-            window.Echo.leave(`chat.${conversationId}`);
-
             window.Echo.private(`chat.${conversationId}`)
                 .listen('.message.sent', (e) => {
-                    console.log("📩 Messaggio ricevuto live:", e);
-                    // Aggiungiamo al DOM solo se il mittente non è l'utente corrente
                     if (e.message.sender_id != currentUserId) {
                         appendMessage(e.message, false);
                     }
-                })
-                .error((error) => {
-                    console.error('❌ Errore connessione Reverb:', error);
                 });
-        } else {
-            console.warn('⚠️ Laravel Echo non è inizializzato o manca conversationId.');
         }
 
-        // 3. INVIO MESSAGGIO
-        if (chatForm) {
-            // Invio con tasto Enter
-            messageInput.addEventListener('keydown', function (e) {
+        // --- 2. INVIO MESSAGGIO ---
+        if (chatForm && messageInput) {
+            
+            // Gestione tasto Enter
+            messageInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    chatForm.dispatchEvent(new Event('submit'));
+                    chatForm.requestSubmit();
                 }
             });
 
@@ -107,28 +92,24 @@
                 const content = messageInput.value.trim();
                 if (!content) return;
 
-                // Aggiunta ottimistica (nostro messaggio a schermo subito)
-                const myData = {
+                // Aggiunta ottimistica (messaggio subito a schermo)
+                appendMessage({
                     content: content,
                     sender_id: currentUserId,
                     created_at: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                };
-                appendMessage(myData, true);
+                }, true);
 
-                // Reset input
+                // Reset campo e focus
                 messageInput.value = '';
                 messageInput.style.height = '';
+                messageInput.focus();
 
-                // Chiamata AJAX al server
-                const url = chatForm.getAttribute('action');
-                const token = document.querySelector('input[name="_token"]').value;
-
-                fetch(url, {
+                // AJAX
+                fetch(chatForm.action, {
                     method: 'POST',
-                    keepalive: true, // Impedisce al browser di terminare la richiesta prematuramente
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': token,
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
@@ -137,29 +118,19 @@
                         sender_id: currentUserId
                     })
                 })
-                    .then(async response => {
-                        // Verifichiamo se la risposta è ok (status 200-299)
-                        if (!response.ok) {
-                            const errorData = await response.json().catch(() => ({}));
-                            throw new Error(errorData.message || `Errore Server: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('✅ Messaggio inviato con successo:', data);
-                    })
-                    .catch(error => {
-                        // Se qui leggi ancora "NetworkError", Zen sta bloccando la porta 8080
-                        console.error('❌ Errore dettagliato:', error.name, error.message);
-
-                        if (error.message.includes('fetch')) {
-                            console.warn('⚠️ Zen Browser ha bloccato la risposta. Controlla se hai estensioni anti-tracciamento attive.');
-                        }
-                    });
+                .then(res => {
+                    if (!res.ok) throw new Error('Errore server');
+                    return res.json();
+                })
+                .then(data => {
+                    console.log('Messaggio inviato:', data);
+                })
+                .catch(err => {
+                    console.error('Errore invio:', err);
+                });
             });
         }
 
-        // 4. FUNZIONE HELPER PER AGGIUNGERE MESSAGGI AL DOM
         function appendMessage(message, isMe) {
             if (!messagesContainer) return;
 
@@ -176,12 +147,7 @@
             `;
 
             messagesContainer.insertAdjacentHTML('beforeend', html);
-
-            // Scroll fluido verso il basso
-            messagesContainer.scrollTo({
-                top: messagesContainer.scrollHeight,
-                behavior: 'smooth'
-            });
+            messagesContainer.scrollTo({ top: messagesContainer.scrollHeight, behavior: 'smooth' });
         }
     });
 </script>

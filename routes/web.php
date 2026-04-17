@@ -28,7 +28,7 @@ Route:: as('Auth.')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-    Route::put('/update-user/{user}', [UserController::class, 'updateUser'])->name('updateUser');
+    Route::put('/update-user', [UserController::class, 'updateUser'])->name('updateUser');
 
 });
 
@@ -87,7 +87,7 @@ Route::controller(PagesController::class)->as('Frontoffice.')->group(function ()
 
     Route::get('/esplora', 'show')->name('explore');
 
-    Route::get('/esplora/prodotto/{id}', 'product')->name('product');
+    Route::get('/esplora/prodotto/{product}', 'product')->name('product');
 });
 
 

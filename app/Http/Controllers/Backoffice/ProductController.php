@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Favorite;
 
 class ProductController extends Controller
 {
@@ -24,9 +23,8 @@ class ProductController extends Controller
 
         if (!$product) {
             $value = false;
-            $messaggio = "Errore durante la creazione del prodotto";
+            $messaggio = "message.error_while_upload";
         } else {
-
             // 3. Gestione Immagini
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $file) {
@@ -40,9 +38,11 @@ class ProductController extends Controller
                     }
                 }
             }
-
         }
 
+        // Flasiamo in sessione per il Toast nella pagina successiva
+        session()->flash('success', $value);
+        session()->flash('message', $messaggio);
 
         return response()->json([
             'success' => $value,
@@ -57,10 +57,10 @@ class ProductController extends Controller
 
         if ($isFavorite) {
             $user->favorites()->detach($product->id);
-            $message = 'Prodotto rimosso dai preferiti!';
+            $message = __('message.remove_favorite');
         } else {
             $user->favorites()->attach($product->id);
-            $message = 'Prodotto aggiunto ai preferiti!';
+            $message = __('message.add_favorite');
         }
 
         return response()->json([

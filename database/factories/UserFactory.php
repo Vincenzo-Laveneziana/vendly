@@ -34,7 +34,6 @@ class UserFactory extends Factory
             'address' => [
                 'street' => fake()->streetAddress(),
                 'city' => fake()->city(),
-                'state' => fake()->state(),
                 'zip' => fake()->postcode(),
             ],
             'is_admin' => 0,

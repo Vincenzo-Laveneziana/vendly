@@ -8,13 +8,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Product;
-use App\Models\Favorite;
 
 class UserController extends Controller
 {
     function updateUser(CreateUserRequest $request)
     {
-        $user = User::findOrFail(Auth::user()->id);
+        $user = User::find(Auth::user()->id);
 
         // 1. Validiamo i dati in arrivo
         $validated = $request->validated();
@@ -28,13 +27,16 @@ class UserController extends Controller
         }
 
         if ($user->update($validated)) {
-            Log::info("Update riuscito per utente " . $user->id);
-            return redirect()->route('Backoffice.profile')->with('status', 'Utente aggiornato con successo.');
+            return redirect()->route('Backoffice.profile')
+                ->with([
+                    'success' => true,
+                    'message' => 'message.update_user',
+                ]);
         }
 
-        Log::error("Update fallito per utente " . $user->id);
-        return back()->withErrors([
-            'email' => 'Si è verificato un errore durante l\'aggiornamento. Riprova più tardi.',
+        return back()->with([
+            'success' => false,
+            'message' => 'message.error_update_user',
         ]);
     }
 
@@ -59,8 +61,8 @@ class UserController extends Controller
 
     public function showFavorites()
     {
-        $favorites = Favorite::where('user_id', Auth::id())->paginate(12);
+        $products = auth()->user()->favorites()->latest()->paginate(12);
 
-        return view('backoffice.profile.favorites', compact('favorites'));
+        return view('backoffice.profile.favorites', compact('products'));
     }
 }

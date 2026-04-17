@@ -66,8 +66,7 @@ class Product extends Model
 
     public function isFavoritedBy(?User $user): bool
     {
-        if (!$user)
-            return false;
+        if (!$user) return false;
         return $this->favoritedByUsers()->where('user_id', $user->id)->exists();
     }
 }

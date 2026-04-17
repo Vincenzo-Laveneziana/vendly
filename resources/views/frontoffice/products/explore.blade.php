@@ -248,61 +248,61 @@
 
                 if (query) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                        <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
-                                                                                                        <b>${query}</b>
-                                                                                                        <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                        </button>
-                                                                                                    </span>`;
+                                        <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
+                                        <b>${query}</b>
+                                        <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                        </button>
+                                    </span>`;
                 }
 
                 if (categorySelect.value) {
                     const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
-                                                                                                    <b>${categoryText}</b>
-                                                                                                    <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                    </button>
-                                                                                                </span>`;
+                                            <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
+                                            <b>${categoryText}</b>
+                                            <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                            </button>
+                                        </span>`;
                 }
 
                 if (locationInput.value.trim()) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
-                                                                                                    <b>${locationInput.value}</b>
-                                                                                                    <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                    </button>
-                                                                                                </span>`;
+                                            <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
+                                            <b>${locationInput.value}</b>
+                                            <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                            </button>
+                                        </span>`;
                 }
 
                 if (parseFloat(priceMinHidden.value) > 0 || parseFloat(priceMaxHidden.value) < PRICE_MAX_LIMIT) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
-                                                                                                    <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
-                                                                                                    <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                    </button>
-                                                                                                </span>`;
+                                                                                                        <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
+                                                                                                        <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
+                                                                                                        <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                        </button>
+                                                                                                    </span>`;
                 }
 
                 if (currentSort === 'asc') {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
-                                                                                                    <b>{{ __('message.price_ascending') }}</b>
-                                                                                                    <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                    </button>
-                                                                                                </span>`;
+                                                                                                        <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
+                                                                                                        <b>{{ __('message.price_ascending') }}</b>
+                                                                                                        <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                        </button>
+                                                                                                    </span>`;
                 } else if (currentSort === 'desc') {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
-                                                                                                    <b>{{ __('message.price_descending') }}</b>
-                                                                                                    <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                    </button>
-                                                                                                </span>`;
+                                                                                                        <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
+                                                                                                        <b>{{ __('message.price_descending') }}</b>
+                                                                                                        <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                        </button>
+                                                                                                    </span>`;
                 }
 
                 if (summaryHTML === '') {
