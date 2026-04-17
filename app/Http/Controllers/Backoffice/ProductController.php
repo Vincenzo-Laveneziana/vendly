@@ -15,10 +15,17 @@ class ProductController extends Controller
         // 1. Validazione (Se fallisce, Laravel invierà automaticamente un errore 422 JSON)
         $data = $request->validated();
 
-        try {
-            // 2. Creazione Prodotto
-            $data['user_id'] = Auth::id();
-            $product = Product::create($data);
+        $value = true;
+        $messaggio = "Prodotto creato con successo";
+
+        // 2. Creazione Prodotto
+        $data['user_id'] = Auth::id();
+        $product = Product::create($data);
+
+        if (!$product) {
+            $value = false;
+            $messaggio = "Errore durante la creazione del prodotto";
+        } else {
 
             // 3. Gestione Immagini
             if ($request->hasFile('images')) {
@@ -34,39 +41,33 @@ class ProductController extends Controller
                 }
             }
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Prodotto creato con successo!',
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Errore durante il salvataggio: ' . $e->getMessage()
-            ], 500);
         }
+
+
+        return response()->json([
+            'success' => $value,
+            'message' => $messaggio,
+        ], 200);
     }
 
     public function addFavorite(Product $product)
     {
-        $favorite = Favorite::where('product_id', $product->id)->where('user_id', Auth::id())->first();
+        $user = auth()->user();
+        $isFavorite = $user->favorites()->where('product_id', $product->id)->exists();
 
-        if ($favorite) {
-            $favorite->delete();
-            return response()->json([
-                'success' => true,
-                'message' => 'Prodotto rimosso dai preferiti!',
-            ], 200);
+        if ($isFavorite) {
+            $user->favorites()->detach($product->id);
+            $message = 'Prodotto rimosso dai preferiti!';
         } else {
-            $favorite = Favorite::create([
-                'product_id' => $product->id,
-                'user_id' => Auth::id(),
-            ]);
-            return response()->json([
-                'success' => true,
-                'message' => 'Prodotto aggiunto ai preferiti!',
-            ], 200);
+            $user->favorites()->attach($product->id);
+            $message = 'Prodotto aggiunto ai preferiti!';
         }
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'isFavorite' => !$isFavorite
+        ], 200);
     }
 
 }

@@ -50,16 +50,16 @@ class UserController extends Controller
         return view('backoffice.profile.profile', compact('productsCount', 'soldProductCount', 'pendingProductCount'));
     }
 
-    public function showAds()
+    public function showSale()
     {
-        $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
+        $products = Product::with('images')->where('user_id', Auth::id())->latest()->paginate(12);
 
-        return view('backoffice.profile.ads', compact('products'));
+        return view('backoffice.profile.sale', compact('products'));
     }
 
     public function showFavorites()
     {
-        $favorites = Favorite::where('user_id', Auth::id())->get();
+        $favorites = Favorite::where('user_id', Auth::id())->paginate(12);
 
         return view('backoffice.profile.favorites', compact('favorites'));
     }

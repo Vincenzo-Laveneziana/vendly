@@ -15,7 +15,7 @@
                 </h2>
                 <a href="{{ route('Frontoffice.explore') }}"
                     class="text-gray-700 hover:text-[#08B2B4] font-semibold text-sm flex items-center gap-1 transition">
-                    {{ __('message.go_to_ads') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    {{ __('message.go_to_sale') }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
             </div>
 
@@ -25,7 +25,7 @@
                     @include('frontoffice.partials.cardProdotto', ['product' => $favorite->product])
                 @empty
                     <div class="col-span-full text-center py-20 bg-gray-100/50 rounded-[2rem]">
-                        <p class="text-gray-500">{{ __('message.no_ads_found_general') }}</p>
+                        <p class="text-gray-500">{{ __('message.no_sale_found_general') }}</p>
                     </div>
                 @endforelse
             </div>

@@ -58,4 +58,16 @@ class Product extends Model
 
         return $key ? __('categories.' . $key) : __('message.no_category');
     }
+
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
+
+    public function isFavoritedBy(?User $user): bool
+    {
+        if (!$user)
+            return false;
+        return $this->favoritedByUsers()->where('user_id', $user->id)->exists();
+    }
 }

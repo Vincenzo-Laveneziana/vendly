@@ -1,12 +1,10 @@
 @extends('frontoffice.master')
 
-@php
-    $titoloProdotto = isset($product) && $product->title === 'Chat';
-@endphp
-
 @section('title', $titoloProdotto)
 
 @section('content')
+
+    @include('backoffice.profile.partials.navBar')
     <!-- Decorative Blobs -->
     <img src="{{ asset('images/blob_02.webp') }}" alt=""
         class="absolute bottom-0 -left-64 w-[32rem] pointer-events-none rotate-[15deg] opacity-20 -z-20 select-none">
@@ -33,14 +31,8 @@
             <div class="flex-1 overflow-y-auto p-4 space-y-3 no-scrollbar">
                 @if (isset($conversations) && $conversations->count() > 0)
                     @foreach ($conversations as $chat)
-                        @php
-                            $otherPerson = $chat->buyer_id == auth()->id() ? $chat->seller : $chat->buyer;
-                            $isActive = isset($conversation) && $conversation->id === $chat->id;
-                        @endphp
-
                         <a href="{{ route('Backoffice.createChat', ['idProdotto' => $chat->product_id, 'idConversazione' => $chat->id]) }}"
-                            class="chat-item-btn block w-full p-4 bg-white rounded-2xl shadow-sm transition-all hover:shadow-md hover:scale-[1.02] active:scale-95 
-                                                                                                                                                                                                                                                                                                                                                                                  {{ $isActive ? 'ring-2 ring-white ring-offset-2 ring-offset-vendly' : '' }}">
+                            class="chat-item-btn block w-full p-4 bg-white rounded-2xl shadow-sm transition-all hover:shadow-md hover:scale-[1.02] active:scale-95">
 
                             <div class="flex gap-4 items-center">
                                 <!-- Product Image Small -->
@@ -59,7 +51,7 @@
                                         {{ $chat->product->title ?? __('message.product_removed') }}
                                     </h4>
                                     <p class="text-xs text-gray-500 truncate">
-                                        {{ $otherPerson->name ?? __('message.user_placeholder') }}
+                                        {{ $chat->otherPerson->name ?? __('message.user_placeholder') }}
                                     </p>
                                 </div>
                             </div>

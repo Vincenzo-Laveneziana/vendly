@@ -107,11 +107,11 @@
                             }
                         })
                         .then(response => response.json())
-                        .then(data => {
-                            if(data.success) {
-                                isFavorite = !isFavorite;
-                            }
-                        })
+                            .then(data => {
+                                if(data.success) {
+                                    isFavorite = !isFavorite;
+                                }
+                            })
                         .catch(error => console.error('Error:', error));
                     " class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
                     title="Aggiungi ai preferiti">

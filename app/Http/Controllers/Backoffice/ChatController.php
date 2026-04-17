@@ -37,9 +37,11 @@ class ChatController extends Controller
                     ->get();
             }
         } elseif ($idProdotto) {
-            // Caso: Cliccato "Contatta" da un prodotto (senza avere ancora una conversazione)
+            // Caso: Cliccato "Contatta" da un prodotto (senza avere ancora una conversazione) chiama la funzione create()
             return $this->create($idProdotto);
         }
+
+        $titoloProdotto = $product->title;
 
         // Passiamo tutto alla vista. Se non c'è una chat attiva, 
         // le variabili saranno null (o una collezione vuota) ma "esistenti".
@@ -49,7 +51,8 @@ class ChatController extends Controller
             'conversation',
             'messages',
             'buyer',
-            'conversations'
+            'conversations',
+            'titoloProdotto'
         ));
     }
 
@@ -68,9 +71,8 @@ class ChatController extends Controller
     /**
      * Funzione per creare/trovare una chat da un prodotto
      */
-    private function create($productId)
+    private function create(Product $product)
     {
-        $product = Product::with('user')->findOrFail($productId);
         $seller = $product->user;
         $user = auth()->user();
 

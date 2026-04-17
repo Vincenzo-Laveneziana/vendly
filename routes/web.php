@@ -26,7 +26,7 @@ Route:: as('Auth.')->group(function () {
 
     Route::post('/registration/auth', [AuthController::class, 'register'])->name('register');
 
-    Route::post('/login', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
     Route::put('/update-user/{user}', [UserController::class, 'updateUser'])->name('updateUser');
 
@@ -54,7 +54,7 @@ Route:: as('Backoffice.')->group(function () {
 
         Route::get('/profilo', [UserController::class, 'showProfile'])->name('profile');
 
-        Route::get('/profilo/annunci', [UserController::class, 'showAds'])->name('ads');
+        Route::get('/profilo/annunci', [UserController::class, 'showSale'])->name('sale');
 
         Route::get('/profilo/preferiti', [UserController::class, 'showFavorites'])->name('favorites');
 
@@ -70,20 +70,20 @@ Route:: as('Backoffice.')->group(function () {
 });
 Route::controller(PagesController::class)->as('Frontoffice.')->group(function () {
 
+    // Home
+    Route::get('/', 'index')->name('home');
+
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);
         session()->put('locale', $locale);
 
         return redirect()->back();
     });
-    // Rotte per visualizzare le pagine
 
-    Route::get('/ricerca', 'search')->name('ricerca');
-
-    // Home
-    Route::get('/', 'index')->name('home');
 
     // Esplora
+
+    Route::get('/ricerca', 'search')->name('ricerca');
 
     Route::get('/esplora', 'show')->name('explore');
 

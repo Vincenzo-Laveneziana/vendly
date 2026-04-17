@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         $this->attributes['phone'] = preg_replace('/\s+/', '', $value);
     }
+    public function favorites()
+    {
+        return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
+    }
 }

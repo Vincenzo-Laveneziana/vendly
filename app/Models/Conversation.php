@@ -45,7 +45,7 @@ class Conversation extends Model
         return $this->hasOne(Message::class)->latestOfMany();
     }
 
-    public function getInterlocutorAttribute()
+    public function getOtherPersonAttribute()
     {
         return $this->buyer_id === auth()->id() ? $this->seller : $this->buyer;
     }

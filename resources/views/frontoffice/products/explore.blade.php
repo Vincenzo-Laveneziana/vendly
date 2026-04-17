@@ -131,8 +131,8 @@
             <div id="noResults"
                 class="w-full text-center py-24 bg-white shadow-sm border border-gray-100 rounded-3xl hidden">
                 <span class="material-symbols-outlined text-6xl text-gray-200 mb-4">search_off</span>
-                <h3 class="text-xl font-black text-gray-900 mb-2">{{ __('message.no_ads_found') }}</h3>
-                <p class="text-gray-400 font-medium">{{ __('message.no_ads_found_filters') }}</p>
+                <h3 class="text-xl font-black text-gray-900 mb-2">{{ __('message.no_sale_found') }}</h3>
+                <p class="text-gray-400 font-medium">{{ __('message.no_sale_found_filters') }}</p>
                 <div class="mt-6">
                     <a href="/esplora"
                         class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-bold transition-all">
@@ -142,10 +142,9 @@
                 </div>
             </div>
 
-            <!-- Paginazione JS -->
-            <!-- Paginazione JS -->
-            <div id="paginationContainer" class="mt-12 flex justify-center items-center gap-2 select-none vue-island"></div>
-
+            <div class="py-4">
+                {{ $products->links() }}
+            </div>
         </div>
     </div>
 
@@ -158,32 +157,6 @@
         .sort-active span {
             color: #08B2B4 !important;
         }
-
-        .page-btn {
-            min-width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 800;
-            border: 1px solid #E5E7EB;
-            background: white;
-            color: #111827;
-            transition: all 0.2s;
-        }
-
-        .page-btn.active {
-            background: #08B2B4;
-            color: white;
-            border-color: #08B2B4;
-        }
-
-        .page-btn.disabled {
-            opacity: 0.3;
-            pointer-events: none;
-        }
     </style>
 
     <script>
@@ -194,7 +167,6 @@
             const allCards = Array.from(document.querySelectorAll('.product-card'));
             const productsContainer = document.getElementById('productsContainer');
             const noResults = document.getElementById('noResults');
-            const paginationContainer = document.getElementById('paginationContainer');
 
             const categorySelect = document.getElementById('categorySelect');
             const locationInput = document.getElementById('locationInput');
@@ -206,11 +178,6 @@
 
             const sortAscBtn = document.getElementById('sortAsc');
             const sortDescBtn = document.getElementById('sortDesc');
-
-            const sliderTrack = document.getElementById('priceSlider');
-            const sliderRange = document.getElementById('sliderRange');
-            const thumbMin = document.getElementById('thumbMin');
-            const thumbMax = document.getElementById('thumbMax');
 
             let currentPage = 1;
             let filteredCards = [...allCards];
@@ -281,61 +248,61 @@
 
                 if (query) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                            <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
-                                                            <b>${query}</b>
-                                                            <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                            </button>
-                                                        </span>`;
+                                                                                                        <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
+                                                                                                        <b>${query}</b>
+                                                                                                        <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                        </button>
+                                                                                                    </span>`;
                 }
 
                 if (categorySelect.value) {
                     const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                            <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
-                                                            <b>${categoryText}</b>
-                                                            <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                            </button>
-                                                        </span>`;
+                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
+                                                                                                    <b>${categoryText}</b>
+                                                                                                    <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                    </button>
+                                                                                                </span>`;
                 }
 
                 if (locationInput.value.trim()) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                            <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
-                                                            <b>${locationInput.value}</b>
-                                                            <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                            </button>
-                                                        </span>`;
+                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
+                                                                                                    <b>${locationInput.value}</b>
+                                                                                                    <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                    </button>
+                                                                                                </span>`;
                 }
 
                 if (parseFloat(priceMinHidden.value) > 0 || parseFloat(priceMaxHidden.value) < PRICE_MAX_LIMIT) {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                            <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
-                                                            <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
-                                                            <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                            </button>
-                                                        </span>`;
+                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
+                                                                                                    <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
+                                                                                                    <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                    </button>
+                                                                                                </span>`;
                 }
 
                 if (currentSort === 'asc') {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                            <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
-                                                            <b>{{ __('message.price_ascending') }}</b>
-                                                            <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                            </button>
-                                                        </span>`;
+                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
+                                                                                                    <b>{{ __('message.price_ascending') }}</b>
+                                                                                                    <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                    </button>
+                                                                                                </span>`;
                 } else if (currentSort === 'desc') {
                     summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                            <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
-                                                            <b>{{ __('message.price_descending') }}</b>
-                                                            <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                            </button>
-                                                        </span>`;
+                                                                                                    <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
+                                                                                                    <b>{{ __('message.price_descending') }}</b>
+                                                                                                    <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
+                                                                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                    </button>
+                                                                                                </span>`;
                 }
 
                 if (summaryHTML === '') {
@@ -346,58 +313,6 @@
                     summaryContainer.classList.remove('hidden');
                 }
             }
-
-            function renderPage() {
-                const totalPages = Math.ceil(filteredCards.length / ITEMS_PER_PAGE) || 1;
-                if (currentPage > totalPages) currentPage = totalPages;
-                const start = (currentPage - 1) * ITEMS_PER_PAGE;
-                const end = start + ITEMS_PER_PAGE;
-
-                // 1. Prendi le card della pagina corrente
-                const pageCards = filteredCards.slice(start, end);
-
-                // 2. Nascondi tutto
-                allCards.forEach(c => {
-                    c.classList.add('hidden');
-                    c.style.display = 'none';
-                });
-
-                // 3. Re-appendi le card nell'ordine corretto al contenitore e mostrale
-                pageCards.forEach(c => {
-                    c.classList.remove('hidden');
-                    c.style.display = 'flex';
-                    productsContainer.appendChild(c);
-                });
-
-                noResults.classList.toggle('hidden', filteredCards.length > 0);
-                renderPagination(totalPages);
-            }
-
-            function renderPagination(totalPages) {
-                paginationContainer.innerHTML = '';
-                if (totalPages <= 1) return;
-
-                paginationContainer.innerHTML = `
-                                <ui-pagination :total="${filteredCards.length}" :items-per-page="${ITEMS_PER_PAGE}" :default-page="${currentPage}"
-                                    @update:page="p => { window.onPageChange(p) }">
-                                    <ui-pagination-content>
-                                        <ui-pagination-prev />
-                                        <ui-pagination-item v-for="p in ${totalPages}" :key="p">
-                                            <ui-pagination-link :is-active="p === ${currentPage}" @click="window.onPageChange(p)">
-                                                \${p}
-                                            </ui-pagination-link>
-                                        </ui-pagination-item>
-                                        <ui-pagination-next />
-                                    </ui-pagination-content>
-                                </ui-pagination>
-                            `;
-            }
-
-            window.onPageChange = function (p) {
-                currentPage = p;
-                renderPage();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            };
 
             let dragging = null;
             let sliderMin = 0;
