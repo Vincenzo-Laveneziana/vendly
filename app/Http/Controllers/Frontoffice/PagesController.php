@@ -18,16 +18,15 @@ class PagesController extends Controller
     public function show(Product $product)
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
-        $products = $product->latest()->get();
+        $products = $product->latest()->paginate(12);
 
         $categories = Product::categories();
 
         return view('frontoffice.products.explore', compact('products', 'categories'));
     }
 
-    public function product($id)
+    public function product(Product $product)
     {
-        $product = Product::find($id);
         $user = $product->user;
 
         $products = $product->latest()->simplePaginate(3);
@@ -39,7 +38,7 @@ class PagesController extends Controller
     {
         $search = $request->query('query');
 
-        $products = Product::with('images')->where('title', 'like', "%$search%")->get();
+        $products = Product::with('images')->where('title', 'like', "%$search%")->paginate(12);
 
         $categories = Product::categories();
 

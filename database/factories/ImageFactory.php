@@ -19,7 +19,7 @@ class ImageFactory extends Factory
     {
         return [
             'product_id' => Product::factory(),
-            'path' => 'products/iphone.jpg',
+            'path' => 'products/iphone.webp',
             'alt_text' => fake()->sentence(),
         ];
     }

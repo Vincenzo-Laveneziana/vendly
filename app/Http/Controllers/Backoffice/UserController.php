@@ -11,10 +11,8 @@ use App\Models\Product;
 
 class UserController extends Controller
 {
-    function updateUser(CreateUserRequest $request)
+    function updateUser(CreateUserRequest $request, User $user)
     {
-        $user = User::findOrFail(Auth::user()->id);
-
         // 1. Validiamo i dati in arrivo
         $validated = $request->validated();
 
@@ -27,21 +25,42 @@ class UserController extends Controller
         }
 
         if ($user->update($validated)) {
-            Log::info("Update riuscito per utente " . $user->id);
-            return redirect()->route('Backoffice.profile')->with('status', 'Utente aggiornato con successo.');
+            return redirect()->route('Backoffice.profile')
+                ->with([
+                    'success' => true,
+                    'message' => 'message.update_user',
+                ]);
         }
 
-        Log::error("Update fallito per utente " . $user->id);
-        return back()->withErrors([
-            'email' => 'Si è verificato un errore durante l\'aggiornamento. Riprova più tardi.',
+        return back()->with([
+            'success' => false,
+            'message' => 'message.error_update_user',
         ]);
     }
 
-    public function showUserProducts()
+    public function showProfile()
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione
-        $products = Product::with('images')->where('user_id', Auth::id())->latest()->get();
+        $productsCount = Product::where('user_id', Auth::id())->count();
 
-        return view('backoffice.profile.profile', compact('products'));
+        $soldProductCount = Product::where('user_id', Auth::id())->whereNotNull('sold_at')->count();
+
+        $pendingProductCount = Product::where('user_id', Auth::id())->whereNull('sold_at')->count();
+
+        return view('backoffice.profile.profile', compact('productsCount', 'soldProductCount', 'pendingProductCount'));
+    }
+
+    public function showSale()
+    {
+        $products = Product::with('images')->where('user_id', Auth::id())->latest()->paginate(12);
+
+        return view('backoffice.profile.sale', compact('products'));
+    }
+
+    public function showFavorites()
+    {
+        $products = auth()->user()->favorites()->latest()->paginate(12);
+
+        return view('backoffice.profile.favorites', compact('products'));
     }
 }

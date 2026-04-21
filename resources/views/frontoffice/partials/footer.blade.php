@@ -7,7 +7,7 @@
                 <h3 class="text-5xl md:text-6xl font-black mb-4 uppercase"
                     style="font-family: 'Integralcf', sans-serif;">VENDLY</h3>
                 <p class="text-white/90 text-sm leading-relaxed mb-6">
-                    {{ __('VENDLY nasce nel 2026 da un\'idea del nostro CEO Francesco Palasciano, lo scopo è rendere fruibile l\'accesso a tutti i prodotti usati del globo.') }}
+                    {{ __('message.about_vendly') }}
                 </p>
                 <div class="flex items-center gap-3">
                     <a href="#" aria-label="Facebook"
@@ -38,7 +38,8 @@
 
             <!-- AZIENDA -->
             <div class="flex flex-col">
-                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('message.company') }}
+                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">
+                    {{ __('message.company') }}
                 </h4>
                 <ul class="space-y-3 text-[13px] md:text-sm text-white/95">
                     <li><a href="#"
@@ -58,7 +59,8 @@
 
             <!-- AIUTO -->
             <div class="flex flex-col">
-                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('message.help') }}
+                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">
+                    {{ __('message.help') }}
                 </h4>
                 <ul class="space-y-3 text-[13px] md:text-sm text-white/95">
                     <li><a href="#"
@@ -78,13 +80,15 @@
 
             <!-- FAQ -->
             <div class="flex flex-col">
-                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">{{ __('message.faq') }}</h4>
+                <h4 class="text-base font-semibold mb-5" style="font-family: 'Inter', sans-serif;">
+                    {{ __('message.faq') }}</h4>
                 <ul class="space-y-3 text-[13px] md:text-sm text-white/95">
                     <li><a href="#"
                             class="hover:text-white hover:underline transition duration-300">{{ __('message.account') }}</a>
                     </li>
                     <li><a href="#"
-                            class="hover:text-white hover:underline transition duration-300">{{ __('message.orders') }}</a></li>
+                            class="hover:text-white hover:underline transition duration-300">{{ __('message.orders') }}</a>
+                    </li>
                     <li><a href="#"
                             class="hover:text-white hover:underline transition duration-300">{{ __('message.payments') }}</a>
                     </li>

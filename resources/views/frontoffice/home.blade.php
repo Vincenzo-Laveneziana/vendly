@@ -6,14 +6,13 @@
     <div class="min-h-screen bg-gray-50">
         <div class="relative">
             <div class="relative w-full overflow-hidden shadow-lg h-[320px] md:h-[420px] flex flex-col justify-center text-left px-8 md:px-24"
-                style="background-image: url('{{ asset('images/home.jpg') }}'); background-size: cover; background-position: top;">
+                style="background-image: url('{{ asset('images/home.webp') }}'); background-size: cover; background-position: top;">
 
                 <!-- Filtro grigio per scurire lo sfondo -->
                 <div class="absolute inset-0 bg-gray-900/50 pointer-events-none"></div>
                 <div class="w-full flex flex-col items-start justify-center">
                     <div class="relative z-10 max-w-xl">
-                        <h1 class="text-2xl md:text-4xl font-black text-[#08B2B4] mb-6"
-                            style="font-family: 'Integralcf', sans-serif;">
+                        <h1 class="text-2xl md:text-4xl text-vendly mb-6">
                             {{ __('message.hero_slogan') }}
                         </h1>
 
@@ -26,8 +25,7 @@
 
 
                 <div class="absolute bottom-2 left-0 right-0 flex justify-center z-10">
-                    <h2 class="text-2xl md:text-4xl font-black text-[#08B2B4] uppercase letter-spacing-1"
-                        style="font-family: 'Integralcf', sans-serif;">
+                    <h2 class="text-2xl md:text-4xl text-vendly uppercase letter-spacing-1">
                         {{ __('message.top_categories') }}
                     </h2>
                 </div>

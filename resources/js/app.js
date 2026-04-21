@@ -1,6 +1,10 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+import Alpine from 'alpinejs'
+window.Alpine = Alpine
+Alpine.start()
+
 // Importa i componenti di base Shadcn
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,10 +25,9 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination'
 
-// Monta Vue su ogni "isola" (elementi con classe .vue-island)
-document.querySelectorAll('.vue-island').forEach(el => {
-    createApp({})
-        .component('UiButton', Button)
+// Funzione per registrare tutti i componenti su un'app Vue
+window.registerVendlyComponents = (app) => {
+    app.component('UiButton', Button)
         .component('UiInput', Input)
         .component('UiSlider', Slider)
         .component('UiPagination', Pagination)
@@ -37,7 +40,18 @@ document.querySelectorAll('.vue-island').forEach(el => {
         .component('UiPaginationPrevious', PaginationPrevious)
         .component('Collapsible', Collapsible)
         .component('CollapsibleContent', CollapsibleContent)
-        .component('CollapsibleTrigger', CollapsibleTrigger)
-        .mount(el);
+        .component('CollapsibleTrigger', CollapsibleTrigger);
+};
+
+window.createVendlyApp = (options = {}) => {
+    const app = createApp(options);
+    window.registerVendlyComponents(app);
+    return app;
+};
+
+// Monta Vue su ogni "isola" (elementi con classe .vue-island)
+document.querySelectorAll('.vue-island').forEach(el => {
+    const app = window.createVendlyApp({});
+    el.__vue_app__ = app.mount(el);
 });
 

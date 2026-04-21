@@ -1,59 +1,127 @@
 <div data-name="{{ strtolower($product->title) }}" data-category="{{ $product->category ?? '' }}"
-    data-price="{{ $product->price }}" data-location="{{ strtolower($product->location ?? '') }}"
-    class="product-card group bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 flex flex-row h-[160px] md:h-[200px] lg:h-[220px] overflow-hidden relative"
+    data-price="{{ $product->price }}" data-location="{{ strtolower($product->user->address['city'] ?? '') }}"
+    class="product-card group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full overflow-hidden relative"
     style="font-family: 'Satoshi-Regular', sans-serif;">
 
-    <a href="{{ route('Frontoffice.product', ['id' => $product->id]) }}" class="absolute inset-0 z-10 md:hidden"
+    <!-- Link intera card per accessibilità -->
+    <a href="{{ route('Frontoffice.product', ['product' => $product->id]) }}" class="absolute inset-0 z-10"
         aria-label="Vedi dettagli"></a>
 
-    <div class="relative w-[40%] md:w-[35%] h-full overflow-hidden bg-gray-50 flex-shrink-0">
+    <!-- Top: Image Section -->
+    <div class="relative w-full aspect-[4/3] overflow-hidden bg-gray-50 flex-shrink-0 rounded-t-2xl">
         @if($product->images && $product->images->isNotEmpty())
             <img src="{{ Storage::url($product->images->first()->path) }}" alt="{{ $product->title }}"
-                class="w-full h-full object-cover">
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         @else
             <div class="flex items-center justify-center h-full bg-gray-100 text-gray-400">
-                <span class="material-symbols-outlined text-4xl">image</span>
+                <span class="material-symbols-outlined text-5xl">image</span>
             </div>
         @endif
-    </div>
 
-    <div class="p-4 md:p-5 flex flex-col flex-grow min-w-0 bg-white relative">
-
-        <div class="flex items-center justify-between mb-2 md:mb-3">
+        <!-- Overlay Badge: Category -->
+        <div class="absolute bottom-3 left-3 z-20">
             <span
-                class="inline-flex items-center px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[8px] md:text-[9px] font-black bg-white text-gray-800 uppercase tracking-widest border-2 border-[#08B2B4]">
+                class="inline-flex items-center px-3 py-1.5 rounded-xl text-[10px] font-black bg-[#08B2B4] text-white uppercase tracking-wider shadow-sm">
                 {{ $product->category_name ?? __('message.category_label') }}
             </span>
-            <button
-                class="relative z-20 text-[#08B2B4] hover:scale-110 transition-transform hidden md:block focus:outline-none">
-                <span class="material-symbols-outlined text-lg md:text-xl">favorite_border</span>
-            </button>
         </div>
 
+        <!-- Overlay Badge: Image Count -->
+        <div class="absolute bottom-3 right-3 z-20">
+            <div
+                class="px-2.5 py-1.5 rounded-xl bg-[#08B2B4]/80 backdrop-blur-sm text-white flex items-center gap-1.5 shadow-sm">
+                <span class="material-symbols-outlined text-sm">photo_camera</span>
+                <span class="text-[11px] font-black">{{ $product->images->count() }}</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom: Content Section -->
+    <div class="p-5 flex flex-col flex-grow min-w-0 bg-white">
         <h3
-            class="text-sm md:text-md font-black text-gray-900 leading-tight group-hover:text-[#08B2B4] transition-colors first-letter:uppercase">
-            <a href="{{ route('Frontoffice.product', ['id' => $product->id]) }}" class="line-clamp-1 relative z-20">
-                {{ $product->title }}
-            </a>
+            class="text-lg font-black text-gray-900 leading-tight group-hover:text-[#08B2B4] transition-colors first-letter:uppercase mb-2">
+            {{ $product->title }}
         </h3>
 
-        <div class="flex flex-col mt-1 mb-2">
-            <p class="text-[11px] md:text-[12px] text-gray-400 font-medium truncate">
-                {{ $product->location ?? 'Mesagne (BR), 72023' }}
+        <div class="flex items-center gap-2 mb-2">
+            <p class="text-sm text-gray-900 font-medium flex items-center">
+                {{ __('message.sold_by') }}
+                <span class="text-gray-400 decoration-gray-400 underline decoration-1 underline-offset-4 mx-2">
+                    {{ $product->user->name ?? 'User' }}
+                </span>
             </p>
-            <p class="text-[11px] md:text-[12px] text-gray-400 font-medium truncate mt-0.5">
-                {{ $product->user->name ?? 'Franco Rossi' }}
+            <!-- Rating Stars
+            <div class="flex items-center gap-0.5 text-yellow-400">
+                @for($i = 0; $i < 4; $i++)
+                    <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1">star</span>
+                @endfor
+                <span class="material-symbols-outlined text-[16px]">star_half</span>
+            </div> -->
+        </div>
+
+        <div class="flex items-center gap-1 text-gray-400 mb-4">
+            <span class="material-symbols-outlined text-lg">location_on</span>
+            <p class="text-[13px] font-medium truncate">
+                {{ $product->user->address['city'] ?? __('message.location_label') }}
             </p>
         </div>
 
-        <!-- Footer Card -->
-        <div class="pt-3 md:pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
+        <!-- Divider -->
+        <div class="h-[1px] w-full bg-gray-100 mb-4"></div>
+
+        <!-- Price and Actions Section -->
+        <div class="flex items-center justify-between mt-auto px-0">
+            <!-- Price -->
             <div class="flex flex-col">
-                <span
-                    class="text-[8px] md:text-[9px] text-gray-500 uppercase font-black tracking-widest leading-none mb-1">{{ __('PREZZO') }}</span>
-                <span class="text-sm md:text-lg font-black text-gray-900 leading-none">
+                <span class="text-[9px] text-gray-400 uppercase font-black tracking-widest leading-none mb-1.5">
+                    {{ __('message.price') }}
+                </span>
+                <span class="text-xl font-black text-gray-900 leading-none">
                     {{ __('message.money') }} {{ number_format($product->price, 2, ',', '.') }}
                 </span>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex items-center gap-2 relative z-20">
+                <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
+                    title="Condividi">
+                    <!-- Share -->
+                    <span class="material-symbols-outlined text-[#08B2B4] text-[20px]">share</span>
+                </button>
+
+                <!-- Bottone Preferiti  -->
+                <button x-data="{ 
+                        isFavorite: {{ $product->isFavoritedBy(auth()->user()) ? 'true' : 'false' }},
+                        loading: false,
+                        toggle() {
+
+                            if (this.loading) return;
+                            this.loading = true;
+
+                            fetch('{{ route('Backoffice.addFavorite', $product->id) }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json'
+                                }
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) this.isFavorite = data.isFavorite;
+                            })
+                            .catch(err => console.error(err))
+                            .finally(() => this.loading = false);
+                        }
+                    }" @click.prevent="toggle()"
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
+                    :title="isFavorite ? __('message.remove_favorite') : __('message.add_favorite')">
+                    <span class="material-symbols-outlined text-[22px] transition-all"
+                        :class="[isFavorite ? 'text-red-500' : 'text-[#08B2B4]', loading ? 'animate-pulse opacity-50' : '']"
+                        :style="isFavorite ? 'font-variation-settings: \'FILL\' 1' : 'font-variation-settings: \'FILL\' 0'">
+                        favorite
+                    </span>
+                </button>
             </div>
         </div>
     </div>

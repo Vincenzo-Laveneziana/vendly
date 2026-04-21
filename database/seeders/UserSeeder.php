@@ -26,7 +26,6 @@ class UserSeeder extends Seeder
                 'address' => [
                     'street' => 'Via Roma 1',
                     'city' => 'Roma',
-                    'state' => 'RM',
                     'zip' => '00100',
                 ],
             ]

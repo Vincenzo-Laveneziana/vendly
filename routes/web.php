@@ -26,9 +26,9 @@ Route:: as('Auth.')->group(function () {
 
     Route::post('/registration/auth', [AuthController::class, 'register'])->name('register');
 
-    Route::post('/login', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
-    Route::put('/update-user/{user}', [UserController::class, 'updateUser'])->name('updateUser');
+    Route::put('/update-user', [UserController::class, 'updateUser'])->name('updateUser');
 
 });
 
@@ -38,6 +38,10 @@ Route:: as('Backoffice.')->group(function () {
     // Backoffice 
     Route::middleware(['auth'])->group(function () {
 
+        // Product
+
+        Route::post('/favorite/{product}', [ProductController::class, 'addFavorite'])->name('addFavorite');
+
         //chat
 
         Route::get('/chat/{idProdotto?}/{idConversazione?}', [ChatController::class, 'show'])->name('createChat');
@@ -46,15 +50,18 @@ Route:: as('Backoffice.')->group(function () {
 
         Route::get('/chat/{conversation}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
 
-        //vendita
+        //profilo
 
-        Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
+        Route::get('/profilo', [UserController::class, 'showProfile'])->name('profile');
 
-        Route::get('/profilo', [UserController::class, 'showUserProducts'])->name('profile');
+        Route::get('/profilo/annunci', [UserController::class, 'showSale'])->name('sale');
+
+        Route::get('/profilo/preferiti', [UserController::class, 'showFavorites'])->name('favorites');
 
         // Vendita
+        Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
 
-        Route::get('/vendere/form', function () {
+        Route::get('/vendere', function () {
             $categories = Product::categories();
             return view('backoffice.sell.sellForm', compact('categories'));
         })->name('sellForm');
@@ -63,30 +70,24 @@ Route:: as('Backoffice.')->group(function () {
 });
 Route::controller(PagesController::class)->as('Frontoffice.')->group(function () {
 
+    // Home
+    Route::get('/', 'index')->name('home');
+
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);
         session()->put('locale', $locale);
 
         return redirect()->back();
     });
-    // Rotte per visualizzare le pagine
 
-    Route::get('/ricerca', 'search')->name('ricerca');
-
-    // Home
-    Route::get('/', 'index')->name('home');
 
     // Esplora
 
+    Route::get('/ricerca', 'search')->name('ricerca');
+
     Route::get('/esplora', 'show')->name('explore');
 
-    Route::get('/esplora/prodotto/{id}', 'product')->name('product');
-
-    //vendere
-
-    Route::get('/vendere', function () {
-        return view('frontoffice.sell.sell');
-    })->name('vendere');
+    Route::get('/esplora/prodotto/{product}', 'product')->name('product');
 });
 
 

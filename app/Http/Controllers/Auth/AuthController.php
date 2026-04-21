@@ -33,7 +33,7 @@ class AuthController extends Controller
 
             // Blocchiamo l'esecuzione lanciando un errore di validazione
             throw ValidationException::withMessages([
-                'email' => "Troppi tentativi di accesso. Riprova tra $seconds secondi.",
+                'email' => __('message.login_too_many_attempts', ['seconds' => $seconds]),
             ]);
         }
 
@@ -55,9 +55,10 @@ class AuthController extends Controller
         // Aumentiamo il contatore dei tentativi falliti (blocca per 60 secondi dopo i 5 errori)
         RateLimiter::hit($throttleKey, 60);
 
-        return back()->withErrors([
-            'email' => "Credenziali errate.",
-        ])->onlyInput('email');
+        return back()->with([
+            'success' => false,
+            'message' => 'message.error_login',
+        ])->onlyInput('message');
     }
 
 
@@ -65,19 +66,21 @@ class AuthController extends Controller
     public function register(CreateUserRequest $request)
     {
 
+        $success = false;
+        $message = 'message.error_register';
+
         $validated = $request->validated();
 
         if (User::create($validated)) {
 
-            // Se la creazione è andata a buon fine, reindirizziamo alla login con un messaggio di successo
-            return redirect('/login')->with('status', 'Registrazione completata!');
-        } else {
-
-            // Se c'è stato un errore nella creazione, torniamo indietro con un messaggio di errore generico
-            return back()->withErrors([
-                'email' => 'Si è verificato un errore durante la registrazione. Riprova più tardi.',
-            ]);
+            $success = true;
+            $message = "message.register_message";
         }
+        // Se c'è stato un errore nella creazione, torniamo indietro con un messaggio di errore generico
+        return back()->with([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 
     public function logout(Request $request)
@@ -92,7 +95,9 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         // 4. Reindirizza alla HOME
-        return redirect('/')->with('status', 'Logout completato!');
+        return redirect('/')->with([
+            'message' => 'message.logout',
+        ]);
     }
 
 

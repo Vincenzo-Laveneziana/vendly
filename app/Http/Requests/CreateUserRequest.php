@@ -22,19 +22,40 @@ class CreateUserRequest extends FormRequest
      */
     public function rules(): array
     {
+
+        $return = [
+            'name' => 'required|string|max:30',
+            'surname' => 'required|string|max:30',
+            'date_of_birth' => 'date|before:today|nullable',
+            'address.street' => 'string|max:100',
+            'address.city' => 'string|max:50',
+            'address.zip' => 'string|max:20',
+            'phone' => [
+                'unique:users',
+                'nullable',
+                'string',
+                'min:9',
+                'max:15',
+                'regex:/^\\+?[1-9][0-9]{7,14}$/'
+            ],
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ];
+
+
         if ($this->isMethod('put')) {
             $userId = Auth::user()->id;
-            return [
+            $return = [
                 'name' => 'required|string|max:30',
                 'surname' => 'required|string|max:30',
                 'date_of_birth' => 'date|before:today|nullable',
                 'address.street' => 'string|max:100',
                 'address.city' => 'string|max:50',
-                'address.zip_code' => 'string|max:20',
-                'phone'    => [
+                'address.zip' => 'string|max:20',
+                'phone' => [
                     'unique:users,phone,' . $userId,
-                    'nullable', 
-                    'string', 
+                    'nullable',
+                    'string',
                     'min:9',
                     'max:15',
                     'regex:/^\\+?[1-9][0-9]{7,14}$/'
@@ -44,24 +65,12 @@ class CreateUserRequest extends FormRequest
                 'new_password' => 'nullable|string|min:8|different:password',
             ];
         }
-        return [
-            'name' => 'required|string|max:30',
-            'surname' => 'required|string|max:30',
-            'date_of_birth' => 'date|before:today|nullable',
-            'address.street' => 'string|max:100',
-            'address.city' => 'string|max:50',
-            'address.zip_code' => 'string|max:20',
-            'phone'    => [
-                'unique:users',
-                'nullable', 
-                'string', 
-                'min:9',
-                'max:15',
-                'regex:/^\\+?[1-9][0-9]{7,14}$/'
-            ],
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ];
+
+
+
+
+
+        return $return;
     }
 
     public function messages(): array
@@ -78,8 +87,8 @@ class CreateUserRequest extends FormRequest
             'address.street.max' => 'La via deve essere un testo valido.',
             'address.city.string' => 'La città deve essere un testo valido.',
             'address.city.max' => 'La città deve essere un testo valido.',
-            'address.zip_code.string' => 'Il CAP deve essere un testo valido.',
-            'address.zip_code.max' => 'Il CAP deve essere un testo valido.',
+            'address.zip.string' => 'Il CAP deve essere un testo valido.',
+            'address.zip.max' => 'Il CAP deve essere un testo valido.',
             'email.required' => 'L\'email è obbligatoria.',
             'email.email' => 'L\'email deve essere un indirizzo email valido.',
             'email.unique' => 'L\'email è già in uso.',

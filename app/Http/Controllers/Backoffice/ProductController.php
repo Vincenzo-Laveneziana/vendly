@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -15,11 +14,17 @@ class ProductController extends Controller
         // 1. Validazione (Se fallisce, Laravel invierà automaticamente un errore 422 JSON)
         $data = $request->validated();
 
-        try {
-            // 2. Creazione Prodotto
-            $data['user_id'] = Auth::id();
-            $product = Product::create($data);
+        $value = true;
+        $messaggio = "message.product_created";
 
+        // 2. Creazione Prodotto
+        $data['user_id'] = Auth::id();
+        $product = Product::create($data);
+
+        if (!$product) {
+            $value = false;
+            $messaggio = "message.error_while_upload";
+        } else {
             // 3. Gestione Immagini
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $file) {
@@ -33,18 +38,36 @@ class ProductController extends Controller
                     }
                 }
             }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Prodotto creato con successo!',
-            ], 200);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Errore durante il salvataggio: ' . $e->getMessage()
-            ], 500);
         }
+
+        // Flasiamo in sessione per il Toast nella pagina successiva
+        session()->flash('success', $value);
+        session()->flash('message', $messaggio);
+
+        return response()->json([
+            'success' => $value,
+            'message' => $messaggio,
+        ], 200);
+    }
+
+    public function addFavorite(Product $product)
+    {
+        $user = auth()->user();
+        $isFavorite = $user->favorites()->where('product_id', $product->id)->exists();
+
+        if ($isFavorite) {
+            $user->favorites()->detach($product->id);
+            $message = __('message.remove_favorite');
+        } else {
+            $user->favorites()->attach($product->id);
+            $message = __('message.add_favorite');
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'isFavorite' => !$isFavorite
+        ], 200);
     }
 
 }
