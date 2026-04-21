@@ -33,7 +33,7 @@ class AuthController extends Controller
 
             // Blocchiamo l'esecuzione lanciando un errore di validazione
             throw ValidationException::withMessages([
-                'email' => "Troppi tentativi di accesso. Riprova tra $seconds secondi.",
+                'email' => __('message.login_too_many_attempts', ['seconds' => $seconds]),
             ]);
         }
 
@@ -75,14 +75,12 @@ class AuthController extends Controller
 
             $success = true;
             $message = "message.register_message";
-        } else {
-
-            // Se c'è stato un errore nella creazione, torniamo indietro con un messaggio di errore generico
-            return back()->with([
-                'success' => $success,
-                'message' => $message,
-            ]);
         }
+        // Se c'è stato un errore nella creazione, torniamo indietro con un messaggio di errore generico
+        return back()->with([
+            'success' => $success,
+            'message' => $message,
+        ]);
     }
 
     public function logout(Request $request)

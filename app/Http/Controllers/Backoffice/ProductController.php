@@ -15,7 +15,7 @@ class ProductController extends Controller
         $data = $request->validated();
 
         $value = true;
-        $messaggio = "Prodotto creato con successo";
+        $messaggio = "message.product_created";
 
         // 2. Creazione Prodotto
         $data['user_id'] = Auth::id();

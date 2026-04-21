@@ -81,7 +81,7 @@ class ChatController extends Controller
         $user = auth()->user();
 
         if ($user->id === $seller->id) {
-            return redirect()->back()->with('error', 'Non puoi avviare una conversazione con te stesso.');
+            return redirect()->back()->with('error', 'message.error_chat_self');
         }
 
         $conversation = Conversation::firstOrCreate([

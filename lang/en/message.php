@@ -136,6 +136,6 @@ return [
     'error_register' => 'An error occurred while registering. Please try again later.',
     'error_login' => 'An error occurred while logging in. Please try again later.',
     'error_while_upload' => 'An error occurred while uploading the product. Please try again later.',
-
-
+    'product_created' => 'Product created successfully.',
+    'login_too_many_attempts' => 'Too many login attempts. Please try again in :seconds seconds.',
 ];

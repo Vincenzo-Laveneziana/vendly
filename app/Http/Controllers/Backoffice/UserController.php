@@ -11,10 +11,8 @@ use App\Models\Product;
 
 class UserController extends Controller
 {
-    function updateUser(CreateUserRequest $request)
+    function updateUser(CreateUserRequest $request, User $user)
     {
-        $user = User::find(Auth::user()->id);
-
         // 1. Validiamo i dati in arrivo
         $validated = $request->validated();
 

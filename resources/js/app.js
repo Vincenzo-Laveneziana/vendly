@@ -1,6 +1,10 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+import Alpine from 'alpinejs'
+window.Alpine = Alpine
+Alpine.start()
+
 // Importa i componenti di base Shadcn
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

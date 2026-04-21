@@ -136,6 +136,6 @@ return [
     'error_register' => 'Si è verificato un errore durante la registrazione. Riprova più tardi.',
     'error_login' => 'Si è verificato un errore durante il login. Riprova più tardi.',
     'error_while_upload' => 'Si è verificato un errore durante il caricamento del prodotto. Riprova più tardi.',
-
-
+    'product_created' => 'Prodotto creato con successo.',
+    'login_too_many_attempts' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
 ];
