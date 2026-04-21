@@ -1,4 +1,4 @@
-@extends('frontoffice.master')
+@extends('master')
 
 @section('title', 'Dettagli Annuncio')
 

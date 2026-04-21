@@ -27,6 +27,7 @@
 
     @include('frontoffice.partials.footer')
 
+    @stack('scripts')
 </body>
 <style>
     [x-cloak] {

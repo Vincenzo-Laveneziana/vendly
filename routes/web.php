@@ -7,6 +7,7 @@ use App\Http\Controllers\Backoffice\ProductController;
 use App\Http\Controllers\Backoffice\UserController;
 use App\Http\Controllers\Frontoffice\PagesController;
 use App\Models\Product;
+use App\Models\Order;
 
 Route:: as('Auth.')->group(function () {
 
@@ -58,6 +59,9 @@ Route:: as('Backoffice.')->group(function () {
 
         Route::get('/profilo/preferiti', [UserController::class, 'showFavorites'])->name('favorites');
 
+        Route::get('/profilo/ordini', [UserController::class, 'showOrders'])->name('orders');
+
+
         // Vendita
         Route::post('/vendere/crea', [ProductController::class, 'create'])->name('createProduct');
 
@@ -65,6 +69,14 @@ Route:: as('Backoffice.')->group(function () {
             $categories = Product::categories();
             return view('backoffice.sell.sellForm', compact('categories'));
         })->name('sellForm');
+
+        Route::get('/acquista/{product}', [ProductController::class, 'showBuy'])->name('buy');
+
+        Route::post('/acquista/{product}/conferma', [ProductController::class, 'buy'])->name('processBuy');
+
+        Route::get('/acquista/conferma/{order}', function (Order $order) {
+            return view('backoffice.buy.confirmBuy', compact('order'));
+        })->name('confirmBuy');
     });
 
 });

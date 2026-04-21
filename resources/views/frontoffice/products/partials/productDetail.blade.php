@@ -143,11 +143,11 @@
                                 title="Contatta il venditore">
                                 <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
                             </a>
-                            <button
+                            <a href="{{ route('Backoffice.buy', $product->id) }}"
                                 class="flex-grow sm:flex-grow-0 px-8 py-3.5 bg-[#08B2B4] text-white rounded-2xl text-[13px] font-black uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-[#079fa1] transition-all shadow-md shadow-[#08B2B4]/20">
                                 <span class="material-symbols-outlined text-base">shopping_cart</span>
                                 {{ __('message.buy') }}
-                            </button>
+                            </a>
                         @endif
                     </div>
                 </div>

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Backoffice;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 class ProductController extends Controller
 {
@@ -68,6 +69,53 @@ class ProductController extends Controller
             'message' => $message,
             'isFavorite' => !$isFavorite
         ], 200);
+    }
+
+    public function showBuy(Product $product)
+    {
+        return view('backoffice.buy.buy', compact('product'));
+    }
+
+    // ACQUISTO DI UN PRODOTTO
+
+    public function buy(Request $request, Product $product)
+    {
+        // Validazione dei dati
+        $validated = $request->validate([
+            'shipping.firstName' => 'required|string|max:50',
+            'shipping.lastName' => 'required|string|max:50',
+            'shipping.street' => 'required|string|max:100',
+            'shipping.city' => 'required|string|max:50',
+            'shipping.zip' => 'required|string|max:20',
+            'shipping.email' => 'required|email',
+            'shipping.phone' => 'required|string|max:20',
+
+            'billing.firstName' => 'required|string|max:50',
+            'billing.lastName' => 'required|string|max:50',
+            'billing.street' => 'required|string|max:100',
+            'billing.city' => 'required|string|max:50',
+            'billing.zip' => 'required|string|max:20',
+
+            'paymentMethod' => 'required|in:cash,apple,google,card',
+
+            // Validazione condizionale per la carta
+            'card.number' => 'required_if:paymentMethod,card',
+            'card.expiry' => 'required_if:paymentMethod,card',
+            'card.cvv' => 'required_if:paymentMethod,card',
+            'card.name' => 'required_if:paymentMethod,card',
+        ]);
+
+        $order = Order::create([
+            'order_number' => 'VDL-' . date('Y') . '-' . rand(1000, 9999),
+            'product_id' => $product->id,
+            'user_id' => auth()->id(),
+        ]);
+
+        // Se la validazione passa, procediamo
+        return response()->json([
+            'success' => true,
+            'redirect' => route('Backoffice.confirmBuy', $order),
+        ]);
     }
 
 }
