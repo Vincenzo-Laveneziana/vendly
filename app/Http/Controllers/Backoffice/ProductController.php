@@ -116,40 +116,46 @@ class ProductController extends Controller
             $nextNumber = (int) end($parts) + 1;
         }
 
-        $order_number = str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+        $order_number = 'VDL-' . date('Y') . '-' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
 
-        $order_number = 'VDL-' . date('Y') . '-' . $order_number;
-
-        $result = [];
-
-        try {
-            DB::transaction(function () use ($product, $order_number, &$result) {
-                // 1. Creazione Ordine
-                $order = Order::create([
-                    'order_number' => $order_number,
-                    'product_id' => $product->id,
-                    'user_id' => auth()->id(),
-                ]);
-
-                // 2. Aggiornamento Prodotto
-                $product->sold_at = now();
-                $product->save();
-
-                // Prepariamo i dati senza usare return
-                $result = [
-                    'success' => true,
-                    'redirect' => route('Backoffice.confirmBuy', $order),
-                ];
-            });
-        } catch (\Exception $e) {
-            // Dati di errore
-            $result = [
+        // Controllo prodotto già venduto
+        if ($product->sold_at) {
+            return response()->json([
                 'success' => false,
                 'message' => __('message.error_checkout'),
-                'error' => config('app.debug') ? $e->getMessage() : null
-            ];
+            ]);
         }
 
-        return response()->json($result);
+        // 1. Creazione Ordine
+        $order = new Order();
+        $order->order_number = $order_number;
+        $order->product_id = $product->id;
+        $order->user_id = auth()->id();
+        $saved = $order->save();
+
+        if (!$saved) {
+            return response()->json([
+                'success' => false,
+                'message' => __('message.error_checkout'),
+            ]);
+        }
+
+        // 2. Aggiornamento Prodotto (solo se ordine creato correttamente)
+        $product->sold_at = now();
+        $saved = $product->save();
+
+        if (!$saved) {
+            $order->delete();
+            return response()->json([
+                'success' => false,
+                'message' => __('message.error_checkout'),
+            ]);
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'redirect' => route('Backoffice.confirmBuy', $order),
+        ]);
     }
 }
