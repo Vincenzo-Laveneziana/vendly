@@ -7,6 +7,7 @@ use App\Http\Requests\CreateProductRequest;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -106,20 +107,49 @@ class ProductController extends Controller
             'card.name' => 'required_if:paymentMethod,card',
         ]);
 
-        $product['sold_at'] = now();
-        $product->save();
+        // Recuperiamo l'ultimo numero d'ordine in modo sicuro
+        $latestOrder = Order::latest('id')->first();
+        $nextNumber = 1;
 
-        $order = Order::create([
-            'order_number' => 'VDL-' . date('Y') . '-' . rand(1000, 9999),
-            'product_id' => $product->id,
-            'user_id' => auth()->id(),
-        ]);
+        if ($latestOrder) {
+            $parts = explode('-', $latestOrder->order_number);
+            $nextNumber = (int) end($parts) + 1;
+        }
 
-        // Se la validazione passa, procediamo
-        return response()->json([
-            'success' => true,
-            'redirect' => route('Backoffice.confirmBuy', $order),
-        ]);
+        $order_number = str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+
+        $order_number = 'VDL-' . date('Y') . '-' . $order_number;
+
+        $result = [];
+
+        try {
+            DB::transaction(function () use ($product, $order_number, &$result) {
+                // 1. Creazione Ordine
+                $order = Order::create([
+                    'order_number' => $order_number,
+                    'product_id' => $product->id,
+                    'user_id' => auth()->id(),
+                ]);
+
+                // 2. Aggiornamento Prodotto
+                $product->sold_at = now();
+                $product->save();
+
+                // Prepariamo i dati senza usare return
+                $result = [
+                    'success' => true,
+                    'redirect' => route('Backoffice.confirmBuy', $order),
+                ];
+            });
+        } catch (\Exception $e) {
+            // Dati di errore
+            $result = [
+                'success' => false,
+                'message' => __('message.error_checkout'),
+                'error' => config('app.debug') ? $e->getMessage() : null
+            ];
+        }
+
+        return response()->json($result);
     }
-
 }
