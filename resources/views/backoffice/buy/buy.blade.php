@@ -11,17 +11,13 @@
             class="absolute -z-10 top-10 -right-64 w-96 pointer-events-none -rotate-[20deg] opacity-50">
 
         <div class="max-w-[1400px] mx-auto px-4 md:px-10">
-            <!-- Header Flow -->
-            <div class="flex items-center gap-4 mb-10">
-                <a href="{{ route('Frontoffice.product', $product->id) }}"
-                    class="w-10 h-10 flex items-center justify-center bg-white border border-gray-100 rounded-xl text-gray-400 hover:text-[#08B2B4] hover:border-[#08B2B4]/20 transition-all shadow-sm">
-                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
-                </a>
-                <div>
-                    <h1 class="text-2xl font-black text-gray-900 tracking-tight">{{ __('message.buy_product') }}</h1>
-                    <p class="text-[13px] text-gray-400 font-medium">{{ __('message.purchase_security') }}</p>
-                </div>
-            </div>
+
+            <!-- Back Button - Adjusted Spacing -->
+            <a href="{{ route('Frontoffice.product', $product->id) }}"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-[#08B2B4] text-white rounded-xl font-black text-[12px] uppercase tracking-wider mb-6 hover:bg-[#079fa1] transition-all shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                {{ __('message.back') }}
+            </a>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start lg:mt-8" x-data="purchasePage">
                 <!-- Left: Content Flow -->
@@ -535,7 +531,7 @@
                     if (this.deleteIndex !== null) {
                         this.cards.splice(this.deleteIndex, 1);
                         if (this.selectedCardIndex >= this.cards.length) {
-                             this.selectedCardIndex = null;
+                            this.selectedCardIndex = null;
                         }
                         this.saveToLocal();
                         this.showDeleteModal = false;
@@ -548,11 +544,11 @@
                     const card = this.cards[index];
                     // Mostriamo il numero mascherato per sicurezza
                     const last4 = card.number.replace(/\s/g, '').slice(-4);
-                    this.cardForm = { 
-                        number: '**** **** **** ' + last4, 
-                        expiry: card.expiry, 
-                        cvv: '***', 
-                        name: card.name 
+                    this.cardForm = {
+                        number: '**** **** **** ' + last4,
+                        expiry: card.expiry,
+                        cvv: '***',
+                        name: card.name
                     };
                 },
 
@@ -581,7 +577,7 @@
 
                 async submitPurchase() {
                     let cardToSubmit = { ...this.cardForm };
-                    
+
                     // Se è una carta selezionata e il numero è ancora mascherato, recuperiamo quello reale
                     if (this.selectedCardIndex !== null && this.cardForm.number.includes('*')) {
                         cardToSubmit = { ...this.cards[this.selectedCardIndex] };
@@ -611,7 +607,7 @@
                     } else {
                         // Gestione errori (inclusi 422 di validazione)
                         let errorMessage = '{{ __('message.error_checkout') }}';
-                        
+
                         if (result.errors) {
                             // Prendi il primo errore di validazione
                             errorMessage = Object.values(result.errors)[0][0];
@@ -619,11 +615,11 @@
                             errorMessage = result.message;
                         }
 
-                        window.dispatchEvent(new CustomEvent('toast', { 
-                            detail: { 
-                                message: errorMessage, 
-                                type: 'error' 
-                            } 
+                        window.dispatchEvent(new CustomEvent('toast', {
+                            detail: {
+                                message: errorMessage,
+                                type: 'error'
+                            }
                         }));
                     }
                 }

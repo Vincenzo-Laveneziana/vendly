@@ -71,6 +71,7 @@ class ProductController extends Controller
         ], 200);
     }
 
+    // VISUALIZZA PAGINA DI ACQUISTO E GLI PASSO IL PRODOTTO
     public function showBuy(Product $product)
     {
         return view('backoffice.buy.buy', compact('product'));
@@ -81,7 +82,7 @@ class ProductController extends Controller
     public function buy(Request $request, Product $product)
     {
         // Validazione dei dati
-        $validated = $request->validate([
+        $request->validate([
             'shipping.firstName' => 'required|string|max:50',
             'shipping.lastName' => 'required|string|max:50',
             'shipping.street' => 'required|string|max:100',
@@ -104,6 +105,9 @@ class ProductController extends Controller
             'card.cvv' => 'required_if:paymentMethod,card',
             'card.name' => 'required_if:paymentMethod,card',
         ]);
+
+        $product['sold_at'] = now();
+        $product->save();
 
         $order = Order::create([
             'order_number' => 'VDL-' . date('Y') . '-' . rand(1000, 9999),
