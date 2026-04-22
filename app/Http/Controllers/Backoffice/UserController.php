@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\Product;
+use App\Models\Order;
 
 class UserController extends Controller
 {
@@ -62,5 +63,12 @@ class UserController extends Controller
         $products = auth()->user()->favorites()->latest()->paginate(12);
 
         return view('backoffice.profile.favorites', compact('products'));
+    }
+
+    public function showOrders()
+    {
+        $orders = Order::where('user_id', Auth::id())->latest()->paginate(12);
+
+        return view('backoffice.profile.orders', compact('orders'));
     }
 }

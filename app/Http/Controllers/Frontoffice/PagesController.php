@@ -17,8 +17,8 @@ class PagesController extends Controller
 
     public function show(Product $product)
     {
-        // Recupera tutti i post con le immagini, ordinati per data di creazione
-        $products = $product->latest()->paginate(12);
+        // Recupera tutti i post con le immagini, ordinati per data di creazione e non venduti
+        $products = $product->latest()->whereNull('sold_at')->paginate(12);
 
         $categories = Product::categories();
 

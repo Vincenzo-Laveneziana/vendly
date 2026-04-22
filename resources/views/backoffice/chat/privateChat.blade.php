@@ -1,4 +1,4 @@
-@extends('frontoffice.master')
+@extends('master')
 
 @section('title', $titoloProdotto)
 
@@ -94,8 +94,10 @@
 
 
     </div>
+@endsection
 
-    <!-- SCRIPT AGGIORNATO -->
+<!-- SCRIPT AGGIORNATO -->
+@push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const sidebar = document.getElementById('chat-sidebar');
@@ -127,4 +129,4 @@
             });
         });
     </script>
-@endsection
+@endpush

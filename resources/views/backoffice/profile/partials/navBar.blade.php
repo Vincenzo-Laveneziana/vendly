@@ -37,7 +37,7 @@
                 </div>
             </a>
 
-            <a href="#"
+            <a href="{{ route('Backoffice.orders') }}"
                 class="flex-1 min-w-[max-content] h-full flex items-center justify-center transition-all relative group px-4">
                 <div
                     class="px-5 py-2 rounded-xl transition-all whitespace-nowrap text-gray-500 hover:text-gray-900 font-medium">
