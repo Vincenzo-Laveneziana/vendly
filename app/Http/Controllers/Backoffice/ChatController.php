@@ -38,7 +38,8 @@ class ChatController extends Controller
             }
         } elseif ($idProdotto) {
             // Caso: Cliccato "Contatta" da un prodotto (senza avere ancora una conversazione) chiama la funzione create()
-            return $this->create($idProdotto);
+            $productModel = Product::findOrFail($idProdotto);
+            return $this->create($productModel);
         }
 
         $titoloProdotto = 'chat';
