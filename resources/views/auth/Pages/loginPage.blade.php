@@ -30,9 +30,13 @@
             </div>
         </div>
 
-        @if ($errors->any())
+        @if ($errors->any() || session('message'))
             <div class="bg-red-50 text-red-600 p-3 rounded-lg text-xs font-medium border border-red-100">
-                {{ $errors->first() }}
+                @if ($errors->any())
+                    {{ $errors->first() }}
+                @else
+                    {{ __(session('message')) }}
+                @endif
             </div>
         @endif
 

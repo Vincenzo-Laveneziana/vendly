@@ -25,6 +25,15 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination'
 
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+
 // Funzione per registrare tutti i componenti su un'app Vue
 window.registerVendlyComponents = (app) => {
     app.component('UiButton', Button)
@@ -40,11 +49,18 @@ window.registerVendlyComponents = (app) => {
         .component('UiPaginationPrevious', PaginationPrevious)
         .component('Collapsible', Collapsible)
         .component('CollapsibleContent', CollapsibleContent)
-        .component('CollapsibleTrigger', CollapsibleTrigger);
+        .component('CollapsibleTrigger', CollapsibleTrigger)
+        .component('UiDropdownMenu', DropdownMenu)
+        .component('UiDropdownMenuContent', DropdownMenuContent)
+        .component('UiDropdownMenuItem', DropdownMenuItem)
+        .component('UiDropdownMenuLabel', DropdownMenuLabel)
+        .component('UiDropdownMenuSeparator', DropdownMenuSeparator)
+        .component('UiDropdownMenuTrigger', DropdownMenuTrigger);
 };
 
 window.createVendlyApp = (options = {}) => {
     const app = createApp(options);
+    app.config.globalProperties.window = window;
     window.registerVendlyComponents(app);
     return app;
 };

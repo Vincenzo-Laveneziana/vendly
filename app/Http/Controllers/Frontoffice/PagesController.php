@@ -10,7 +10,7 @@ class PagesController extends Controller
 {
     public function index(Product $products)
     {
-        $products = $products->latest()->simplePaginate(6);
+        $products = $products->latest()->simplePaginate(8);
 
         return view('frontoffice.home', compact('products'));
     }

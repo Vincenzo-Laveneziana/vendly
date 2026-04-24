@@ -27,7 +27,7 @@
         </div>
 
         <!-- Overlay Badge: Image Count -->
-        <div class="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20">
+        <div class="hidden md:absolute bottom-2 right-2 sm:bottom-3 sm:right-3 z-20">
             <div
                 class="px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#08B2B4]/80 backdrop-blur-sm text-white flex items-center gap-1 sm:gap-1.5 shadow-sm">
                 <span class="material-symbols-outlined text-xs sm:text-sm">photo_camera</span>
@@ -66,7 +66,8 @@
         <div class="flex items-center justify-between mt-auto px-0 gap-1">
             <!-- Price -->
             <div class="flex flex-col min-w-0">
-                <span class="text-[8px] sm:text-[9px] text-gray-400 uppercase font-black tracking-widest leading-none mb-1 sm:mb-1.5">
+                <span
+                    class="text-[8px] sm:text-[9px] text-gray-400 uppercase font-black tracking-widest leading-none mb-1 sm:mb-1.5">
                     {{ __('message.price') }}
                 </span>
                 <span class="text-lg sm:text-xl font-black text-gray-900 leading-none truncate">
@@ -76,7 +77,8 @@
 
             <!-- Actions -->
             <div class="flex items-center gap-1 sm:gap-2 relative z-20 flex-shrink-0">
-                <button class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
+                <button
+                    class="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors"
                     title="Condividi">
                     <!-- Share -->
                     <span class="material-symbols-outlined text-[#08B2B4] text-[18px] sm:text-[20px]">share</span>

@@ -4,12 +4,11 @@
 
 @section('content')
 
-    <div class="relative overflow-hidden z-0 min-h-screen bg-[#F3F4F6] py-0 md:py-0">
+    <div class="relative overflow-hidden z-0 min-h-screen bg-[#F8F9FA] py-0 md:py-0">
 
         {{-- HERO SECTION --}}
         <div class="relative w-full h-[400px] md:h-[500px] flex items-start justify-end bg-cover bg-center overflow-hidden p-8 md:p-12 lg:p-16"
             style="background-image: url('{{ asset('images/explore.webp') }}')">
-
             <div class="relative z-10 max-w-4xl text-right mr-10">
                 <h1 class="text-3xl md:text-4xl lg:text-5xl text-vendly font-black uppercase drop-shadow-2xl leading-none">
                     {{ __('message.hero_slogan_explore') }}
@@ -26,101 +25,158 @@
             </div>
         </div>
 
-        {{-- TOP BAR: FILTRI --}}
-        <div class="bg-white border-b border-gray-200 vue-island relative z-20 shadow-sm md:shadow-none">
-            <div
-                class="max-w-full mx-auto px-4 md:px-6 py-4 flex flex-col lg:flex-row lg:flex-wrap items-stretch lg:items-center justify-start lg:justify-center gap-5 lg:gap-0">
+        {{-- FILTERS SECTION --}}
+        <div class="bg-white border-b border-gray-100 relative z-20">
+            <div class="max-w-7xl mx-auto px-4 md:px-6 py-6">
+                <!-- Hidden Inputs (Moved outside collapsible to be always accessible) -->
+                <input type="hidden" id="categorySelect" value="">
+                <input type="hidden" id="sortSelect" value="">
+                <input type="hidden" id="priceMin" value="0">
+                <input type="hidden" id="priceMax" value="500">
 
-                <!-- Categoria -->
-                <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[220px] xl:min-w-[280px] lg:pr-8">
-                    <label class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.category') }}</label>
-                    <div class="relative flex items-center">
-                        <select id="categorySelect"
-                            class="w-full h-11 pl-4 pr-10 text-[15px] text-gray-700 border border-gray-200 rounded-xl outline-none focus:border-vendly focus:ring-4 focus:ring-vendly/10 appearance-none bg-white transition-all cursor-pointer shadow-sm">
-                            <option value="">{{ __('message.choose_category') }}</option>
-                            @foreach($categories as $id => $name)
-                                <option value="{{ $id }}">{{ __('categories.' . $name) }}</option>
-                            @endforeach
-                        </select>
-                        <span
-                            class="material-symbols-outlined absolute right-3 top-3 text-gray-400 pointer-events-none text-xl">expand_more</span>
-                    </div>
-                </div>
-
-                <!-- Divider -->
-                <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
-
-                <!-- Località -->
-                <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[220px] xl:min-w-[280px] lg:pr-8">
-                    <label class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.location') }}</label>
-                    <div class="relative">
-                        <div class="vue-island">
-                            <ui-input id="locationInput" type="text" placeholder="{{ __('message.all_cities') }}"
-                                class="pr-10" />
+                <div class="vue-island">
+                    <collapsible>
+                        <!-- Search Bar + Tune Button (Trigger) -->
+                        <div class="flex items-center gap-3 mb-0">
+                            <div class="relative flex-1">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                                <input type="text" id="mobileSearchInput" placeholder="Cerca prodotti..."
+                                    class="w-full h-12 pl-10 pr-4 bg-gray-50 border-none rounded-lg text-sm outline-none focus:ring-0">
+                            </div>
+                            <collapsible-trigger as-child>
+                                <button
+                                    class="w-12 h-12 flex items-center justify-center border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-all">
+                                    <span class="material-symbols-outlined">tune</span>
+                                </button>
+                            </collapsible-trigger>
                         </div>
-                        <span id="clearLocation"
-                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 cursor-pointer hidden text-xl z-20">close</span>
+
+                        <!-- Expandable Filters -->
+                        <collapsible-content force-mount
+                            class="overflow-hidden data-[state=closed]:hidden data-[state=open]:animate-collapsible-down">
+                            <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-0 pt-8">
+
+                                <!-- Categoria -->
+                                <div class="flex flex-col gap-2 w-full lg:flex-1 lg:pr-6">
+                                    <label class="text-sm font-bold text-gray-900">{{ __('message.category') }}</label>
+                                    <ui-dropdown-menu>
+                                        <ui-dropdown-menu-trigger as-child>
+                                            <ui-button variant="outline"
+                                                class="w-full justify-between font-normal h-11 border-gray-200 rounded-lg text-sm text-gray-600 bg-white hover:bg-gray-50 transition-all">
+                                                <span id="categoryLabel">{{ __('message.choose_category') }}</span>
+                                                <span class="material-symbols-outlined text-gray-400">expand_more</span>
+                                            </ui-button>
+                                        </ui-dropdown-menu-trigger>
+                                        <ui-dropdown-menu-content
+                                            class="bg-white border border-gray-100 shadow-xl rounded-lg z-[100]"
+                                            style="width: var(--reka-dropdown-menu-trigger-width);">
+                                            <ui-dropdown-menu-item
+                                                @click="window.setCategory('', '{{ __('message.choose_category') }}')"
+                                                class="px-4 py-2.5 text-sm hover:bg-[#08B2B4]/5 hover:text-[#08B2B4] cursor-pointer">
+                                                {{ __('message.choose_category') }}
+                                            </ui-dropdown-menu-item>
+                                            @foreach($categories as $id => $name)
+                                                <ui-dropdown-menu-item
+                                                    @click="window.setCategory('{{ $id }}', '{{ __('categories.' . $name) }}')"
+                                                    class="px-4 py-2.5 text-sm hover:bg-[#08B2B4]/5 hover:text-[#08B2B4] cursor-pointer">
+                                                    {{ __('categories.' . $name) }}
+                                                </ui-dropdown-menu-item>
+                                            @endforeach
+                                        </ui-dropdown-menu-content>
+                                    </ui-dropdown-menu>
+                                </div>
+
+                                <div class="hidden lg:block w-[1px] h-10 bg-gray-100 mx-6"></div>
+
+                                <!-- Località -->
+                                <div class="flex flex-col gap-2 w-full lg:flex-1 lg:pr-6">
+                                    <label class="text-sm font-bold text-gray-900">{{ __('message.location') }}</label>
+                                    <div class="relative">
+                                        <input type="text" id="locationInput" placeholder="{{ __('message.all_cities') }}"
+                                            class="w-full h-11 pl-4 pr-10 text-sm text-gray-600 border border-gray-200 rounded-lg outline-none focus:border-vendly focus:ring-1 focus:ring-vendly/20">
+                                        <span id="clearLocation"
+                                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 cursor-pointer hidden">close</span>
+                                    </div>
+                                </div>
+
+                                <div class="hidden lg:block w-[1px] h-10 bg-gray-100 mx-6"></div>
+
+                                <!-- Ordina per -->
+                                <div class="flex flex-col gap-2 w-full lg:flex-1 lg:pr-6">
+                                    <label class="text-sm font-bold text-gray-900">Ordina per</label>
+                                    <ui-dropdown-menu>
+                                        <ui-dropdown-menu-trigger as-child>
+                                            <ui-button variant="outline"
+                                                class="w-full justify-between font-normal h-11 border-gray-200 rounded-lg text-sm text-gray-600 bg-white hover:bg-gray-50 transition-all">
+                                                <span id="sortLabel">Scegli un filtro</span>
+                                                <span class="material-symbols-outlined text-gray-400">expand_more</span>
+                                            </ui-button>
+                                        </ui-dropdown-menu-trigger>
+                                        <ui-dropdown-menu-content
+                                            class="bg-white border border-gray-100 shadow-xl rounded-lg z-[100]"
+                                            style="width: var(--reka-dropdown-menu-trigger-width);">
+                                            <ui-dropdown-menu-item @click="window.setSort('', 'Scegli un filtro')"
+                                                class="px-4 py-2.5 text-sm hover:bg-[#08B2B4]/5 hover:text-[#08B2B4] cursor-pointer">
+                                                Scegli un filtro
+                                            </ui-dropdown-menu-item>
+                                            <ui-dropdown-menu-item
+                                                @click="window.setSort('asc', '{{ __('message.price_ascending') }}')"
+                                                class="px-4 py-2.5 text-sm hover:bg-[#08B2B4]/5 hover:text-[#08B2B4] cursor-pointer">
+                                                {{ __('message.price_ascending') }}
+                                            </ui-dropdown-menu-item>
+                                            <ui-dropdown-menu-item
+                                                @click="window.setSort('desc', '{{ __('message.price_descending') }}')"
+                                                class="px-4 py-2.5 text-sm hover:bg-[#08B2B4]/5 hover:text-[#08B2B4] cursor-pointer">
+                                                {{ __('message.price_descending') }}
+                                            </ui-dropdown-menu-item>
+                                        </ui-dropdown-menu-content>
+                                    </ui-dropdown-menu>
+                                </div>
+
+                                <div class="hidden lg:block w-[1px] h-10 bg-gray-100 mx-6"></div>
+
+                                <!-- Prezzo -->
+                                <div class="flex flex-col gap-2 w-full lg:flex-1">
+                                    <label class="text-sm font-bold text-gray-900">{{ __('message.price_filter') }}</label>
+                                    <div class="px-2">
+                                        <div style="--primary: oklch(0.65 0.12 192);">
+                                            <ui-slider :default-value="[0, 500]" :max="500" :min="0" :step="5" class="py-3"
+                                                @update:model-value="val => { window.updatePriceRange(val[0], val[1]) }" />
+                                        </div>
+                                        <div class="flex items-center justify-between text-xs font-bold text-gray-900 mt-1">
+                                            <span>€ <span id="priceMinLabel">0</span></span>
+                                            <span>€ <span id="priceMaxLabel">500</span></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </collapsible-content>
+                    </collapsible>
+                </div>
+            </div>
+
+            <!-- Active Filters Summary Bar -->
+            <div id="filtersSummaryContainer" class="hidden bg-white border-t border-gray-100">
+                <div
+                    class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div id="activeFiltersSummary" class="flex flex-wrap gap-2">
+                        <!-- Chips injected here -->
                     </div>
+                    <button onclick="window.resetAllFilters()"
+                        class="flex items-center gap-2 text-vendly font-bold uppercase text-xs tracking-wider hover:opacity-80 transition-all">
+                        <span class="material-symbols-outlined text-lg">restart_alt</span>
+                        RESET FILTRI
+                    </button>
                 </div>
-
-                <!-- Divider -->
-                <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
-
-                <!-- Prezzo Slider -->
-                <div class="flex flex-col gap-2 w-full lg:w-auto min-w-[240px] xl:min-w-[280px] lg:pr-8">
-                    <label
-                        class="text-sm font-semibold text-gray-800 lg:font-normal">{{ __('message.price_filter') }}</label>
-                    <div class="px-2 pt-3 pb-0">
-                        <div class="vue-island">
-                            <ui-slider :model-value="[0, 500]" :max="500" :step="5" class="py-4"
-                                @update:model-value="val => { window.updatePriceRange(val[0], val[1]) }" />
-                        </div>
-                        <div class="flex items-center justify-between text-sm text-gray-900 px-2 font-medium">
-                            <span>{{ __('message.money') }} <span id="priceMinLabel">0</span></span>
-                            <span>{{ __('message.money') }} <span id="priceMaxLabel">500</span></span>
-                        </div>
-                        <input type="hidden" id="priceMin" value="0">
-                        <input type="hidden" id="priceMax" value="500">
-                    </div>
-                </div>
-
-                <!-- Divider -->
-                <div class="h-12 w-[1px] bg-gray-100 hidden lg:block mr-8"></div>
-                <!-- Ordina Container -->
-                <div class="flex flex-row items-center gap-4 w-full lg:w-auto md:w-auto lg:pr-0 vue-island">
-                    <ui-button id="sortAsc" variant="outline" size="sm"
-                        class="flex-1 lg:flex-none uppercase text-[11px] font-bold h-11 px-4 gap-2">
-                        <span class="material-symbols-outlined text-gray-600 text-[20px]">arrow_upward</span>
-                        {{ __('message.price_ascending') }}
-                    </ui-button>
-
-                    <ui-button id="sortDesc" variant="outline" size="sm"
-                        class="flex-1 lg:flex-none uppercase text-[11px] font-bold h-11 px-4 gap-2">
-                        <span class="material-symbols-outlined text-gray-600 text-[20px]">arrow_downward</span>
-                        {{ __('message.price_descending') }}
-                    </ui-button>
-                </div>
-
             </div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 md:px-6 w-full py-8 md:py-12 relative z-10">
+        {{-- PRODUCTS SECTION --}}
+        <div class="max-w-7xl mx-auto px-4 md:px-6 w-full py-8 md:py-12">
 
-            <!-- Riassunto Filtri -->
-            <div id="filtersSummaryContainer" class="hidden mb-6">
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="text-sm font-semibold text-gray-800">{{ __('message.filters') }}</h3>
-                    <a href="/esplora"
-                        class="text-sm text-vendly font-semibold hover:underline flex items-center gap-1 transition-all active:scale-95">
-                        <span class="material-symbols-outlined text-[18px]">restart_alt</span>
-                        {{ __('message.reset_filters') }}
-                    </a>
-                </div>
-                <div id="activeFiltersSummary" class="flex flex-wrap gap-2"></div>
-            </div>
-
-            {{-- PRODOTTI GRID --}}
-            <div id="productsContainer" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div id="productsContainer" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8">
                 @forelse($products as $product)
                     @include('frontoffice.partials.cardProdotto', ['product' => $product])
                 @empty
@@ -134,30 +190,19 @@
                 <h3 class="text-xl font-black text-gray-900 mb-2">{{ __('message.no_sale_found') }}</h3>
                 <p class="text-gray-400 font-medium">{{ __('message.no_sale_found_filters') }}</p>
                 <div class="mt-6">
-                    <a href="/esplora"
+                    <button onclick="window.resetAllFilters()"
                         class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-bold transition-all">
                         <span class="material-symbols-outlined text-[18px]">restart_alt</span>
                         {{ __('message.reset_filters') }}
-                    </a>
+                    </button>
                 </div>
             </div>
 
-            <div class="py-4">
+            <div class="py-8">
                 {{ $products->links() }}
             </div>
         </div>
     </div>
-
-    <style>
-        .sort-active {
-            border-color: #08B2B4 !important;
-            background-color: #f0fdfa !important;
-        }
-
-        .sort-active span {
-            color: #08B2B4 !important;
-        }
-    </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -170,40 +215,53 @@
 
             const categorySelect = document.getElementById('categorySelect');
             const locationInput = document.getElementById('locationInput');
+            const sortSelect = document.getElementById('sortSelect');
             const priceMinHidden = document.getElementById('priceMin');
             const priceMaxHidden = document.getElementById('priceMax');
             const priceMinLabel = document.getElementById('priceMinLabel');
             const priceMaxLabel = document.getElementById('priceMaxLabel');
             const clearLocation = document.getElementById('clearLocation');
+            const mobileSearchInput = document.getElementById('mobileSearchInput');
 
-            const sortAscBtn = document.getElementById('sortAsc');
-            const sortDescBtn = document.getElementById('sortDesc');
-
-            let currentPage = 1;
             let filteredCards = [...allCards];
-            let currentSort = null;
+
+            window.setCategory = function (id, label) {
+                categorySelect.value = id;
+                categorySelect.setAttribute('data-label', label);
+                document.getElementById('categoryLabel').textContent = label;
+                applyFilters();
+            };
+
+            window.setSort = function (id, label) {
+                sortSelect.value = id;
+                sortSelect.setAttribute('data-label', label);
+                document.getElementById('sortLabel').textContent = label;
+                applyFilters();
+            };
+
+            window.resetAllFilters = function () {
+                window.setCategory('', '{{ __('message.choose_category') }}');
+                locationInput.value = '';
+                window.setSort('', 'Scegli un filtro');
+                if (mobileSearchInput) mobileSearchInput.value = '';
+                window.updatePriceRange(0, PRICE_MAX_LIMIT);
+                applyFilters();
+            };
 
             window.removeFilter = function (type) {
                 if (type === 'query') {
                     window.location.href = '{{ route("Frontoffice.ricerca") }}';
                 } else if (type === 'category') {
-                    categorySelect.value = '';
-                    applyFilters();
+                    window.setCategory('', '{{ __('message.choose_category') }}');
                 } else if (type === 'location') {
                     locationInput.value = '';
                     if (clearLocation) clearLocation.classList.add('hidden');
-                    applyFilters();
                 } else if (type === 'price') {
-                    sliderMin = 0;
-                    sliderMax = PRICE_MAX_LIMIT;
-                    updateSliderUI();
-                    applyFilters();
+                    window.updatePriceRange(0, PRICE_MAX_LIMIT);
                 } else if (type === 'sort') {
-                    currentSort = null;
-                    sortAscBtn.classList.remove('sort-active');
-                    sortDescBtn.classList.remove('sort-active');
-                    applyFilters();
+                    window.setSort('', 'Scegli un filtro');
                 }
+                applyFilters();
             };
 
             function applyFilters() {
@@ -211,6 +269,8 @@
                 const minPrice = parseFloat(priceMinHidden.value) || 0;
                 const maxPrice = parseFloat(priceMaxHidden.value) || PRICE_MAX_LIMIT;
                 const locationQuery = locationInput.value.toLowerCase().trim();
+                const mobileQuery = mobileSearchInput ? mobileSearchInput.value.toLowerCase().trim() : '';
+                const currentSort = sortSelect.value;
 
                 filteredCards = allCards.filter(card => {
                     const cardCategory = card.getAttribute('data-category');
@@ -221,6 +281,7 @@
                     if (selectedCategory && cardCategory !== selectedCategory) return false;
                     if (cardPrice < minPrice || cardPrice > maxPrice) return false;
                     if (locationQuery && !cardLocation.includes(locationQuery) && !cardName.includes(locationQuery)) return false;
+                    if (mobileQuery && !cardName.includes(mobileQuery)) return false;
 
                     return true;
                 });
@@ -232,8 +293,23 @@
                 }
 
                 updateSummary();
-                currentPage = 1;
-                renderPage();
+                renderResults();
+            }
+
+            function renderResults() {
+                allCards.forEach(card => card.classList.add('hidden'));
+
+                if (filteredCards.length === 0) {
+                    productsContainer.classList.add('hidden');
+                    noResults.classList.remove('hidden');
+                } else {
+                    productsContainer.classList.remove('hidden');
+                    noResults.classList.add('hidden');
+                    filteredCards.forEach(card => {
+                        productsContainer.appendChild(card);
+                        card.classList.remove('hidden');
+                    });
+                }
             }
 
             function updateSummary() {
@@ -247,62 +323,25 @@
                 let summaryHTML = '';
 
                 if (query) {
-                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                <span class="material-symbols-outlined text-[16px] text-gray-400">search</span> 
-                                                <b>${query}</b>
-                                                <button onclick="window.removeFilter('query')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                </button>
-                                            </span>`;
+                    summaryHTML += createChip('search', query, 'query');
                 }
 
                 if (categorySelect.value) {
-                    const categoryText = categorySelect.options[categorySelect.selectedIndex].text;
-                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">category</span> 
-                                                    <b>${categoryText}</b>
-                                                    <button onclick="window.removeFilter('category')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                    </button>
-                                                </span>`;
+                    const categoryText = categorySelect.getAttribute('data-label') || categorySelect.value;
+                    summaryHTML += createChip('category', categoryText, 'category');
                 }
 
                 if (locationInput.value.trim()) {
-                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                    <span class="material-symbols-outlined text-[16px] text-gray-700">location_on</span> 
-                                                    <b>${locationInput.value}</b>
-                                                    <button onclick="window.removeFilter('location')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                    </button>
-                                                </span>`;
+                    summaryHTML += createChip('location_on', locationInput.value, 'location');
                 }
 
                 if (parseFloat(priceMinHidden.value) > 0 || parseFloat(priceMaxHidden.value) < PRICE_MAX_LIMIT) {
-                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                                <span class="material-symbols-outlined text-[16px] text-gray-700">payments</span> 
-                                                                                                                <b>€${priceMinHidden.value} - €${priceMaxHidden.value}</b>
-                                                                                                                <button onclick="window.removeFilter('price')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                                </button>
-                                                                                                            </span>`;
+                    summaryHTML += createChip('payments', `{{__('message.from')}} ${priceMinHidden.value}€ {{__('message.to')}} ${priceMaxHidden.value}€`, 'price');
                 }
 
-                if (currentSort === 'asc') {
-                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                                <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_upward</span> 
-                                                                                                                <b>{{ __('message.price_ascending') }}</b>
-                                                                                                                <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                                </button>
-                                                                                                            </span>`;
-                } else if (currentSort === 'desc') {
-                    summaryHTML += `<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-200 rounded-full text-[13px] text-gray-700 shadow-sm">
-                                                                                                                <span class="material-symbols-outlined text-[16px] text-gray-500">arrow_downward</span> 
-                                                                                                                <b>{{ __('message.price_descending') }}</b>
-                                                                                                                <button onclick="window.removeFilter('sort')" class="flex items-center justify-center ml-1 text-red-500 hover:text-red-700 transition-colors active:scale-90">
-                                                                                                                    <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                                                                                                </button>
-                                                                                                            </span>`;
+                if (sortSelect.value) {
+                    const sortText = sortSelect.getAttribute('data-label') || sortSelect.value;
+                    summaryHTML += createChip(sortSelect.value === 'asc' ? 'arrow_upward' : 'arrow_downward', sortText, 'sort');
                 }
 
                 if (summaryHTML === '') {
@@ -314,38 +353,32 @@
                 }
             }
 
-            let dragging = null;
-            let sliderMin = 0;
-            let sliderMax = PRICE_MAX_LIMIT;
+            function createChip(icon, text, type) {
+                return `
+                                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-vendly rounded-full text-[13px] text-green font-bold">
+                                    <span class="material-symbols-outlined text-[18px]">${icon}</span>
+                                    <span>${text}</span>
+                                    <button onclick="window.removeFilter('${type}')" class="flex items-center justify-center ml-1 hover:opacity-70 transition-all">
+                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                    </button>
+                                </div>`;
+            }
 
             window.updatePriceRange = function (min, max) {
-                priceMinHidden.value = Math.round(min);
-                priceMaxHidden.value = Math.round(max);
-                priceMinLabel.textContent = Math.round(min);
-                priceMaxLabel.textContent = Math.round(max);
+                if (priceMinHidden) priceMinHidden.value = Math.round(min);
+                if (priceMaxHidden) priceMaxHidden.value = Math.round(max);
+                if (priceMinLabel) priceMinLabel.textContent = Math.round(min);
+                if (priceMaxLabel) priceMaxLabel.textContent = Math.round(max);
                 applyFilters();
             }
 
-            categorySelect.onchange = applyFilters;
             locationInput.oninput = function () {
                 clearLocation.classList.toggle('hidden', this.value.length === 0);
                 applyFilters();
             };
+            if (mobileSearchInput) mobileSearchInput.oninput = applyFilters;
             clearLocation.onclick = () => { locationInput.value = ''; clearLocation.classList.add('hidden'); applyFilters(); };
 
-            sortAscBtn.onclick = () => {
-                currentSort = (currentSort === 'asc' ? null : 'asc');
-                sortAscBtn.classList.toggle('sort-active', currentSort === 'asc');
-                sortDescBtn.classList.remove('sort-active');
-                applyFilters();
-            };
-
-            sortDescBtn.onclick = () => {
-                currentSort = (currentSort === 'desc' ? null : 'desc');
-                sortDescBtn.classList.toggle('sort-active', currentSort === 'desc');
-                sortAscBtn.classList.remove('sort-active');
-                applyFilters();
-            };
             applyFilters();
         });
     </script>
