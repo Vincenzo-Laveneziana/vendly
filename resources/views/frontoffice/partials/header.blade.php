@@ -89,10 +89,25 @@
                                     <span class="material-symbols-outlined text-xl">person</span>
                                     {{ __('message.profile') }}
                                 </a>
-                                <a href="{{ route('Backoffice.sellForm') }}"
+                                <a href="{{ route('Backoffice.sale') }}"
                                     class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
-                                    <span class="material-symbols-outlined text-xl">add_circle</span>
-                                    {{ __('message.create_ad') }}
+                                    <span class="material-symbols-outlined text-xl">article</span>
+                                    {{ __('message.sale') }}
+                                </a>
+                                <a href="{{ route('Backoffice.favorites') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
+                                    <span class="material-symbols-outlined text-xl">favorite</span>
+                                    {{ __('message.favorites') }}
+                                </a>
+                                <a href="{{ route('Backoffice.orders') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
+                                    <span class="material-symbols-outlined text-xl">orders</span>
+                                    {{ __('message.orders') }}
+                                </a>
+                                <a href="{{ route('Backoffice.createChat') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
+                                    <span class="material-symbols-outlined text-xl">chat_bubble</span>
+                                    {{ __('message.chats') }}
                                 </a>
                                 <div class="border-t border-gray-100 my-1"></div>
                                 <form method="POST" action="{{ route('Auth.logout') }}">
@@ -117,6 +132,7 @@
                     <!-- Sell Button -->
                     <a href="{{ route('Backoffice.sellForm') }}"
                         class="flex items-center justify-center bg-vendly text-white rounded-lg px-6 h-11 text-sm font-medium transition-all hover:bg-[#079fa1] active:scale-95 leading-none shadow-sm">
+                        <span class="material-symbols-outlined text-xl mr-1">add</span>
                         {{ __('message.sell_on_vendly') ?? 'Vendi subito' }}
                     </a>
                 </div>
@@ -147,10 +163,25 @@
                                     <span class="material-symbols-outlined text-xl">person</span>
                                     {{ __('message.profile') }}
                                 </a>
-                                <a href="{{ route('Backoffice.sellForm') }}"
+                                <a href="{{ route('Backoffice.sale') }}"
                                     class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
-                                    <span class="material-symbols-outlined text-xl">add_circle</span>
-                                    {{ __('message.create_ad') }}
+                                    <span class="material-symbols-outlined text-xl">article</span>
+                                    {{ __('message.sale') }}
+                                </a>
+                                <a href="{{ route('Backoffice.favorites') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
+                                    <span class="material-symbols-outlined text-xl">favorite</span>
+                                    {{ __('message.favorites') }}
+                                </a>
+                                <a href="{{ route('Backoffice.orders') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
+                                    <span class="material-symbols-outlined text-xl">orders</span>
+                                    {{ __('message.orders') }}
+                                </a>
+                                <a href="{{ route('Backoffice.createChat') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
+                                    <span class="material-symbols-outlined text-xl">chat_bubble</span>
+                                    {{ __('message.chats') }}
                                 </a>
                                 <div class="border-t border-gray-100 my-1"></div>
                                 <form method="POST" action="{{ route('Auth.logout') }}">

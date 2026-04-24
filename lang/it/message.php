@@ -91,10 +91,10 @@ return [
     'select_chat' => 'Seleziona Chat',
     'search' => 'Cerca..',
     'money' => '€',
-    'hero_slogan_explore' => 'LASCIATI ISPIRARE',
+    'hero_slogan_explore' => 'LASCIATI ISPIRARE DA MILIONI DI',
     'price_ascending' => 'Prezzo crescente',
     'price_descending' => 'Prezzo decrescente',
-    'explore_text' => 'MILIONI DI PRODOTTI, PRONTI PER ESSERE ACQUISTATI...',
+    'explore_text' => 'PRODOTTI, PRONTI PER ESSERE ACQUISTATI',
     'location_label' => 'Non definito',
     'sold_by' => 'Venduto da:',
     'buy' => 'Acquista',
@@ -128,6 +128,9 @@ return [
     'remove_favorite' => 'Rimuovi dai preferiti',
     'from' => 'da',
     'to' => 'a',
+    'sale' => 'Annunci',
+    'favorites' => 'Preferiti',
+    'chats' => 'Messaggi',
 
     // MESSAGGI DI ERRORE SUCCESSO
     'update_user' => 'Utente aggiornato con successo.',
@@ -204,5 +207,7 @@ return [
     'last_30_days' => 'Ultime 30 giorni',
     'last_6_months' => 'Ultimi 6 mesi',
     'last_year' => 'Ultimo anno',
-
+    'interested' => 'INTERESSATO?',
+    'contact_seller_subtitle' => 'Contatta il venditore!',
+    'message_label' => 'Messaggio',
 ];

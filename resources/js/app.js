@@ -1,5 +1,9 @@
-import './bootstrap';
-import { createApp } from 'vue';
+import { createApp, reactive } from 'vue';
+
+// Stato reattivo globale per sincronizzare i componenti con JS esterno
+window.sliderState = reactive({
+    priceRange: [0, 1000]
+});
 
 import Alpine from 'alpinejs'
 window.Alpine = Alpine
@@ -70,4 +74,3 @@ document.querySelectorAll('.vue-island').forEach(el => {
     const app = window.createVendlyApp({});
     el.__vue_app__ = app.mount(el);
 });
-

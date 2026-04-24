@@ -6,22 +6,25 @@
 
     <div class="relative overflow-hidden z-0 min-h-screen bg-[#F8F9FA] py-0 md:py-0">
 
-        {{-- HERO SECTION --}}
-        <div class="relative w-full h-[400px] md:h-[500px] flex items-start justify-end bg-cover bg-center overflow-hidden p-8 md:p-12 lg:p-16"
-            style="background-image: url('{{ asset('images/explore.webp') }}')">
-            <div class="relative z-10 max-w-4xl text-right mr-10">
-                <h1 class="text-3xl md:text-4xl lg:text-5xl text-vendly font-black uppercase drop-shadow-2xl leading-none">
-                    {{ __('message.hero_slogan_explore') }}
-                </h1>
-            </div>
-        </div>
+        {{-- NEW UNIFIED HERO BANNER --}}
+        <div class="relative w-full bg-[#08B2B4] overflow-hidden">
+            <div
+                class="relative max-w-[1400px] mx-auto px-4 md:px-12 py-10 md:py-20 flex flex-row items-center justify-center gap-6 md:gap-24">
+                <!-- Circle Image -->
+                <div class="relative flex-shrink-0">
+                    <div
+                        class="w-28 h-28 md:w-60 md:h-60 rounded-full bg-white overflow-hidden border-[4px] md:border-[8px] border-white/20 shadow-2xl">
+                        <img src="{{ asset('images/explore.webp') }}" alt="Inspiration" class="w-full h-full object-cover">
+                    </div>
+                </div>
 
-        {{-- BANNER CYAN --}}
-        <div class="w-full bg-[#08B2B4] py-6 shadow-md">
-            <div class="max-w-7xl mx-auto px-4 text-center">
-                <p class="text-white text-base md:text-[32px] text-vendly uppercase" style="color: white">
-                    {{ __('message.explore_text') }}
-                </p>
+                <!-- Text Content -->
+                <div class="text-left max-w-3xl md:max-w-full">
+                    <h1 class="text-vendly text-md md:text-4xl lg:text-[42px] font-black uppercase" style="color:white">
+                        {{ __('message.hero_slogan_explore') }}
+                        {{ __('message.explore_text') }}
+                    </h1>
+                </div>
             </div>
         </div>
 
@@ -32,12 +35,12 @@
                 <input type="hidden" id="categorySelect" value="">
                 <input type="hidden" id="sortSelect" value="">
                 <input type="hidden" id="priceMin" value="0">
-                <input type="hidden" id="priceMax" value="500">
+                <input type="hidden" id="priceMax" value="1000">
 
                 <div class="vue-island">
                     <collapsible>
-                        <!-- Search Bar + Tune Button (Trigger) -->
-                        <div class="flex items-center gap-3 mb-0">
+                        <!-- Search Bar + Tune Button (Trigger) - Hidden on Desktop -->
+                        <div class="flex md:hidden items-center gap-3 mb-0">
                             <div class="relative flex-1">
                                 <span
                                     class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
@@ -52,13 +55,13 @@
                             </collapsible-trigger>
                         </div>
 
-                        <!-- Expandable Filters -->
+                        <!-- Expandable Filters - Always visible on md+ -->
                         <collapsible-content force-mount
-                            class="overflow-hidden data-[state=closed]:hidden data-[state=open]:animate-collapsible-down">
-                            <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-0 pt-8">
+                            class="overflow-hidden md:!block data-[state=closed]:hidden data-[state=open]:animate-collapsible-down">
+                            <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-0 md:pt-0 pt-8">
 
                                 <!-- Categoria -->
-                                <div class="flex flex-col gap-2 w-full lg:flex-1 lg:pr-6">
+                                <div class="flex flex-col gap-2 w-full md:flex-1 md:pr-6">
                                     <label class="text-sm font-bold text-gray-900">{{ __('message.category') }}</label>
                                     <ui-dropdown-menu>
                                         <ui-dropdown-menu-trigger as-child>
@@ -87,10 +90,10 @@
                                     </ui-dropdown-menu>
                                 </div>
 
-                                <div class="hidden lg:block w-[1px] h-10 bg-gray-100 mx-6"></div>
+                                <div class="hidden md:block w-[1px] h-10 bg-gray-100 mx-6"></div>
 
                                 <!-- Località -->
-                                <div class="flex flex-col gap-2 w-full lg:flex-1 lg:pr-6">
+                                <div class="flex flex-col gap-2 w-full md:flex-1 md:pr-6">
                                     <label class="text-sm font-bold text-gray-900">{{ __('message.location') }}</label>
                                     <div class="relative">
                                         <input type="text" id="locationInput" placeholder="{{ __('message.all_cities') }}"
@@ -100,10 +103,10 @@
                                     </div>
                                 </div>
 
-                                <div class="hidden lg:block w-[1px] h-10 bg-gray-100 mx-6"></div>
+                                <div class="hidden md:block w-[1px] h-10 bg-gray-100 mx-6"></div>
 
                                 <!-- Ordina per -->
-                                <div class="flex flex-col gap-2 w-full lg:flex-1 lg:pr-6">
+                                <div class="flex flex-col gap-2 w-full md:flex-1 md:pr-6">
                                     <label class="text-sm font-bold text-gray-900">Ordina per</label>
                                     <ui-dropdown-menu>
                                         <ui-dropdown-menu-trigger as-child>
@@ -134,19 +137,20 @@
                                     </ui-dropdown-menu>
                                 </div>
 
-                                <div class="hidden lg:block w-[1px] h-10 bg-gray-100 mx-6"></div>
+                                <div class="hidden md:block w-[1px] h-10 bg-gray-100 mx-6"></div>
 
                                 <!-- Prezzo -->
-                                <div class="flex flex-col gap-2 w-full lg:flex-1">
+                                <div class="flex flex-col gap-2 w-full md:flex-1">
                                     <label class="text-sm font-bold text-gray-900">{{ __('message.price_filter') }}</label>
                                     <div class="px-2">
                                         <div style="--primary: oklch(0.65 0.12 192);">
-                                            <ui-slider :default-value="[0, 500]" :max="500" :min="0" :step="5" class="py-3"
-                                                @update:model-value="val => { window.updatePriceRange(val[0], val[1]) }" />
+                                            <ui-slider :model-value="window.sliderState.priceRange" :max="1000" :min="0"
+                                                :step="10" class="py-3"
+                                                @update:model-value="val => { window.sliderState.priceRange = val; window.updatePriceRange(val[0], val[1]) }" />
                                         </div>
                                         <div class="flex items-center justify-between text-xs font-bold text-gray-900 mt-1">
                                             <span>€ <span id="priceMinLabel">0</span></span>
-                                            <span>€ <span id="priceMaxLabel">500</span></span>
+                                            <span>€ <span id="priceMaxLabel">1000</span></span>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +180,7 @@
         {{-- PRODUCTS SECTION --}}
         <div class="max-w-7xl mx-auto px-4 md:px-6 w-full py-8 md:py-12">
 
-            <div id="productsContainer" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8">
+            <div id="productsContainer" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 @forelse($products as $product)
                     @include('frontoffice.partials.cardProdotto', ['product' => $product])
                 @empty
@@ -207,7 +211,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const ITEMS_PER_PAGE = 12;
-            const PRICE_MAX_LIMIT = 500;
+            const PRICE_MAX_LIMIT = 1000;
 
             const allCards = Array.from(document.querySelectorAll('.product-card'));
             const productsContainer = document.getElementById('productsContainer');
@@ -243,7 +247,9 @@
                 window.setCategory('', '{{ __('message.choose_category') }}');
                 locationInput.value = '';
                 window.setSort('', 'Scegli un filtro');
+
                 if (mobileSearchInput) mobileSearchInput.value = '';
+                window.sliderState.priceRange = [0, PRICE_MAX_LIMIT];
                 window.updatePriceRange(0, PRICE_MAX_LIMIT);
                 applyFilters();
             };
@@ -257,6 +263,7 @@
                     locationInput.value = '';
                     if (clearLocation) clearLocation.classList.add('hidden');
                 } else if (type === 'price') {
+                    window.sliderState.priceRange = [0, PRICE_MAX_LIMIT];
                     window.updatePriceRange(0, PRICE_MAX_LIMIT);
                 } else if (type === 'sort') {
                     window.setSort('', 'Scegli un filtro');
@@ -355,13 +362,13 @@
 
             function createChip(icon, text, type) {
                 return `
-                                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-vendly rounded-full text-[13px] text-green font-bold">
-                                    <span class="material-symbols-outlined text-[18px]">${icon}</span>
-                                    <span>${text}</span>
-                                    <button onclick="window.removeFilter('${type}')" class="flex items-center justify-center ml-1 hover:opacity-70 transition-all">
-                                        <span class="material-symbols-outlined text-[16px] font-bold">close</span>
-                                    </button>
-                                </div>`;
+                                                                                                                                                                                    <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-vendly rounded-full text-[13px] text-green font-bold">
+                                                                                                                                                                                        <span class="material-symbols-outlined text-[18px]">${icon}</span>
+                                                                                                                                                                                        <span>${text}</span>
+                                                                                                                                                                                        <button onclick="window.removeFilter('${type}')" class="flex items-center justify-center ml-1 hover:opacity-70 transition-all">
+                                                                                                                                                                                            <span class="material-symbols-outlined text-[16px] font-bold">close</span>
+                                                                                                                                                                                        </button>
+                                                                                                                                                                                    </div>`;
             }
 
             window.updatePriceRange = function (min, max) {

@@ -11,8 +11,7 @@ use App\Http\Requests\MessageRequest;
 class ChatController extends Controller
 {
 
-
-    public function show($idProdotto = null, $idConversazione = null)
+    public function show($idProdotto = null, $idConversazione = null, $message = null)
     {
         // 1. Variabili sempre presenti (Sidebar e Utente Loggato)
         $conversations = $this->getUserConversations();
@@ -25,7 +24,7 @@ class ChatController extends Controller
         $messages = collect(); // Collezione vuota invece di null per evitare errori nei cicli foreach
 
         // 3. Logica di recupero se i parametri sono presenti
-        if ($idConversazione) {
+        if ($idConversazione && $idConversazione !== 'null') {
             // Caso: Chat specifica aperta dalla sidebar
             $conversation = Conversation::with(['product', 'seller', 'buyer'])->find($idConversazione);
 
@@ -39,7 +38,7 @@ class ChatController extends Controller
         } elseif ($idProdotto) {
             // Caso: Cliccato "Contatta" da un prodotto (senza avere ancora una conversazione) chiama la funzione create()
             $productModel = Product::findOrFail($idProdotto);
-            return $this->create($productModel);
+            return $this->create($productModel, $message);
         }
 
         $titoloProdotto = 'chat';
@@ -76,7 +75,7 @@ class ChatController extends Controller
     /**
      * Funzione per creare/trovare una chat da un prodotto
      */
-    private function create(Product $product)
+    private function create(Product $product, $message)
     {
         $seller = $product->user;
         $user = auth()->user();
@@ -90,6 +89,12 @@ class ChatController extends Controller
             'buyer_id' => $user->id,
             'seller_id' => $seller->id
         ]);
+
+        $newMessage = new Message();
+        $newMessage->content = $message;
+        $newMessage->conversation_id = $conversation->id;
+        $newMessage->sender_id = $user->id;
+        $newMessage->save();
 
         return redirect()->route('Backoffice.createChat', [
             'idProdotto' => $product->id,
