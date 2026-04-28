@@ -43,12 +43,12 @@ Route:: as('Backoffice.')->group(function () {
 
         Route::post('/favorite/{product}', [ProductController::class, 'addFavorite'])->name('addFavorite');
 
-        //chat
+        // Chat
 
-        Route::get('/chat/{idProdotto?}/{idConversazione?}/{message?}', [ChatController::class, 'show'])->name('createChat');
-
-        route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('sendMessage');
-
+        Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+        Route::get('/chat/new/{product}/{message}', [ChatController::class, 'store'])->name('chat.store');
+        Route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('chat.send');
+        Route::get('/chat/{conversation}', [ChatController::class, 'show'])->name('chat.show');
         Route::get('/chat/{conversation}/messages', [ChatController::class, 'getMessages'])->name('chat.messages');
 
         //profilo

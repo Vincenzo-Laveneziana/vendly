@@ -31,7 +31,7 @@
             <div class="flex-1 overflow-y-auto p-4 space-y-3 no-scrollbar">
                 @if (isset($conversations) && $conversations->count() > 0)
                     @foreach ($conversations as $chat)
-                        <a href="{{ route('Backoffice.createChat', ['idProdotto' => $chat->product_id, 'idConversazione' => $chat->id]) }}"
+                        <a href="{{ route('Backoffice.chat.show', $chat) }}"
                             class="chat-item-btn block w-full p-4 bg-white rounded-2xl shadow-sm transition-all hover:shadow-md hover:scale-[1.02] active:scale-95">
 
                             <div class="flex gap-4 items-center">

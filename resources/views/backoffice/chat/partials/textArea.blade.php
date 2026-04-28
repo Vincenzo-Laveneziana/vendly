@@ -31,7 +31,7 @@
 
 <!-- Form invio messaggio - Stile Capsule centrato -->
 <div class="p-6 md:p-8 pt-2 shrink-0">
-    <form id="chat-form" action="{{ route('Backoffice.sendMessage') }}" method="POST"
+    <form id="chat-form" action="{{ route('Backoffice.chat.send') }}" method="POST"
         class="relative max-w-4xl mx-auto flex items-center">
         @csrf
 

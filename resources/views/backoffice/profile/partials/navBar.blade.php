@@ -35,10 +35,10 @@
                 </div>
             </a>
 
-            <a href="{{ route('Backoffice.createChat') }}"
+            <a href="{{ route('Backoffice.chat.index') }}"
                 class="flex-1 min-w-[max-content] h-full flex items-center justify-center transition-all relative group px-4">
                 <div
-                    class="px-5 py-2 rounded-xl transition-all whitespace-nowrap {{ request()->routeIs('Backoffice.createChat') ? 'bg-[#08B2B4] text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 font-medium' }}">
+                    class="px-5 py-2 rounded-xl transition-all whitespace-nowrap {{ request()->routeIs('Backoffice.chat.*') ? 'bg-[#08B2B4] text-white shadow-sm' : 'text-gray-500 hover:text-gray-900 font-medium' }}">
                     {{ __('message.my_chat') }}
                 </div>
             </a>
