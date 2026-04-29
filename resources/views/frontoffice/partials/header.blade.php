@@ -104,7 +104,7 @@
                                     <span class="material-symbols-outlined text-xl">orders</span>
                                     {{ __('message.orders') }}
                                 </a>
-                                <a href="{{ route('Backoffice.createChat') }}"
+                                <a href="{{ route('Backoffice.chat.index') }}"
                                     class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
                                     <span class="material-symbols-outlined text-xl">chat_bubble</span>
                                     {{ __('message.chats') }}
@@ -178,7 +178,7 @@
                                     <span class="material-symbols-outlined text-xl">orders</span>
                                     {{ __('message.orders') }}
                                 </a>
-                                <a href="{{ route('Backoffice.createChat') }}"
+                                <a href="{{ route('Backoffice.chat.index') }}"
                                     class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-vendly/5 hover:text-green">
                                     <span class="material-symbols-outlined text-xl">chat_bubble</span>
                                     {{ __('message.chats') }}

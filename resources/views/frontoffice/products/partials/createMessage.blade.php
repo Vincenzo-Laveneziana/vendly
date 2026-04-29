@@ -45,8 +45,8 @@
         
         if (!message.trim()) return;
 
-        // Reindirizza alla rotta createChat: /chat/{idProdotto}/{idConversazione?}/{message?}
-        const url = "{{ route('Backoffice.createChat') }}/" + productId + "/null/" + encodeURIComponent(message);
+        // Reindirizza alla rotta chat.store: /chat/new/{product}/{message}
+        const url = "{{ url('/chat/new') }}/" + productId + "/" + encodeURIComponent(message);
         window.location.href = url;
     }
 </script>
