@@ -8,17 +8,17 @@ use App\Models\Product;
 
 class PagesController extends Controller
 {
-    public function index(Product $products)
+    public function index()
     {
-        $products = $products->latest()->simplePaginate(6);
+        $products = Product::latest()->whereNull('sold_at')->simplePaginate(8);
 
         return view('frontoffice.home', compact('products'));
     }
 
-    public function show(Product $product)
+    public function show()
     {
         // Recupera tutti i post con le immagini, ordinati per data di creazione e non venduti
-        $products = $product->latest()->whereNull('sold_at')->paginate(12);
+        $products = Product::latest()->whereNull('sold_at')->paginate(12);
 
         $categories = Product::categories();
 
@@ -29,7 +29,7 @@ class PagesController extends Controller
     {
         $user = $product->user;
 
-        $products = $product->latest()->simplePaginate(3);
+        $products = Product::latest()->whereNull('sold_at')->where('id', '!=', $product->id)->simplePaginate(4);
 
         return view('frontoffice.products.product', compact('product', 'user', 'products'));
     }
@@ -38,7 +38,10 @@ class PagesController extends Controller
     {
         $search = $request->query('query');
 
-        $products = Product::with('images')->where('title', 'like', "%$search%")->paginate(12);
+        $products = Product::with('images')
+            ->whereNull('sold_at')
+            ->where('title', 'like', "%$search%")
+            ->paginate(12);
 
         $categories = Product::categories();
 

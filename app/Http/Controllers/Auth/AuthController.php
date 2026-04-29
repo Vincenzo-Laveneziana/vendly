@@ -33,7 +33,7 @@ class AuthController extends Controller
 
             // Blocchiamo l'esecuzione lanciando un errore di validazione
             throw ValidationException::withMessages([
-                'email' => __('message.login_too_many_attempts', ['seconds' => $seconds]),
+                'message' => __('message.login_too_many_attempts', ['seconds' => $seconds]),
             ]);
         }
 
@@ -58,7 +58,7 @@ class AuthController extends Controller
         return back()->with([
             'success' => false,
             'message' => 'message.error_login',
-        ])->onlyInput('message');
+        ])->withInput();
     }
 
 

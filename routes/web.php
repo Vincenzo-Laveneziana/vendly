@@ -45,7 +45,7 @@ Route:: as('Backoffice.')->group(function () {
 
         //chat
 
-        Route::get('/chat/{idProdotto?}/{idConversazione?}', [ChatController::class, 'show'])->name('createChat');
+        Route::get('/chat/{idProdotto?}/{idConversazione?}/{message?}', [ChatController::class, 'show'])->name('createChat');
 
         route::post('/chat/send', [ChatController::class, 'sendMessage'])->name('sendMessage');
 

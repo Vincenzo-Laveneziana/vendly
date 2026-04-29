@@ -19,7 +19,7 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
 
                 @forelse($products as $product)
                     @include('frontoffice.partials.cardProdotto', ['product' => $product])
@@ -28,6 +28,9 @@
                         <p class="text-gray-500">{{ __('message.no_sale_found_general') }}</p>
                     </div>
                 @endforelse
+            </div>
+            <div id="paginationLinks" class="py-4">
+                {{ $products->links() }}
             </div>
         </div>
     </div>
