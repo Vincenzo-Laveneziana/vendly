@@ -12,8 +12,10 @@ use App\Models\Order;
 
 class UserController extends Controller
 {
-    function updateUser(CreateUserRequest $request, User $user)
+    function updateUser(CreateUserRequest $request)
     {
+        $user = auth()->user();
+
         // 1. Validiamo i dati in arrivo
         $validated = $request->validated();
 

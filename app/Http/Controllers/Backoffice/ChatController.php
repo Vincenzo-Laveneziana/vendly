@@ -32,6 +32,10 @@ class ChatController extends Controller
      */
     public function show(Conversation $conversation)
     {
+        if (auth()->id() !== $conversation->buyer_id && auth()->id() !== $conversation->seller_id) {
+            abort(403, __('message.unauthorized_access'));
+        }
+
         $conversation->load(['product', 'seller', 'buyer']);
 
         $messages = Message::where('conversation_id', $conversation->id)
@@ -81,7 +85,16 @@ class ChatController extends Controller
      */
     public function sendMessage(MessageRequest $request)
     {
-        $message = Message::create($request->validated());
+        $conversation = Conversation::findOrFail($request->conversation_id);
+
+        if (auth()->id() !== $conversation->buyer_id && auth()->id() !== $conversation->seller_id) {
+            abort(403, __('message.unauthorized_access'));
+        }
+
+        $validated = $request->validated();
+        $validated['sender_id'] = auth()->id();
+
+        $message = Message::create($validated);
 
         $message->load('conversation');
 
@@ -100,6 +113,10 @@ class ChatController extends Controller
      */
     public function getMessages(Conversation $conversation)
     {
+        if (auth()->id() !== $conversation->buyer_id && auth()->id() !== $conversation->seller_id) {
+            abort(403, __('message.unauthorized_access'));
+        }
+
         $messages = Message::where('conversation_id', $conversation->id)
             ->orderBy('created_at', 'asc')
             ->get();

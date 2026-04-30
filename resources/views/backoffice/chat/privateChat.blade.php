@@ -16,7 +16,7 @@
 
         <!-- COLONNA SINISTRA: Sidebar -->
         <div id="chat-sidebar"
-            class="hidden md:flex w-full md:w-80 flex-col bg-vendly rounded-[2rem] shadow-xl h-full overflow-hidden shrink-0">
+            class="hidden md:flex w-full md:w-80 flex-col bg-vendly rounded-lg shadow-xl h-full overflow-hidden shrink-0">
             <!-- Search Bar in Sidebar -->
             <div class="p-6 pb-2 shrink-0">
                 <div
@@ -67,7 +67,7 @@
 
         <!-- COLONNA DESTRA: Finestra Chat -->
         <div id="chat-window"
-            class="flex w-full md:flex-1 flex-col h-full bg-white/90 backdrop-blur-sm rounded-[2rem] shadow-xl overflow-hidden border border-white/20">
+            class="flex w-full md:flex-1 flex-col h-full bg-white/90 backdrop-blur-sm rounded-lg shadow-xl overflow-hidden border border-white/20">
             <!-- HEADER CHAT -->
             <div class="p-4 md:p-6 pb-4 shrink-0">
                 <div class="flex items-center gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-50">

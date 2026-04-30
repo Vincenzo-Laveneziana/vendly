@@ -23,7 +23,7 @@
                 <!-- Left: Content Flow -->
                 <div class="lg:col-span-8 space-y-6 order-2 lg:order-1">
                     <!-- Progress Bar -->
-                    <div class="bg-white rounded-[40px] border border-gray-100 p-8 shadow-sm mb-6">
+                    <div class="bg-white rounded-lg border border-gray-100 p-8 shadow-sm mb-6">
                         <div class="flex items-center justify-center max-w-sm mx-auto">
                             <div class="flex flex-col items-center gap-2">
                                 <div class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
@@ -52,7 +52,7 @@
                     <div x-show="step === 1" x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-x-4"
                         x-transition:enter-end="opacity-100 translate-x-0"
-                        class="bg-white rounded-[40px] border border-gray-100 p-8 md:p-12 shadow-sm space-y-10">
+                        class="bg-white rounded-lg border border-gray-100 p-8 md:p-12 shadow-sm space-y-10">
                         <div>
                             <p class="text-[11px] font-bold text-gray-400 mb-8 ml-1">{{ __('message.shipping_data') }}</p>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
@@ -163,7 +163,7 @@
                     <div x-show="step === 2" x-transition:enter="transition ease-out duration-300"
                         x-transition:enter-start="opacity-0 translate-x-4"
                         x-transition:enter-end="opacity-100 translate-x-0"
-                        class="bg-white rounded-[40px] border border-gray-100 p-8 md:p-12 shadow-sm space-y-10">
+                        class="bg-white rounded-lg border border-gray-100 p-8 md:p-12 shadow-sm space-y-10">
                         <div>
                             <div class="flex items-center justify-between mb-8">
                                 <p class="text-[11px] font-bold text-gray-400 ml-1">
@@ -341,7 +341,7 @@
                         <div x-show="showDeleteModal" x-transition:enter="transition ease-out duration-300"
                             x-transition:enter-start="opacity-0 scale-95 translate-y-4"
                             x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                            class="bg-white rounded-[40px] shadow-2xl w-full max-w-sm overflow-hidden relative p-8 md:p-10 z-10 text-center">
+                            class="bg-white rounded-lg shadow-2xl w-full max-w-sm overflow-hidden relative p-8 md:p-10 z-10 text-center">
                             <div
                                 class="w-20 h-20 rounded-full bg-red-50 flex items-center justify-center text-red-500 mx-auto mb-6">
                                 <span class="material-symbols-outlined text-[40px]">delete_forever</span>
@@ -363,7 +363,7 @@
                 <!-- Right: Summary Sidebar -->
                 <div class="lg:col-span-4 space-y-6 order-1 lg:order-2">
                     <div
-                        class="bg-white rounded-[32px] border border-gray-100 p-8 shadow-2xl shadow-gray-200/50 relative overflow-hidden sticky top-8">
+                        class="bg-white rounded-lg border border-gray-100 p-8 shadow-2xl shadow-gray-200/50 relative overflow-hidden sticky top-8">
                         <!-- header -->
                         <div class="flex items-center justify-between mb-8">
                             <h3 class="text-[10px] font-black text-gray-900 uppercase tracking-[0.2em]">
@@ -376,7 +376,7 @@
 
                         <!-- Product Preview Box -->
                         <div
-                            class="p-4 rounded-[24px] bg-gray-50/50 border border-gray-100 mb-10 flex items-center gap-4 group transition-all duration-300 hover:bg-white hover:shadow-xl hover:shadow-gray-100/50">
+                            class="p-4 rounded-lg bg-gray-50/50 border border-gray-100 mb-10 flex items-center gap-4 group transition-all duration-300 hover:bg-white hover:shadow-xl hover:shadow-gray-100/50">
                             <div
                                 class="w-[72px] h-[72px] rounded-2xl bg-white border border-gray-100 overflow-hidden flex-shrink-0">
                                 @if($product->images && $product->images->isNotEmpty())
@@ -417,7 +417,7 @@
                             <div class="pt-6 border-t border-gray-50 flex items-end justify-between transition-all">
                                 <span class="text-[15px] text-gray-900 font-black mb-1">{{ __('message.total') }}</span>
                                 <div class="text-right">
-                                    <span class="text-[34px] font-black text-gray-900 tracking-tighter leading-none">
+                                    <span class="text-[34px] font-black text-gray-900 tracking-tight leading-none">
                                         {{ __('message.money') }} {{ number_format($product->price, 2, ',', '.') }}
                                     </span>
                                     <p class="text-[9px] text-[#08B2B4] font-black uppercase tracking-[0.15em] mt-1.5">
@@ -430,7 +430,7 @@
                         <!-- Protection Footer -->
                         <div class="mt-8 pt-8 border-t border-gray-50">
                             <div
-                                class="flex items-center gap-4 p-5 rounded-[24px] bg-gray-50/50 border border-gray-100 group transition-all hover:bg-[#08B2B4]/5 hover:border-[#08B2B4]/10">
+                                class="flex items-center gap-4 p-5 rounded-lg bg-gray-50/50 border border-gray-100 group transition-all hover:bg-[#08B2B4]/5 hover:border-[#08B2B4]/10">
                                 <div
                                     class="w-11 h-11 rounded-2xl bg-[#08B2B4]/10 flex items-center justify-center text-[#08B2B4] group-hover:scale-110 transition-transform shadow-sm">
                                     <span class="material-symbols-outlined text-[20px]">shield</span>

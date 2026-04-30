@@ -6,7 +6,7 @@
                 {{-- MESSAGGIO INVIATO (A DESTRA) - Stile Capsule Bianco/Bordo Teal --}}
                 <div class="flex justify-end mb-6 w-full animate-in fade-in slide-in-from-right-4 duration-300">
                     <div
-                        class="bg-white border-2 border-vendly text-[#08B2B4] px-6 py-3 rounded-[30px] shadow-lg max-w-[85%] md:max-w-[70%]">
+                        class="bg-white border-2 border-vendly text-[#08B2B4] px-6 py-3 rounded-lg shadow-lg max-w-[85%] md:max-w-[70%]">
                         <p class="text-sm md:text-base font-normal leading-relaxed break-words">{{ $message->content }}</p>
                     </div>
                 </div>
@@ -14,7 +14,7 @@
                 {{-- MESSAGGIO RICEVUTO (A SINISTRA) - Stile Capsule Teal --}}
                 <div class="flex justify-start mb-6 w-full animate-in fade-in slide-in-from-left-4 duration-300">
                     <div
-                        class="bg-vendly text-white px-6 py-3 rounded-[30px] shadow-lg shadow-vendly/20 max-w-[85%] md:max-w-[70%]">
+                        class="bg-vendly text-white px-6 py-3 rounded-lg shadow-lg shadow-vendly/20 max-w-[85%] md:max-w-[70%]">
                         <p class="text-sm md:text-base font-normal leading-relaxed break-words">{{ $message->content }}</p>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
 
             const html = `
                 <div class="flex ${align} mb-6 w-full animate-in fade-in ${animation} duration-300">
-                    <div class="${bg} px-6 py-3 rounded-[30px] shadow-lg max-w-[85%] md:max-w-[70%]">
+                    <div class="${bg} px-6 py-3 rounded-lg shadow-lg max-w-[85%] md:max-w-[70%]">
                         <p class="text-sm md:text-base font-normal leading-relaxed break-words">${message.content}</p>
                     </div>
                 </div>

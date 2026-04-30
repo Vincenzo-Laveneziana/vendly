@@ -1,6 +1,6 @@
 <div class="vue-island">
     <div data-created-at="{{ $order->created_at->format('Y-m-d') }}"
-        class="order-card bg-white rounded-[2rem] shadow-sm border border-gray-100 p-6 flex flex-col md:flex-row gap-6 items-center md:items-stretch">
+        class="order-card bg-white rounded-lg shadow-sm border border-gray-100 p-6 flex flex-col md:flex-row gap-6 items-center md:items-stretch">
         <!-- Immagine Prodotto -->
         <div
             class="w-full md:w-48 aspect-square flex-shrink-0 rounded-2xl overflow-hidden flex items-center justify-center p-4">

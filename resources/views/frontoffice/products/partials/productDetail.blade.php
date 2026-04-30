@@ -15,13 +15,13 @@
 
         <!-- Main Card - Optimized for Responsive -->
         <div
-            class="bg-white rounded-[40px] shadow-sm border border-gray-100 overflow-hidden flex flex-col {{ ($product->images && $product->images->isNotEmpty()) ? 'md:flex-row min-h-[500px] md:min-h-[600px]' : 'max-w-3xl mx-auto' }}">
+            class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden flex flex-col {{ ($product->images && $product->images->isNotEmpty()) ? 'md:flex-row min-h-[500px] md:min-h-[600px]' : 'max-w-3xl mx-auto' }}">
 
             @if($product->images && $product->images->isNotEmpty())
                 <!-- Side Left: Media Section -->
                 <div class="w-full md:w-1/2 lg:w-[55%] p-4 md:p-8 flex flex-col bg-white">
                     <div
-                        class="relative w-full aspect-[4/3] bg-gray-50 rounded-[32px] overflow-hidden flex items-center justify-center">
+                        class="relative w-full aspect-[4/3] bg-gray-50 rounded-lg overflow-hidden flex items-center justify-center">
                         <div id="slider-track" class="flex h-full w-full transition-transform duration-500 ease-out">
                             @foreach($product->images as $image)
                                 <div class="h-full min-w-full flex-shrink-0 flex justify-center items-center">

@@ -12,7 +12,7 @@
 
         <div class="w-full max-w-2xl animate-in fade-in zoom-in duration-500">
             <div
-                class="bg-white rounded-[40px] border border-gray-100 p-8 md:p-16 shadow-2xl shadow-gray-200/50 text-center relative overflow-hidden">
+                class="bg-white rounded-lg border border-gray-100 p-8 md:p-16 shadow-2xl shadow-gray-200/50 text-center relative overflow-hidden">
                 <!-- Success Sparkles -->
                 <div
                     class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#08B2B4]/0 via-[#08B2B4] to-[#08B2B4]/0">
@@ -41,7 +41,7 @@
 
                 <!-- Order Preview Card -->
                 <div
-                    class="bg-gray-50/50 rounded-[32px] border border-gray-100 p-6 md:p-8 mb-12 flex flex-col md:flex-row items-center gap-8 text-left">
+                    class="bg-gray-50/50 rounded-lg border border-gray-100 p-6 md:p-8 mb-12 flex flex-col md:flex-row items-center gap-8 text-left">
                     <div
                         class="w-32 h-32 rounded-2xl bg-white border border-gray-100 overflow-hidden flex-shrink-0 shadow-sm relative group">
                         @if ($order->product->images && $order->product->images->isNotEmpty())

@@ -12,7 +12,7 @@
         <!-- Sezione 1: Header Profilo -->
 
         <div
-            class="bg-white rounded-[2rem] md:rounded-[40px] shadow-sm border border-gray-100 p-6 md:p-12 overflow-hidden">
+            class="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-12 overflow-hidden">
             <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 <!-- Immagine Profilo -->
                 <div class="relative group">
@@ -58,7 +58,7 @@
         </div>
 
         <!-- Sezione 2: Informazioni Personali -->
-        <div class="bg-white rounded-[2rem] md:rounded-[40px] shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-8 py-6 md:px-12 md:py-8 border-b border-gray-50 flex justify-between items-center">
                 <h2 class="text-xl font-semibold text-gray-900 tracking-tight">{{ __('message.personal_info') }}</h2>
                 <div class="vue-island" @click="openModal = true">
@@ -104,7 +104,7 @@
         </div>
 
         <!-- Sezione 3: Dati di Residenza -->
-        <div class="bg-white rounded-[2rem] md:rounded-[40px] shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-8 py-6 md:px-12 md:py-8 border-b border-gray-50 flex justify-between items-center">
                 <h2 class="text-xl font-semibold text-gray-900 tracking-tight">{{ __('message.residence_data') }}</h2>
             </div>
@@ -144,7 +144,7 @@
     <div x-show="openModal" class="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6" x-cloak
         x-transition.opacity>
         <div class="fixed inset-0 bg-black/60 backdrop-blur-md" @click="openModal = false"></div>
-        <div class="relative bg-white rounded-[2rem] md:rounded-[3rem] shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto px-5 py-8 md:p-12"
+        <div class="relative bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto px-5 py-8 md:p-12"
             @click.stop>
             <div class="flex justify-between items-center mb-8 md:mb-10">
                 <div>
@@ -159,7 +159,7 @@
                 </button>
             </div>
 
-            <form action="{{ route('Auth.updateUser', auth()->user()) }}" method="POST">
+            <form action="{{ route('Auth.updateUser') }}" method="POST">
                 @csrf
                 @method('PUT')
 

@@ -1,4 +1,4 @@
-<div class=" bg-[#088d8f] rounded-[2rem] max-w-6xl mx-auto px-4 md:px-6 overflow-hidden shadow-2xl">
+<div class=" bg-[#088d8f] rounded-lg max-w-6xl mx-auto px-4 md:px-6 overflow-hidden shadow-2xl">
     <div class="px-8 py-10 md:px-8 md:py-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
 
         <!-- Left Side: Text -->
@@ -13,7 +13,7 @@
 
         <!-- Right Side: Form Card -->
         <div class="w-full max-w-xl">
-            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl">
+            <div class="bg-white rounded-lg p-6 md:p-8 shadow-xl">
                 <form id="contactSellerForm" onsubmit="window.initiateChat(event)" class="space-y-6">
                     <div class="space-y-2">
                         <label for="messageContent" class="text-sm font-bold text-gray-900 uppercase tracking-wider">

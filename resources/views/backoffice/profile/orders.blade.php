@@ -18,7 +18,7 @@
             <!-- Filter Bar -->
             <div class="mb-10">
                 <div
-                    class="bg-white rounded-[1.5rem] shadow-sm border border-gray-100 p-2 flex flex-col md:flex-row items-center gap-2">
+                    class="bg-white rounded-lg shadow-sm border border-gray-100 p-2 flex flex-col md:flex-row items-center gap-2">
                     <!-- Search -->
                     <div
                         class="flex-grow flex items-center gap-3 px-5 py-2.5 bg-gray-50/50 rounded-xl border border-gray-100/50 focus-within:border-primary/30 focus-within:bg-white transition-all w-full md:w-auto">
@@ -86,7 +86,7 @@
                 @forelse($orders as $order)
                     @include('backoffice.profile.partials.orderCard', ['order' => $order])
                 @empty
-                    <div class="col-span-full text-center py-20 bg-gray-100/50 rounded-[2rem]">
+                    <div class="col-span-full text-center py-20 bg-gray-100/50 rounded-lg">
                         <p class="text-gray-500">{{ __('message.no_sale_found_general') }}</p>
                     </div>
                 @endforelse
@@ -171,7 +171,7 @@
                         if (!noResults) {
                             noResults = document.createElement('div');
                             noResults.id = 'noResultsJS';
-                            noResults.className = 'col-span-full text-center py-20 bg-gray-100/50 rounded-[2rem] w-full';
+                            noResults.className = 'col-span-full text-center py-20 bg-gray-100/50 rounded-lg w-full';
                             noResults.innerHTML = `<p class="text-gray-500">{{ __('message.no_sale_found_general') }}</p>`;
                             ordersContainer.appendChild(noResults);
                         }

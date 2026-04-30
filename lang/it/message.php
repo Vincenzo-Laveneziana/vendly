@@ -210,4 +210,5 @@ return [
     'interested' => 'INTERESSATO?',
     'contact_seller_subtitle' => 'Contatta il venditore!',
     'message_label' => 'Messaggio',
+    'unauthorized_access' => 'Non sei autorizzato ad accedere a questa risorsa.',
 ];

@@ -17,7 +17,7 @@
                 @include('frontoffice.partials.cardProdotto', ['product' => $product])
             @empty
                 <div
-                    class="col-span-full text-center py-20 bg-gray-50 rounded-[2rem] border-2 border-dashed border-gray-100">
+                    class="col-span-full text-center py-20 bg-gray-50 rounded-lg border-2 border-dashed border-gray-100">
                     <p class="text-gray-400 font-medium">{{ __('message.no_sale_found') }}</p>
                 </div>
             @endforelse

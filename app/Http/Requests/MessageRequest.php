@@ -25,7 +25,6 @@ class MessageRequest extends FormRequest
         return [
             'content' => ['required', 'string', 'max:1000'],
             'conversation_id' => ['required', 'integer', 'exists:conversations,id'],
-            'sender_id' => ['required', 'integer', 'exists:users,id'],
         ];
     }
 
@@ -38,9 +37,6 @@ class MessageRequest extends FormRequest
             'conversation_id.required' => 'La conversazione è obbligatoria.',
             'conversation_id.integer' => 'La conversazione deve essere un numero intero.',
             'conversation_id.exists' => 'La conversazione selezionata non esiste.',
-            'sender_id.required' => 'Il mittente è obbligatorio.',
-            'sender_id.integer' => 'Il mittente deve essere un numero intero.',
-            'sender_id.exists' => 'Il mittente selezionato non esiste.',
         ];
     }
 }
